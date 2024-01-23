@@ -29,7 +29,12 @@ export const TabIcons = () => {
         }}
       >
         {TAB_LIST.map((tabItem, idx) => (
-          <TabItem key={idx} icon={tabItem.icon} tabName={tabItem.tabName} />
+          <TabItem
+            isSelected={idx === 0}
+            key={idx}
+            icon={tabItem.icon}
+            tabName={tabItem.tabName}
+          />
         ))}
       </div>
     </Grid>
