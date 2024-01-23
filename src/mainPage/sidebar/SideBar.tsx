@@ -2,6 +2,7 @@ import React from "react";
 import { Grid } from "@mui/material";
 import { LogoComponent } from "./Logo";
 import { TabIcons } from "./TabIcons";
+import { ExitBox } from "./ExitBox";
 
 export const SideBar = () => {
   return (
@@ -17,22 +18,7 @@ export const SideBar = () => {
       <LogoComponent />
       <HorizontalBorderLine customWidth="80%" />
       <TabIcons />
-      <Grid
-        item
-        xs={12}
-        sx={{
-          position: "absolute",
-          width: "88.88%",
-          left: 0,
-          right: 0,
-          margin: "auto",
-          bottom: "3.125%",
-          height: "10.7vh",
-          background: "orange",
-        }}
-      >
-        Exit
-      </Grid>
+      <ExitBox />
     </Grid>
   );
 };
