@@ -2,15 +2,14 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import "./index.css";
 import { SideBar } from "./sidebar/SideBar";
+import { Header } from "./header/Header";
 
 export const MainPage = () => {
   return (
     <Grid container className="fullDiv">
       <SideBar />
-      <Grid item xs={10} sx={{ background: "#C8A2C8" }}>
-        <Grid item xs={12} sx={{ background: "orange", height: "7.8125%" }}>
-          Header
-        </Grid>
+      <Grid item xs={10}>
+        <Header />
         <Grid
           item
           xs={12}
