@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700&display=swap");
+
+.tab-icon-text {
+  font-size: 1.5625vh;
+  font-family: "Be Vietnam Pro";
+}
+
+.tab-item-container-selected {
+  width: 100%;
+  color: #586ee0;
+  background: #e5e9fa;
+  height: 5.46vh;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  border-radius: 8px;
+}
+
+.tab-item-container-non-selected {
+  width: 100%;
+  color: #8c949d;
+  height: 5.46vh;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  border-radius: 8px;
+}
+
+.tab-item-inner {
+  margin-left: 6.25%;
+  margin-top: 1.5625vh;
+  margin-bottom: 1.5625vh;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  display: flex;
+}
+
+/*Will investigate later 
+/* .tab-item-inner:hover .img {
+  filter: invert(90%) sepia(13%) saturate(418%) hue-rotate(197deg)
+    brightness(102%) contrast(96%);
+} */
