@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Grid } from "@mui/material";
 import HomeIcon from "../../img/home.svg";
 import DoctorIcon from "../../img/profile.svg";
 import "./index.css";

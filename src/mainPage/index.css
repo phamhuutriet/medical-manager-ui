@@ -8,3 +8,8 @@
   display: flex;
   /* background-color: #ff6666; */
 }
+
+.second-column {
+  flex: 1;
+  /* background-color: #ff6666; */
+}

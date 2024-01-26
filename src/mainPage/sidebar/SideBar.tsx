@@ -9,7 +9,7 @@ export const SideBar = () => {
     <div
       style={{
         fontSize: "30px",
-        borderRight: "1px solid #E5E7EB",
+        borderRight: "2px solid #E5E7EB",
         position: "relative",
         width: "288px",
         height: "100vh",
@@ -30,7 +30,7 @@ const HorizontalBorderLine = ({ customWidth }: { customWidth?: string }) => {
   return (
     <div
       style={{
-        borderTop: "1px solid #E5E7EB",
+        borderTop: "2px solid #E5E7EB",
         width: customWidth ? customWidth : "100%",
         margin: "0 auto",
       }}

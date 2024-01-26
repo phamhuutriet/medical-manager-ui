@@ -6,40 +6,26 @@ import "./index.css";
 
 export const Header = () => {
   return (
-    <Grid item xs={12} className="header-grid-item">
+    <div className="header-grid-item">
       <div className="header-container">
         <div className="header-inner">
-          <Grid container>
-            <NotificationIconButton />
-            <Grid item xs={1.5}></Grid>
-            <VerticalLine />
-            <UserMenu />
-          </Grid>
+          <NotificationIconButton />
+          <UserMenu />
         </div>
       </div>
-    </Grid>
+    </div>
   );
 };
 
 const UserMenu = () => {
   return (
-    <Grid item xs={8.58} className="user-menu">
+    <div className="user-menu">
       <IconButton sx={{ p: 0, marginLeft: "4.37%" }}>
         <Avatar />
       </IconButton>
       <div className="text">Triet Pham</div>
       <img className="img" alt="dropdown-icon" src={DropDownIcon} />
-    </Grid>
-  );
-};
-
-const VerticalLine = () => {
-  return (
-    <div
-      style={{
-        borderLeft: "2px solid #E5E7EB",
-      }}
-    />
+    </div>
   );
 };
 

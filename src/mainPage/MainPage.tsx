@@ -8,8 +8,10 @@ export const MainPage = () => {
   return (
     <div className="app-container">
       <SideBar />
-      {/* <Grid item xs={10}>
+      <div className="second-column">
         <Header />
+      </div>
+      {/* <Grid item xs={10}>
         <Grid
           item
           xs={12}
