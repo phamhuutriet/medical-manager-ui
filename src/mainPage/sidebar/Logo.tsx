@@ -4,15 +4,15 @@ import Logo from "../../img/logo.png";
 
 export const LogoComponent = () => {
   return (
-    <Grid
-      item
-      xs={12}
-      sx={{
-        height: "10.7vh",
-        marginBottom: "2.34vh",
-        width: "83.33%",
-        marginLeft: "auto",
-        marginRight: "auto",
+    <div
+      style={{
+        height: "110px",
+        marginLeft: "24px",
+        marginRight: "24px",
+        marginBottom: "24px",
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
       }}
     >
       <img
@@ -20,12 +20,10 @@ export const LogoComponent = () => {
         alt="logo"
         src={Logo}
         style={{
-          marginTop: "2.24vh",
-          marginBottom: "2.24vh",
-          height: "5.85vh",
-          width: "63.33%",
+          height: "64px",
+          width: "152px",
         }}
       />
-    </Grid>
+    </div>
   );
 };

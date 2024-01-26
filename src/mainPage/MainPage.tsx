@@ -6,9 +6,9 @@ import { Header } from "./header/Header";
 
 export const MainPage = () => {
   return (
-    <Grid container className="fullDiv">
+    <div className="app-container">
       <SideBar />
-      <Grid item xs={10}>
+      {/* <Grid item xs={10}>
         <Header />
         <Grid
           item
@@ -29,7 +29,7 @@ export const MainPage = () => {
             }}
           ></Grid>
         </Grid>
-      </Grid>
-    </Grid>
+      </Grid> */}
+    </div>
   );
 };

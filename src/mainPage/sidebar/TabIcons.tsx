@@ -7,18 +7,16 @@ import "./index.css";
 const TAB_LIST = [
   { icon: HomeIcon, tabName: "Tổng quan" },
   { icon: DoctorIcon, tabName: "Bác sĩ" },
+  { icon: DoctorIcon, tabName: "Bác sĩ" },
 ];
 
 export const TabIcons = () => {
   return (
-    <Grid
-      item
-      xs={12}
-      sx={{
-        marginTop: "2.34vh",
-        width: "88.88%",
-        marginLeft: "auto",
-        marginRight: "auto",
+    <div
+      style={{
+        marginTop: "36px",
+        marginLeft: "16px",
+        marginRight: "16px",
       }}
     >
       <div
@@ -37,7 +35,7 @@ export const TabIcons = () => {
           />
         ))}
       </div>
-    </Grid>
+    </div>
   );
 };
 

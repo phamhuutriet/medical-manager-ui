@@ -1,9 +1,10 @@
-.fullDiv {
+.app-container {
   height: 100%;
   width: 100%;
   left: 0;
   top: 0;
   overflow: hidden;
-  position: fixed;
+  position: relative;
+  display: flex;
   /* background-color: #ff6666; */
 }

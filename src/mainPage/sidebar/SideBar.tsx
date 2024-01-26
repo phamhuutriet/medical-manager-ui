@@ -6,20 +6,23 @@ import { ExitBox } from "./ExitBox";
 
 export const SideBar = () => {
   return (
-    <Grid
-      item
-      xs={2}
-      sx={{
+    <div
+      style={{
         fontSize: "30px",
         borderRight: "1px solid #E5E7EB",
         position: "relative",
+        width: "288px",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        // backgroundColor: "#ff6666",
       }}
     >
       <LogoComponent />
       <HorizontalBorderLine customWidth="80%" />
       <TabIcons />
       <ExitBox />
-    </Grid>
+    </div>
   );
 };
 
