@@ -13,7 +13,7 @@
   font-size: 32px;
   height: 48px;
   font-weight: 600;
-  font-family: "Be Vietnam Pro";
+  font-family: Be Vietnam Pro;
   /* background-color: aqua; */
   justify-content: space-between;
   display: flex;
@@ -34,7 +34,7 @@
   justify-content: space-between;
   font-size: 16px;
   font-weight: 500;
-  font-family: "Be Vietnam Pro";
+  font-family: Be Vietnam Pro;
   color: white;
 }
 
@@ -45,8 +45,8 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between;
-  gap: 32px; */
+  /* justify-content: space-between; */
+  gap: 32px;
 }
 
 .filter-container {
@@ -91,4 +91,63 @@
   font-size: 14px;
   font-weight: 400;
   font-family: Be Vietnam Pro;
+}
+
+.sex-box-male {
+  border-radius: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  background-color: #e5e9fa;
+  font-family: Be Vietnam Pro;
+  font-size: 16px;
+  display: inline-block;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  font-weight: 500;
+}
+
+.sex-box-female {
+  border-radius: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  background-color: #fae5e5;
+  font-family: Be Vietnam Pro;
+  font-size: 16px;
+  display: inline-block;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  font-weight: 500;
+}
+
+.page-container {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.page-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #586ee0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Be Vietnam Pro;
+  font-size: 16px;
+  color: white;
+}
+
+.page-number-unselected {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Be Vietnam Pro;
+  font-size: 16px;
+  color: black;
 }
