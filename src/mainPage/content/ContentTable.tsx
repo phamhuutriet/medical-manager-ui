@@ -75,6 +75,38 @@ const rows = [
     "16/12/2022",
     "Phạm Hữu Triết"
   ),
+  createData(
+    "22220888",
+    "Lâm Trung Hưng",
+    "Female",
+    "04/06/1971",
+    "16/12/2022",
+    "Phạm Hữu Triết"
+  ),
+  createData(
+    "22220888",
+    "Lâm Trung Hưng",
+    "Male",
+    "04/06/1971",
+    "16/12/2022",
+    "Phạm Hữu Triết"
+  ),
+  createData(
+    "22220888",
+    "Lâm Trung Hưng",
+    "Female",
+    "04/06/1971",
+    "16/12/2022",
+    "Phạm Hữu Triết"
+  ),
+  createData(
+    "22220888",
+    "Lâm Trung Hưng",
+    "Male",
+    "04/06/1971",
+    "16/12/2022",
+    "Phạm Hữu Triết"
+  ),
 ];
 
 export const ContentTable = () => {
