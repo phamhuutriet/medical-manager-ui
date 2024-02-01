@@ -27,6 +27,12 @@
   width: 85px;
   background-color: #586ee0;
   border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button-container:hover {
+  background-color: #344abb;
 }
 
 .button-inner {
@@ -91,6 +97,13 @@
   font-size: 14px;
   font-weight: 400;
   font-family: Be Vietnam Pro;
+  cursor: pointer; /* Change cursor to hand when hovered */
+  transition: background-color 0.3s, color 0.3s; /* Add smooth transition */
+}
+
+.filter-button:hover {
+  background-color: #aabbcc;
+  color: #324257; /* Darker text color for hover */
 }
 
 .sex-box-male {
