@@ -5,6 +5,7 @@ import { DropDownMenu, MenuListType } from "./DropDownMenu";
 import { ArrowDownIcon } from "../../img/svg/ArrowDownIcon";
 import { AddDoctorIcon } from "../../img/svg/AddDoctorIcon";
 import { AddPatientIcon } from "../../img/svg/AddPatientIcon";
+import { Button } from "../../components/Button";
 
 const MENU_LIST: MenuListType[] = [
   {
@@ -30,12 +31,5 @@ export const MainPageContent = () => {
 };
 
 const AddButton = ({ onClick }: { onClick: any }) => {
-  return (
-    <div className="button-container" onClick={onClick}>
-      <div className="button-inner">
-        <div>Thêm</div>
-        <ArrowDownIcon />
-      </div>
-    </div>
-  );
+  return <Button onClick={onClick} text="Thêm" icon={<ArrowDownIcon />} />;
 };
