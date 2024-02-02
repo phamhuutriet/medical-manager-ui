@@ -1,18 +1,18 @@
 import React from "react";
 import "./index.css";
 import { ContentItemList } from "./ContentItemList";
-import { DropDownButton, MenuListType } from "./DropDownButton";
-import ArrowDownIcon from "../../img/arrow-down.svg";
-import AddDoctor from "../../img/profile-add.svg";
-import AddPatient from "../../img/add-patient.svg";
+import { DropDownMenu, MenuListType } from "./DropDownMenu";
+import { ArrowDownIcon } from "../../img/svg/ArrowDownIcon";
+import { AddDoctorIcon } from "../../img/svg/AddDoctorIcon";
+import { AddPatientIcon } from "../../img/svg/AddPatientIcon";
 
 const MENU_LIST: MenuListType[] = [
   {
-    icon: AddDoctor,
+    icon: <AddDoctorIcon defaultColor="#8C949D" selectedColor="#0D0C0C" />,
     text: "Thêm bác sĩ",
   },
   {
-    icon: AddPatient,
+    icon: <AddPatientIcon defaultColor="#8C949D" selectedColor="#0D0C0C" />,
     text: "Thêm bệnh nhân",
   },
 ];
@@ -22,7 +22,7 @@ export const MainPageContent = () => {
     <div className="page-content-container">
       <div className="content-header">
         <div>Tổng quan</div>
-        <DropDownButton menuList={MENU_LIST} Button={AddButton} />
+        <DropDownMenu menuList={MENU_LIST} Button={AddButton} />
       </div>
       <ContentItemList />
     </div>
@@ -34,7 +34,7 @@ const AddButton = ({ onClick }: { onClick: any }) => {
     <div className="button-container" onClick={onClick}>
       <div className="button-inner">
         <div>Thêm</div>
-        <img className="img" alt="dropdown" src={ArrowDownIcon} />
+        <ArrowDownIcon />
       </div>
     </div>
   );

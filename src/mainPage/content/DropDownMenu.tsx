@@ -21,10 +21,6 @@ const StyledMenu = styled((props: MenuProps) => (
     borderRadius: 12,
     marginTop: theme.spacing(1),
     width: "327px",
-    color:
-      theme.palette.mode === "light"
-        ? "rgb(55, 65, 81)"
-        : theme.palette.grey[300],
     boxShadow:
       "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
     "& .MuiMenu-list": {
@@ -46,6 +42,9 @@ const StyledMenu = styled((props: MenuProps) => (
         color: "#0D0C0C",
         backgroundColor: "#E5E9FA",
       },
+      "&.Mui-focusVisible": {
+        backgroundColor: "#E5E9FA", // Remove the gray background on focus
+      },
     },
   },
 }));
@@ -60,14 +59,21 @@ interface DropDownButtonProps {
   menuList: MenuListType[];
 }
 
-export const DropDownButton = ({ Button, menuList }: DropDownButtonProps) => {
+export const DropDownMenu = ({ Button, menuList }: DropDownButtonProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [isSelectedIdx, setIsSelectedIdx] = React.useState<number>(-1);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleMouseEnter = (idx: number) => {
+    setIsSelectedIdx(idx);
+  };
+  const handleMouseLeave = () => {
+    setIsSelectedIdx(-1);
   };
 
   return (
@@ -82,9 +88,16 @@ export const DropDownButton = ({ Button, menuList }: DropDownButtonProps) => {
         open={open}
         onClose={handleClose}
       >
-        {menuList.map((menuItem: MenuListType) => (
-          <MenuItem onClick={handleClose} disableRipple>
-            <img alt="add-doctor" src={menuItem.icon} />
+        {menuList.map((menuItem: MenuListType, index: number) => (
+          <MenuItem
+            onClick={handleClose}
+            disableRipple
+            onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={handleMouseLeave}
+          >
+            {React.cloneElement(menuItem.icon, {
+              isSelected: index === isSelectedIdx,
+            })}
             {menuItem.text}
           </MenuItem>
         ))}

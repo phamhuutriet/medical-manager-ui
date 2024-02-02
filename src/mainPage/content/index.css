@@ -164,3 +164,12 @@
   font-size: 16px;
   color: black;
 }
+
+.svg-icon {
+  stroke: #ff0000;
+  transition: stroke 0.3s ease;
+}
+
+.svg-icon:hover {
+  stroke: #ff0000;
+}
