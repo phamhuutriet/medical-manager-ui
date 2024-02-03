@@ -1,9 +1,10 @@
 import React from "react";
 import SearchIcon from "../../img/search-normal.svg";
 import FilterIcon from "../../img/setting-4.svg";
-import ArrowLeftIcon from "../../img/arrow-left.svg";
-import ArrowRightIcon from "../../img/arrow-right.svg";
 import { ContentTable } from "./ContentTable";
+import { Button } from "../../components/Button";
+import { ArrowRightIcon } from "../../img/svg/ArrowRightIcon";
+import { ArrowLeftIcon } from "../../img/svg/ArrowLeftIcon";
 import "./index.css";
 
 export const ContentItemList = () => {
@@ -40,11 +41,27 @@ const FilterButton = () => {
 const PaginationBar = () => {
   return (
     <div className="page-container">
-      <img className="image" alt="arrow-left" src={ArrowLeftIcon} />
-      <div className="page-number">1</div>
-      <div className="page-number-unselected">2</div>
-      <div className="page-number-unselected">3</div>
-      <img className="image" alt="arrow-right" src={ArrowRightIcon} />
+      <Button
+        className="arrow-right"
+        icon={<ArrowLeftIcon defaultColor="#A5A7AF" selectedColor="#0D0C0C" />}
+      />
+      <Button onClick={() => {}} text="1" className="page-number" />
+      <Button
+        onClick={() => {}}
+        text="2"
+        className="page-number-unselected"
+        innerButtonClassName="page-number-unselected-inner"
+      />
+      <Button
+        onClick={() => {}}
+        text="3"
+        className="page-number-unselected"
+        innerButtonClassName="page-number-unselected-inner"
+      />
+      <Button
+        className="arrow-right"
+        icon={<ArrowRightIcon defaultColor="#0D0C0C" selectedColor="#A5A7AF" />}
+      />
     </div>
   );
 };
