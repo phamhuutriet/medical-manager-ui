@@ -170,6 +170,13 @@
   background-color: #e5e9fa !important;
 }
 
+.search-icon {
+  padding: 0 0 0 0 !important;
+  height: 24px !important;
+  width: 24px !important;
+  background-color: white !important;
+}
+
 .svg-icon {
   stroke: #ff0000;
   transition: stroke 0.3s ease;

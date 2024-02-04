@@ -57,9 +57,14 @@ export type MenuListType = {
 interface DropDownButtonProps {
   Button: any;
   menuList: MenuListType[];
+  customStyle?: any;
 }
 
-export const DropDownMenu = ({ Button, menuList }: DropDownButtonProps) => {
+export const DropDownMenu = ({
+  Button,
+  menuList,
+  customStyle,
+}: DropDownButtonProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [isSelectedIdx, setIsSelectedIdx] = React.useState<number>(-1);
   const open = Boolean(anchorEl);
@@ -87,6 +92,7 @@ export const DropDownMenu = ({ Button, menuList }: DropDownButtonProps) => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        style={customStyle ? customStyle : {}}
       >
         {menuList.map((menuItem: MenuListType, index: number) => (
           <MenuItem

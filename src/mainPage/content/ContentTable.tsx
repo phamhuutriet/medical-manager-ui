@@ -5,9 +5,12 @@ import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import MoreIcon from "../../img/more.svg";
 import { IconButton } from "@mui/material";
 import "./index.css";
+import { DropDownMenu, MenuListType } from "./DropDownMenu";
+import { EditPatientIcon } from "../../img/svg/EditPatientIcon";
+import { RemovePatientIcon } from "../../img/svg/RemovePatientIcon";
+import { MorePatientInfoIcon } from "../../img/svg/MorePatientInfoIcon";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -81,9 +84,11 @@ export const ContentTable = ({ patients }: { patients: PatientRow[] }) => {
             <StyledTableCell align="left">{row.visitDate}</StyledTableCell>
             <StyledTableCell align="left">Lam Trung Hung</StyledTableCell>
             <StyledTableCell align="left">
-              <IconButton sx={{ height: "100%" }}>
-                <img className="image" alt="more" src={MoreIcon} />
-              </IconButton>
+              <DropDownMenu
+                Button={MoreInfoButton}
+                menuList={MORE_INFO_MENU_LIST}
+                customStyle={{ width: "207px" }}
+              />
             </StyledTableCell>
           </StyledTableRow>
         ))}
@@ -98,3 +103,22 @@ const SexBox = ({ sex }: { sex: string }) => {
 
   return <div className={className}>{text}</div>;
 };
+
+const MoreInfoButton = ({ onClick }: { onClick: any }) => {
+  return (
+    <IconButton sx={{ height: "100%" }} onClick={onClick}>
+      <MorePatientInfoIcon />
+    </IconButton>
+  );
+};
+
+const MORE_INFO_MENU_LIST: MenuListType[] = [
+  {
+    icon: <EditPatientIcon defaultColor="#8C949D" selectedColor="#0D0C0C" />,
+    text: "Sửa hồ sơ",
+  },
+  {
+    icon: <RemovePatientIcon defaultColor="#8C949D" selectedColor="#0D0C0C" />,
+    text: "Xoá hồ sơ",
+  },
+];

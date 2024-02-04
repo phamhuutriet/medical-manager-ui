@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import SearchIcon from "../../img/search-normal.svg";
-import FilterIcon from "../../img/setting-4.svg";
 import { ContentTable } from "./ContentTable";
 import { Button } from "../../components/Button";
 import { ArrowRightIcon } from "../../img/svg/ArrowRightIcon";
 import { ArrowLeftIcon } from "../../img/svg/ArrowLeftIcon";
 import mockPatients from "../../mock-data/mock_patient.json";
 import "./index.css";
+import { SearchIcon } from "../../img/svg/SearchIcon";
+import { FilterIcon } from "../../img/svg/FilterIcon";
 
 function createRowData(
   id: string,
@@ -65,7 +65,7 @@ export const ContentItemList = () => {
 const SearchBar = () => {
   return (
     <div className="search-bar-container">
-      <img className="image" alt="search" src={SearchIcon} />
+      <Button className="search-icon" icon={<SearchIcon />} />
       <input className="search-bar-input" placeholder="Tìm kiếm" />
     </div>
   );
@@ -75,7 +75,7 @@ const FilterButton = () => {
   return (
     <div className="filter-button">
       <div>Lọc</div>
-      <img className="image" alt="filter" src={FilterIcon} />
+      <FilterIcon />
     </div>
   );
 };
