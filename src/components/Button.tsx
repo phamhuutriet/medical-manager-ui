@@ -18,9 +18,13 @@ export const Button = ({
   className,
   innerButtonClassName,
   children,
+  disable,
 }: ButtonProps) => {
   return (
-    <div className={`button-container ${className}`} onClick={onClick}>
+    <div
+      className={`button-container ${className} ${disable && "button-disable"}`}
+      onClick={!disable ? onClick : () => {}}
+    >
       <div className={`button-inner ${innerButtonClassName}`}>
         <div>{text}</div>
         {children}

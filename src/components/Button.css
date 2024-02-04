@@ -22,3 +22,13 @@
   font-family: Be Vietnam Pro;
   color: white;
 }
+
+.button-disable {
+  cursor: default;
+  background-color: white !important;
+  transition: none !important;
+}
+
+.button-disable:hover {
+  background-color: white !important;
+}

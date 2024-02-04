@@ -56,6 +56,7 @@ export const ContentItemList = () => {
         numOfPages={numOfPages}
         selectedPage={curPage}
         onClickPage={onClickPage}
+        setCurPage={setCurPage}
       />
     </div>
   );
@@ -83,21 +84,32 @@ const PaginationBar = ({
   numOfPages,
   selectedPage,
   onClickPage,
+  setCurPage,
 }: {
   numOfPages: number;
   selectedPage: number;
   onClickPage: any;
+  setCurPage: any;
 }) => {
   const pageElements = Array.from(
     { length: numOfPages },
     (value, index) => index
   );
+  const isReachLeftmost = selectedPage === 0;
+  const isReachRightmost = selectedPage === numOfPages - 1;
 
   return (
     <div className="page-container">
       <Button
         className="arrow-right"
-        icon={<ArrowLeftIcon defaultColor="#A5A7AF" selectedColor="#0D0C0C" />}
+        icon={
+          <ArrowLeftIcon
+            defaultColor={isReachLeftmost ? "#A5A7AF" : "#0D0C0C"}
+            selectedColor={isReachLeftmost ? "#0D0C0C" : "#A5A7AF"}
+          />
+        }
+        disable={isReachLeftmost}
+        onClick={() => setCurPage(Math.min(selectedPage - 1, 0))}
       />
       {pageElements.map((value, idx) => {
         return (
@@ -113,22 +125,16 @@ const PaginationBar = ({
           />
         );
       })}
-      {/* <Button onClick={() => {}} text="1" className="page-number" />
-      <Button
-        onClick={() => {}}
-        text="2"
-        className="page-number-unselected"
-        innerButtonClassName="page-number-unselected-inner"
-      />
-      <Button
-        onClick={() => {}}
-        text="3"
-        className="page-number-unselected"
-        innerButtonClassName="page-number-unselected-inner"
-      /> */}
       <Button
         className="arrow-right"
-        icon={<ArrowRightIcon defaultColor="#0D0C0C" selectedColor="#A5A7AF" />}
+        icon={
+          <ArrowRightIcon
+            defaultColor={isReachRightmost ? "#A5A7AF" : "#0D0C0C"}
+            selectedColor={isReachRightmost ? "#0D0C0C" : "#A5A7AF"}
+          />
+        }
+        disable={isReachRightmost}
+        onClick={() => setCurPage(Math.max(selectedPage + 1, numOfPages - 1))}
       />
     </div>
   );
