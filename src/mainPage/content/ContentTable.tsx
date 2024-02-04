@@ -6,8 +6,8 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import MoreIcon from "../../img/more.svg";
-import "./index.css";
 import { IconButton } from "@mui/material";
+import "./index.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -31,85 +31,15 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(
-  id: string,
-  name: string,
-  sex: string,
-  dateOfBirth: string,
-  visitDate: string,
-  doctor: string
-) {
-  return { id, name, sex, dateOfBirth, visitDate, doctor };
+export interface PatientRow {
+  id: string;
+  name: string;
+  sex: string;
+  dateOfBirth: string;
+  visitDate: string;
 }
 
-const rows = [
-  createData(
-    "22220888",
-    "Lâm Trung Hưng",
-    "Male",
-    "04/06/1971",
-    "16/12/2022",
-    "Phạm Hữu Triết"
-  ),
-  createData(
-    "22220888",
-    "Lâm Trung Hưng",
-    "Female",
-    "04/06/1971",
-    "16/12/2022",
-    "Phạm Hữu Triết"
-  ),
-  createData(
-    "22220888",
-    "Lâm Trung Hưng",
-    "Male",
-    "04/06/1971",
-    "16/12/2022",
-    "Phạm Hữu Triết"
-  ),
-  createData(
-    "22220888",
-    "Lâm Trung Hưng",
-    "Female",
-    "04/06/1971",
-    "16/12/2022",
-    "Phạm Hữu Triết"
-  ),
-  createData(
-    "22220888",
-    "Lâm Trung Hưng",
-    "Female",
-    "04/06/1971",
-    "16/12/2022",
-    "Phạm Hữu Triết"
-  ),
-  createData(
-    "22220888",
-    "Lâm Trung Hưng",
-    "Male",
-    "04/06/1971",
-    "16/12/2022",
-    "Phạm Hữu Triết"
-  ),
-  createData(
-    "22220888",
-    "Lâm Trung Hưng",
-    "Female",
-    "04/06/1971",
-    "16/12/2022",
-    "Phạm Hữu Triết"
-  ),
-  createData(
-    "22220888",
-    "Lâm Trung Hưng",
-    "Male",
-    "04/06/1971",
-    "16/12/2022",
-    "Phạm Hữu Triết"
-  ),
-];
-
-export const ContentTable = () => {
+export const ContentTable = ({ patients }: { patients: PatientRow[] }) => {
   return (
     <Table
       sx={{ minWidth: 700, borderCollapse: "separate" }}
@@ -138,7 +68,7 @@ export const ContentTable = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {rows.map((row) => (
+        {patients.map((row) => (
           <StyledTableRow key={row.name}>
             <StyledTableCell component="th" scope="row">
               {row.id}
@@ -149,7 +79,7 @@ export const ContentTable = () => {
             </StyledTableCell>
             <StyledTableCell align="left">{row.dateOfBirth}</StyledTableCell>
             <StyledTableCell align="left">{row.visitDate}</StyledTableCell>
-            <StyledTableCell align="left">{row.doctor}</StyledTableCell>
+            <StyledTableCell align="left">Lam Trung Hung</StyledTableCell>
             <StyledTableCell align="left">
               <IconButton sx={{ height: "100%" }}>
                 <img className="image" alt="more" src={MoreIcon} />

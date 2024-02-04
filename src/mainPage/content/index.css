@@ -111,6 +111,13 @@
   display: flex;
   justify-content: center;
   gap: 24px;
+  position: absolute;
+  margin-left: 288px;
+  /* margin-left: 16px;
+  margin-right: 16px; */
+  left: 0;
+  right: 0;
+  bottom: 32px;
 }
 
 .page-number {
