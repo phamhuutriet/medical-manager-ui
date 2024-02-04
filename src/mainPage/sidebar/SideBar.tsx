@@ -1,26 +1,14 @@
 import React from "react";
-import { Grid } from "@mui/material";
 import { LogoComponent } from "./Logo";
 import { TabIcons } from "./TabIcons";
 import { ExitBox } from "./ExitBox";
 
-export const SideBar = () => {
+export const SideBar = ({ setSectionId }: { setSectionId: Function }) => {
   return (
-    <div
-      style={{
-        fontSize: "30px",
-        borderRight: "2px solid #E5E7EB",
-        position: "relative",
-        width: "288px",
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        // backgroundColor: "#ff6666",
-      }}
-    >
+    <div className="side-bar-container">
       <LogoComponent />
       <HorizontalBorderLine customWidth="80%" />
-      <TabIcons />
+      <TabIcons setSectionId={setSectionId} />
       <ExitBox />
     </div>
   );

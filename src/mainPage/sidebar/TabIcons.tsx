@@ -1,15 +1,30 @@
 import React, { useState } from "react";
-import HomeIcon from "../../img/home.svg";
-import DoctorIcon from "../../img/profile.svg";
+import { HomeIcon } from "../../img/svg/HomeIcon";
 import "./index.css";
+import { DoctorIcon } from "../../img/svg/DoctorIcon";
+import { SectionId } from "../../data/sectionIdEnum";
 
 const TAB_LIST = [
-  { icon: HomeIcon, tabName: "Tổng quan" },
-  { icon: DoctorIcon, tabName: "Bác sĩ" },
-  { icon: DoctorIcon, tabName: "Bác sĩ" },
+  {
+    icon: <HomeIcon defaultColor="#A5A7AF" selectedColor="#3D57DB" />,
+    tabName: "Tổng quan",
+    id: SectionId.MAIN_PAGE,
+  },
+  {
+    icon: <DoctorIcon defaultColor="#A5A7AF" selectedColor="#3D57DB" />,
+    tabName: "Bác sĩ",
+    id: SectionId.DOCTOR_LIST_PAGE,
+  },
 ];
 
-export const TabIcons = () => {
+export const TabIcons = ({ setSectionId }: { setSectionId: Function }) => {
+  const [selectedItemIdx, setSelectedItemIdx] = useState(0);
+
+  const onClickTabItem = (sectionId: SectionId, idx: number) => {
+    setSectionId(sectionId);
+    setSelectedItemIdx(idx);
+  };
+
   return (
     <div
       style={{
@@ -27,10 +42,11 @@ export const TabIcons = () => {
       >
         {TAB_LIST.map((tabItem, idx) => (
           <TabItem
-            isSelected={idx === 0}
+            isSelected={idx === selectedItemIdx}
             key={idx}
             icon={tabItem.icon}
             tabName={tabItem.tabName}
+            onClick={() => onClickTabItem(tabItem.id, idx)}
           />
         ))}
       </div>
@@ -42,10 +58,12 @@ const TabItem = ({
   icon,
   tabName,
   isSelected,
+  onClick,
 }: {
   icon: any;
   tabName: string;
   isSelected?: boolean;
+  onClick: any;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -57,19 +75,17 @@ const TabItem = ({
     setIsHovered(false);
   };
 
-  const containerClassName =
-    isSelected || isHovered
-      ? "tab-item-container-selected"
-      : "tab-item-container-non-selected";
-
   return (
     <div
-      className={containerClassName}
+      className={`tab-item-container ${isSelected ? "tab-item-selected" : ""}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={onClick}
     >
       <div className="tab-item-inner">
-        <img className="img" alt="logo" src={icon} class="img" />
+        {React.cloneElement(icon, {
+          isSelected: isHovered || isSelected,
+        })}
         <div className="tab-icon-text">{tabName}</div>
       </div>
     </div>

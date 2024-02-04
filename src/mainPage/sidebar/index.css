@@ -5,23 +5,24 @@
   font-family: "Be Vietnam Pro";
 }
 
-.tab-item-container-selected {
-  width: 100%;
+.tab-item-container:hover {
   color: #586ee0;
   background: #e5e9fa;
-  height: 5.46vh;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  border-radius: 8px;
 }
 
-.tab-item-container-non-selected {
+.tab-item-container {
   width: 100%;
   color: #8c949d;
   height: 5.46vh;
   padding-top: 1px;
   padding-bottom: 1px;
   border-radius: 8px;
+  cursor: pointer;
+}
+
+.tab-item-selected {
+  color: #586ee0;
+  background: #e5e9fa;
 }
 
 .exit-box {
@@ -52,8 +53,12 @@
   display: flex;
 }
 
-/*Will investigate later 
-/* .tab-item-inner:hover .img {
-  filter: invert(90%) sepia(13%) saturate(418%) hue-rotate(197deg)
-    brightness(102%) contrast(96%);
-} */
+.side-bar-container {
+  font-size: 30px;
+  border-right: 2px solid #e5e7eb;
+  position: relative;
+  width: 288px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
