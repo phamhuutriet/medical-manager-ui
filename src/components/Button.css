@@ -17,6 +17,7 @@
 .button-inner {
   display: flex;
   justify-content: space-between;
+  height: 24px;
   font-size: 16px;
   font-weight: 500;
   font-family: Be Vietnam Pro;

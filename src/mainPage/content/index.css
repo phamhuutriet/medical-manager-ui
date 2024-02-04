@@ -66,19 +66,22 @@
   display: flex;
   justify-content: space-between;
   border-radius: 12px;
+  border: 1px;
   background-color: #e5e9fa;
   width: 50px;
+  height: 20px;
   align-items: center;
   font-size: 14px;
   font-weight: 400;
   font-family: Be Vietnam Pro;
   cursor: pointer; /* Change cursor to hand when hovered */
-  transition: background-color 0.3s, color 0.3s; /* Add smooth transition */
+  transition: background-color 0.3s; /* Add smooth transition */
 }
 
 .filter-button:hover {
-  background-color: #aabbcc;
-  color: #324257; /* Darker text color for hover */
+  border: 1px solid #586ee0;
+  background-color: #e5e9fa;
+  color: #586ee0;
 }
 
 .sex-box-male {
