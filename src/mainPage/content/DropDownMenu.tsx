@@ -81,9 +81,11 @@ export const DropDownMenu = ({
     setIsSelectedIdx(-1);
   };
 
+  console.log("IS ANCHOR EL NOT NULL: ", anchorEl !== null);
+
   return (
     <div>
-      <Button onClick={handleClick} />
+      <Button onClick={handleClick} isClicked={anchorEl !== null} />
       <StyledMenu
         id="demo-customized-menu"
         MenuListProps={{

@@ -14,6 +14,10 @@
   background-color: #344abb;
 }
 
+.button-container-clicked {
+  background-color: #344abb;
+}
+
 .button-inner {
   display: flex;
   justify-content: space-between;

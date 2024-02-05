@@ -30,12 +30,19 @@ export const MainPageContent = () => {
   );
 };
 
-const AddButton = ({ onClick }: { onClick: any }) => {
+const AddButton = ({
+  onClick,
+  isClicked,
+}: {
+  onClick: any;
+  isClicked: boolean;
+}) => {
   return (
     <Button
       onClick={onClick}
       text="Thêm"
       icon={<ArrowDownIcon defaultColor="white" selectedColor="white" />}
+      isClicked={isClicked}
     />
   );
 };
