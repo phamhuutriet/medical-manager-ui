@@ -1,0 +1,108 @@
+.doctor-detail-content {
+  padding-top: 42px;
+  padding-bottom: 16px;
+  /* background-color: bisque; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  gap: 32px;
+}
+
+.avatar-text {
+  font-family: Be Vietnam Pro;
+  font-size: 14px;
+}
+
+.avatar-box {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.avatar-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.box {
+  display: flex;
+  gap: 32px;
+}
+
+.box-item {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.box-item .content {
+  padding: 12px 20px 12px 20px;
+  display: flex;
+  gap: 12px;
+  border: 1px #a5a7af solid;
+  height: 24px;
+  border-radius: 8px;
+  font-family: Be Vietnam Pro;
+}
+
+.content-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-family: Be Vietnam Pro;
+}
+
+.title {
+  font-size: 14px;
+  font-family: Be Vietnam Pro;
+}
+
+.buttons-box {
+  margin-top: 40px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 24px;
+}
+
+.buttons-box .cancel-button {
+  padding: 0 0 0 0;
+  width: 200px;
+  height: 48px;
+  border: 1px #586ee0 solid;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons-box .cancel-button:hover {
+  background-color: #e5e9fa;
+}
+
+.buttons-box .cancel-button-inner {
+  color: #586ee0;
+  font-size: 16px;
+}
+
+.buttons-box .save-button {
+  padding: 0 0 0 0;
+  width: 200px;
+  height: 48px;
+  background-color: #586ee0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons-box .save-button:hover {
+  background-color: #344abb;
+}
+
+.buttons-box .save-button-inner {
+  color: white;
+}

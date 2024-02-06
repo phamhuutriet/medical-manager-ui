@@ -52,6 +52,7 @@ const StyledMenu = styled((props: MenuProps) => (
 export type MenuListType = {
   icon: any;
   text: string;
+  onClick?: any;
 };
 
 interface DropDownButtonProps {
@@ -81,8 +82,6 @@ export const DropDownMenu = ({
     setIsSelectedIdx(-1);
   };
 
-  console.log("IS ANCHOR EL NOT NULL: ", anchorEl !== null);
-
   return (
     <div>
       <Button onClick={handleClick} isClicked={anchorEl !== null} />
@@ -98,7 +97,12 @@ export const DropDownMenu = ({
       >
         {menuList.map((menuItem: MenuListType, index: number) => (
           <MenuItem
-            onClick={handleClose}
+            onClick={() => {
+              handleClose();
+              if (menuItem.onClick) {
+                menuItem.onClick();
+              }
+            }}
             disableRipple
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}

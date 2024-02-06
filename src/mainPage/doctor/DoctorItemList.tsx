@@ -1,39 +1,35 @@
 import React, { useState } from "react";
-import { ContentTable } from "./ContentTable";
 import { Button } from "../../components/Button";
-import mockPatients from "../../mock-data/mock_patient.json";
-import "./index.css";
 import { SearchIcon } from "../../img/svg/SearchIcon";
-import { PaginationBar } from "./PaginationBar";
-import { FilterButtonMenu } from "./FilterButton";
+import mockDoctors from "../../mock-data/mock_doctor.json";
+import { PaginationBar } from "../content/PaginationBar";
+import { FilterDoctorButtonMenu } from "./FilterDoctorButton";
+import { DoctorContentTable } from "./DoctorContentTable";
 
 function createRowData(
   id: string,
   name: string,
   sex: string,
   dateOfBirth: string,
-  visitDate: string
-  // doctor: string
+  phoneNumber: string
 ) {
-  return { id, name, sex, dateOfBirth, visitDate };
+  return { id, name, sex, dateOfBirth, phoneNumber };
 }
 
-const patients = mockPatients
-  .slice(0, 10)
-  .map((mockPatient) =>
-    createRowData(
-      mockPatient.id,
-      mockPatient.name,
-      mockPatient.gender,
-      mockPatient.dateOfBirth,
-      mockPatient.createdAt
-    )
-  );
+const doctors = mockDoctors.map((mockDoctor) =>
+  createRowData(
+    mockDoctor.id,
+    mockDoctor.name,
+    mockDoctor.gender,
+    mockDoctor.dateOfBirth,
+    mockDoctor.phoneNumber
+  )
+);
 
-export const ContentItemList = () => {
+export const DoctorItemList = () => {
   const maxRowPerPage = 8;
   const [curPage, setCurPage] = useState(0);
-  const numOfPages = Math.ceil(patients.length / maxRowPerPage);
+  const numOfPages = Math.ceil(doctors.length / maxRowPerPage);
 
   const onClickPage = (pageIdx: number) => {
     setCurPage(pageIdx);
@@ -43,10 +39,10 @@ export const ContentItemList = () => {
     <div className="content-item-list">
       <div className="filter-container">
         <SearchBar />
-        <FilterButtonMenu />
+        <FilterDoctorButtonMenu />
       </div>
-      <ContentTable
-        patients={patients.slice(
+      <DoctorContentTable
+        doctors={doctors.slice(
           curPage * maxRowPerPage,
           (curPage + 1) * maxRowPerPage
         )}

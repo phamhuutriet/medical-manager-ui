@@ -32,7 +32,7 @@ export const PaginationBar = ({
           />
         }
         disable={isReachLeftmost}
-        onClick={() => setCurPage(Math.min(selectedPage - 1, 0))}
+        onClick={() => setCurPage(Math.max(selectedPage - 1, 0))}
       />
       {pageElements.map((value, idx) => {
         return (
@@ -57,7 +57,7 @@ export const PaginationBar = ({
           />
         }
         disable={isReachRightmost}
-        onClick={() => setCurPage(Math.max(selectedPage + 1, numOfPages - 1))}
+        onClick={() => setCurPage(Math.min(selectedPage + 1, numOfPages - 1))}
       />
     </div>
   );
