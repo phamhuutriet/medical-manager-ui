@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import "./index.css";
 import { AvatarBox } from "./AvatarBox";
 import { BirthBox, NameBox, PhoneNumberBox, SexBox } from "./NameBox";
 import { Button } from "../../../components/Button";
 
 export const DoctorDetailContent = () => {
+  const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
+
   return (
     <div>
       <div className="doctor-detail-content">
         <AvatarBox />
         <NameBox />
         <SexBox />
-        <BirthBox />
-        <PhoneNumberBox />
+        <BirthBox
+          isCalendarOpen={isCalendarOpen}
+          setIsCalendarOpen={setIsCalendarOpen}
+        />
+        <PhoneNumberBox isIconDisplay={!isCalendarOpen} />
       </div>
       <ButtonsBox />
     </div>
