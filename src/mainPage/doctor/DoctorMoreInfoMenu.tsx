@@ -9,6 +9,8 @@ import { RemovePatientIcon } from "../../img/svg/RemovePatientIcon";
 import { DoctorContext } from "../../context/DoctorContext";
 import { SectionContext } from "../../context/SectionContext";
 import { SectionId } from "../../data/sectionIdEnum";
+import { useNavigate } from "react-router";
+import { RouteEnum } from "../../data/routeEnum";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -70,7 +72,7 @@ enum DoctorMoreInfoEnum {
 }
 
 export const DoctorMoreInfoMenu = ({ doctorId }: { doctorId: string }) => {
-  const { setSectionId } = React.useContext(SectionContext);
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [selectedOption, setSelectedOption] = React.useState("");
   const { setDoctorId } = React.useContext(DoctorContext);
@@ -89,7 +91,7 @@ export const DoctorMoreInfoMenu = ({ doctorId }: { doctorId: string }) => {
   };
   const onClickEditOption = () => {
     setDoctorId(doctorId);
-    setSectionId(SectionId.DOCTOR_DETAIL_PAGE);
+    navigate(RouteEnum.EDIT_DOCTOR_PAGE);
   };
 
   return (

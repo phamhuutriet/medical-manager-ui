@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 import { IconButton } from "@mui/material";
 import { BackIcon } from "../../../img/svg/BackIcon";
-import { SectionContext } from "../../../context/SectionContext";
-import { SectionId } from "../../../data/sectionIdEnum";
 import { DoctorDetailContent } from "./DoctorDetailContent";
+import { useNavigate } from "react-router";
+import { RouteEnum } from "../../../data/routeEnum";
 
 export const DoctorDetailPage = () => {
-  const { setSectionId } = useContext(SectionContext);
+  const navigate = useNavigate();
 
   const onClickBack = () => {
-    setSectionId(SectionId.DOCTOR_LIST_PAGE);
+    navigate(RouteEnum.DOCTOR_PAGE);
   };
 
   return (

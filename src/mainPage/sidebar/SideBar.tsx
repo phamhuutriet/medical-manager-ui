@@ -3,12 +3,12 @@ import { LogoComponent } from "./Logo";
 import { TabIcons } from "./TabIcons";
 import { ExitBox } from "./ExitBox";
 
-export const SideBar = ({ setSectionId }: { setSectionId: Function }) => {
+export const SideBar = () => {
   return (
     <div className="side-bar-container">
       <LogoComponent />
       <HorizontalBorderLine customWidth="80%" />
-      <TabIcons setSectionId={setSectionId} />
+      <TabIcons />
       <ExitBox />
     </div>
   );

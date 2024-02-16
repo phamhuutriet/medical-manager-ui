@@ -2,27 +2,33 @@ import React, { useState } from "react";
 import { HomeIcon } from "../../img/svg/HomeIcon";
 import "./index.css";
 import { DoctorIcon } from "../../img/svg/DoctorIcon";
-import { SectionId } from "../../data/sectionIdEnum";
+import { useLocation, useNavigate } from "react-router";
+import { RouteEnum } from "../../data/routeEnum";
 
 const TAB_LIST = [
   {
     icon: <HomeIcon defaultColor="#A5A7AF" selectedColor="#3D57DB" />,
     tabName: "Tổng quan",
-    id: SectionId.MAIN_PAGE,
+    route: RouteEnum.MAIN_PAGE,
   },
   {
     icon: <DoctorIcon defaultColor="#A5A7AF" selectedColor="#3D57DB" />,
     tabName: "Bác sĩ",
-    id: SectionId.DOCTOR_LIST_PAGE,
+    route: RouteEnum.DOCTOR_PAGE,
   },
 ];
 
-export const TabIcons = ({ setSectionId }: { setSectionId: Function }) => {
-  const [selectedItemIdx, setSelectedItemIdx] = useState(0);
+export const TabIcons = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const itemIdx = TAB_LIST.findIndex(
+    (item) => item.route === location.pathname
+  );
+  const [selectedItemIdx, setSelectedItemIdx] = useState(itemIdx ? itemIdx : 0);
 
-  const onClickTabItem = (sectionId: SectionId, idx: number) => {
-    setSectionId(sectionId);
+  const onClickTabItem = (idx: number, route: RouteEnum) => {
     setSelectedItemIdx(idx);
+    navigate(route);
   };
 
   return (
@@ -43,10 +49,10 @@ export const TabIcons = ({ setSectionId }: { setSectionId: Function }) => {
         {TAB_LIST.map((tabItem, idx) => (
           <TabItem
             isSelected={idx === selectedItemIdx}
-            key={idx}
+            key={tabItem.route}
             icon={tabItem.icon}
             tabName={tabItem.tabName}
-            onClick={() => onClickTabItem(tabItem.id, idx)}
+            onClick={() => onClickTabItem(idx, tabItem.route)}
           />
         ))}
       </div>
