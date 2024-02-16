@@ -5,6 +5,7 @@ import { Doctor, DoctorContext } from "../../context/DoctorContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import mockDoctors from "../../mock-data/mock_doctor.json";
 import { RouteEnum } from "../../data/routeEnum";
+import dayjs from "dayjs";
 
 function createRowData(
   id: string,
@@ -14,7 +15,14 @@ function createRowData(
   dateOfBirth: string,
   phoneNumber: string
 ) {
-  return { id, firstName, lastName, sex, dateOfBirth, phoneNumber };
+  return {
+    id,
+    firstName,
+    lastName,
+    sex,
+    dateOfBirth: dayjs(dateOfBirth).format("DD / MM / YYYY"),
+    phoneNumber,
+  };
 }
 
 const MOCK_DOCTORS = mockDoctors.map((mockDoctor) =>

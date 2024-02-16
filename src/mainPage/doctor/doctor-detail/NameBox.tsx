@@ -1,24 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import { IconButton } from "@mui/material";
 import { EditPatientIcon } from "../../../img/svg/EditPatientIcon";
-import { ArrowDownIcon } from "../../../img/svg/ArrowDownIcon";
 import { CalendarIcon } from "../../../img/svg/CalendarIcon";
 import { BirthCalendar } from "./BirthCalendar";
 import dayjs, { Dayjs } from "dayjs";
 import { Doctor } from "../../../context/DoctorContext";
-import { format } from "path";
 
-export const NameBox = ({ doctor }: { doctor: Doctor }) => {
-  const [firstName, setFirstName] = useState(doctor.firstName);
-  const [lastName, setLastName] = useState(doctor.lastName);
-
+export const NameBox = ({
+  doctor,
+  setFirstName,
+  setLastName,
+}: {
+  doctor: Doctor;
+  setFirstName: Function;
+  setLastName: Function;
+}) => {
   return (
     <div className="box">
       <div className="box-item">
         <div className="title">Họ</div>
         <div className="content">
           <input
-            value={firstName}
+            value={doctor.firstName}
             className="content-input"
             onChange={(e) => setFirstName(e.target.value)}
           />
@@ -31,7 +34,7 @@ export const NameBox = ({ doctor }: { doctor: Doctor }) => {
         <div className="title">Tên</div>
         <div className="content">
           <input
-            value={lastName}
+            value={doctor.lastName}
             className="content-input"
             onChange={(e) => setLastName(e.target.value)}
           />
@@ -46,14 +49,19 @@ export const NameBox = ({ doctor }: { doctor: Doctor }) => {
 
 export const BirthBox = ({
   dateOfBirth,
+  setDateOfBirth,
   isCalendarOpen,
   setIsCalendarOpen,
 }: {
   dateOfBirth: string;
+  setDateOfBirth: Function;
   isCalendarOpen: boolean;
   setIsCalendarOpen: Function;
 }) => {
-  const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs(dateOfBirth));
+  const selectedDate = dayjs(dateOfBirth, "DD / MM / YYYY");
+  const setSelectedDate = (newDate: Dayjs) => {
+    setDateOfBirth(newDate.format("DD / MM / YYYY"));
+  };
 
   return (
     <div className="box">
@@ -82,20 +90,20 @@ export const BirthBox = ({
 
 export const PhoneNumberBox = ({
   doctorPhoneNumber,
+  setPhoneNumber,
   isIconDisplay,
 }: {
   doctorPhoneNumber: string;
+  setPhoneNumber: Function;
   isIconDisplay: boolean;
 }) => {
-  const [phoneNumber, setPhoneNumber] = useState(doctorPhoneNumber);
-
   return (
     <div className="box">
       <div className="box-item">
         <div className="title">Số điện thoại</div>
         <div className="content">
           <input
-            value={phoneNumber}
+            value={doctorPhoneNumber}
             className="content-input"
             onChange={(e) => setPhoneNumber(e.target.value)}
           />

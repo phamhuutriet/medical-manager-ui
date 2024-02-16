@@ -4,25 +4,38 @@ import { AvatarBox } from "./AvatarBox";
 import { BirthBox, NameBox, PhoneNumberBox } from "./NameBox";
 import { Button } from "../../../components/Button";
 import { SexDropDown } from "./SexDropDown";
-import { DoctorContext } from "../../../context/DoctorContext";
+import { Doctor, DoctorContext } from "../../../context/DoctorContext";
+import { useNavigate } from "react-router";
+import { RouteEnum } from "../../../data/routeEnum";
 
 export const DoctorDetailContent = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
   const { doctorId, doctors, setDoctors } = useContext(DoctorContext);
   const currentDoctor = doctors.find((doctor) => doctor.id === doctorId);
+  const [doctor, setDoctor] = useState<Doctor | undefined>(currentDoctor);
+  const navigate = useNavigate();
 
-  const setSex = (sex: any) => {
-    setDoctors(
-      doctors.map((doctor) => {
-        if (doctor.id === doctorId) {
-          return { ...doctor, sex };
-        }
-        return doctor;
-      })
-    );
+  const setAttribute = (attribute: string) => {
+    return (value: any) => {
+      if (doctor) {
+        setDoctor({ ...doctor, [attribute]: value });
+      }
+    };
   };
 
-  if (!currentDoctor) {
+  const saveDoctor = () => {
+    setDoctors(
+      doctors.map((doctorItem) => {
+        if (doctor && doctorItem.id === doctor.id) {
+          return doctor;
+        }
+        return doctorItem;
+      })
+    );
+    navigate(RouteEnum.DOCTOR_PAGE);
+  };
+
+  if (!doctor) {
     return <>Error no doctor</>;
   }
 
@@ -30,24 +43,30 @@ export const DoctorDetailContent = () => {
     <div>
       <div className="doctor-detail-content">
         <AvatarBox />
-        <NameBox doctor={currentDoctor} />
-        <SexDropDown sex={currentDoctor.sex} setSex={setSex} />
+        <NameBox
+          doctor={doctor}
+          setFirstName={setAttribute("firstName")}
+          setLastName={setAttribute("lastName")}
+        />
+        <SexDropDown sex={doctor.sex} setSex={setAttribute("sex")} />
         <BirthBox
-          dateOfBirth={currentDoctor.dateOfBirth}
+          dateOfBirth={doctor.dateOfBirth}
+          setDateOfBirth={setAttribute("dateOfBirth")}
           isCalendarOpen={isCalendarOpen}
           setIsCalendarOpen={setIsCalendarOpen}
         />
         <PhoneNumberBox
           isIconDisplay={!isCalendarOpen}
-          doctorPhoneNumber={currentDoctor.phoneNumber}
+          setPhoneNumber={setAttribute("phoneNumber")}
+          doctorPhoneNumber={doctor.phoneNumber}
         />
       </div>
-      <ButtonsBox />
+      <ButtonsBox saveDoctor={saveDoctor} />
     </div>
   );
 };
 
-const ButtonsBox = () => {
+const ButtonsBox = ({ saveDoctor }: { saveDoctor: Function }) => {
   return (
     <div className="buttons-box">
       <Button
@@ -59,7 +78,7 @@ const ButtonsBox = () => {
       <Button
         text="Lưu"
         className="save-button"
-        onClick={() => {}}
+        onClick={saveDoctor}
         innerButtonClassName="save-button-inner"
       />
     </div>
