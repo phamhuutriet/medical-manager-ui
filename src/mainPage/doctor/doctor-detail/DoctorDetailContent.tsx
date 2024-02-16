@@ -35,6 +35,10 @@ export const DoctorDetailContent = () => {
     navigate(RouteEnum.DOCTOR_PAGE);
   };
 
+  const cancelEditDoctor = () => {
+    navigate(RouteEnum.DOCTOR_PAGE);
+  };
+
   if (!doctor) {
     return <>Error no doctor</>;
   }
@@ -61,18 +65,24 @@ export const DoctorDetailContent = () => {
           doctorPhoneNumber={doctor.phoneNumber}
         />
       </div>
-      <ButtonsBox saveDoctor={saveDoctor} />
+      <ButtonsBox saveDoctor={saveDoctor} cancelEditDoctor={cancelEditDoctor} />
     </div>
   );
 };
 
-const ButtonsBox = ({ saveDoctor }: { saveDoctor: Function }) => {
+const ButtonsBox = ({
+  saveDoctor,
+  cancelEditDoctor,
+}: {
+  saveDoctor: Function;
+  cancelEditDoctor: Function;
+}) => {
   return (
     <div className="buttons-box">
       <Button
         text="Huỷ"
         className="cancel-button"
-        onClick={() => {}}
+        onClick={cancelEditDoctor}
         innerButtonClassName="cancel-button-inner"
       />
       <Button
