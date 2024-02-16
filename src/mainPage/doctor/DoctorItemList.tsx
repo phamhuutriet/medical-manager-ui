@@ -61,7 +61,7 @@ const SearchBar = ({
       <Button className="search-icon" icon={<SearchIcon />} />
       <input
         className="search-bar-input"
-        placeholder="Tìm kiếm"
+        placeholder="Tìm kiếm theo tên"
         value={searchValue}
         onChange={onChangeSearch}
       />
