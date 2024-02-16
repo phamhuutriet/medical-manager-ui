@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./index.css";
 import { AvatarBox } from "./AvatarBox";
-import { BirthBox, NameBox, PhoneNumberBox, SexBox } from "./NameBox";
+import { BirthBox, NameBox, PhoneNumberBox } from "./NameBox";
 import { Button } from "../../../components/Button";
+import { SexDropDown } from "./SexDropDown";
 
 export const DoctorDetailContent = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
@@ -12,7 +13,7 @@ export const DoctorDetailContent = () => {
       <div className="doctor-detail-content">
         <AvatarBox />
         <NameBox />
-        <SexBox />
+        <SexDropDown />
         <BirthBox
           isCalendarOpen={isCalendarOpen}
           setIsCalendarOpen={setIsCalendarOpen}

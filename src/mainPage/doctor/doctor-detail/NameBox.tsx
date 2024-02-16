@@ -7,12 +7,19 @@ import { BirthCalendar } from "./BirthCalendar";
 import dayjs, { Dayjs } from "dayjs";
 
 export const NameBox = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
   return (
     <div className="box">
       <div className="box-item">
         <div className="title">Họ</div>
         <div className="content">
-          <input value="Phạm" className="content-input" />
+          <input
+            value={firstName}
+            className="content-input"
+            onChange={(e) => setFirstName(e.target.value)}
+          />
           <IconButton>
             <EditPatientIcon defaultColor="#0D0C0C" selectedColor="#586EE0" />
           </IconButton>
@@ -21,25 +28,13 @@ export const NameBox = () => {
       <div className="box-item">
         <div className="title">Tên</div>
         <div className="content">
-          <input value="Triết" className="content-input" />
+          <input
+            value={lastName}
+            className="content-input"
+            onChange={(e) => setLastName(e.target.value)}
+          />
           <IconButton>
             <EditPatientIcon defaultColor="#0D0C0C" selectedColor="#586EE0" />
-          </IconButton>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export const SexBox = () => {
-  return (
-    <div className="box">
-      <div className="box-item">
-        <div className="title">Giới tính</div>
-        <div className="content">
-          <div style={{ width: "100%" }}>Nam</div>
-          <IconButton sx={{ height: "100%" }}>
-            <ArrowDownIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />
           </IconButton>
         </div>
       </div>
@@ -86,12 +81,18 @@ export const PhoneNumberBox = ({
 }: {
   isIconDisplay: boolean;
 }) => {
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   return (
     <div className="box">
       <div className="box-item">
         <div className="title">Số điện thoại</div>
         <div className="content">
-          <div style={{ width: "100%" }}>+ 84 54 897 802</div>
+          <input
+            value={phoneNumber}
+            className="content-input"
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          />
           <IconButton
             sx={{
               height: "100%",
