@@ -1,24 +1,46 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./index.css";
 import { AvatarBox } from "./AvatarBox";
 import { BirthBox, NameBox, PhoneNumberBox } from "./NameBox";
 import { Button } from "../../../components/Button";
 import { SexDropDown } from "./SexDropDown";
+import { DoctorContext } from "../../../context/DoctorContext";
 
 export const DoctorDetailContent = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
+  const { doctorId, doctors, setDoctors } = useContext(DoctorContext);
+  const currentDoctor = doctors.find((doctor) => doctor.id === doctorId);
+
+  const setSex = (sex: any) => {
+    setDoctors(
+      doctors.map((doctor) => {
+        if (doctor.id === doctorId) {
+          return { ...doctor, sex };
+        }
+        return doctor;
+      })
+    );
+  };
+
+  if (!currentDoctor) {
+    return <>Error no doctor</>;
+  }
 
   return (
     <div>
       <div className="doctor-detail-content">
         <AvatarBox />
-        <NameBox />
-        <SexDropDown />
+        <NameBox doctor={currentDoctor} />
+        <SexDropDown sex={currentDoctor.sex} setSex={setSex} />
         <BirthBox
+          dateOfBirth={currentDoctor.dateOfBirth}
           isCalendarOpen={isCalendarOpen}
           setIsCalendarOpen={setIsCalendarOpen}
         />
-        <PhoneNumberBox isIconDisplay={!isCalendarOpen} />
+        <PhoneNumberBox
+          isIconDisplay={!isCalendarOpen}
+          doctorPhoneNumber={currentDoctor.phoneNumber}
+        />
       </div>
       <ButtonsBox />
     </div>

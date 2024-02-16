@@ -5,10 +5,12 @@ import { ArrowDownIcon } from "../../../img/svg/ArrowDownIcon";
 import { CalendarIcon } from "../../../img/svg/CalendarIcon";
 import { BirthCalendar } from "./BirthCalendar";
 import dayjs, { Dayjs } from "dayjs";
+import { Doctor } from "../../../context/DoctorContext";
+import { format } from "path";
 
-export const NameBox = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+export const NameBox = ({ doctor }: { doctor: Doctor }) => {
+  const [firstName, setFirstName] = useState(doctor.firstName);
+  const [lastName, setLastName] = useState(doctor.lastName);
 
   return (
     <div className="box">
@@ -43,13 +45,15 @@ export const NameBox = () => {
 };
 
 export const BirthBox = ({
+  dateOfBirth,
   isCalendarOpen,
   setIsCalendarOpen,
 }: {
+  dateOfBirth: string;
   isCalendarOpen: boolean;
   setIsCalendarOpen: Function;
 }) => {
-  const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs("2000-01-01"));
+  const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs(dateOfBirth));
 
   return (
     <div className="box">
@@ -77,11 +81,13 @@ export const BirthBox = ({
 };
 
 export const PhoneNumberBox = ({
+  doctorPhoneNumber,
   isIconDisplay,
 }: {
+  doctorPhoneNumber: string;
   isIconDisplay: boolean;
 }) => {
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(doctorPhoneNumber);
 
   return (
     <div className="box">

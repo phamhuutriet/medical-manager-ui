@@ -1,32 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "../../components/Button";
 import { SearchIcon } from "../../img/svg/SearchIcon";
-import mockDoctors from "../../mock-data/mock_doctor.json";
 import { PaginationBar } from "../content/PaginationBar";
 import { FilterDoctorButtonMenu } from "./FilterDoctorButton";
 import { DoctorContentTable } from "./DoctorContentTable";
-
-function createRowData(
-  id: string,
-  name: string,
-  sex: string,
-  dateOfBirth: string,
-  phoneNumber: string
-) {
-  return { id, name, sex, dateOfBirth, phoneNumber };
-}
-
-const doctors = mockDoctors.map((mockDoctor) =>
-  createRowData(
-    mockDoctor.id,
-    mockDoctor.name,
-    mockDoctor.gender,
-    mockDoctor.dateOfBirth,
-    mockDoctor.phoneNumber
-  )
-);
+import { DoctorContext } from "../../context/DoctorContext";
 
 export const DoctorItemList = () => {
+  const { doctors } = useContext(DoctorContext);
   const maxRowPerPage = 8;
   const [curPage, setCurPage] = useState(0);
   const numOfPages = Math.ceil(doctors.length / maxRowPerPage);

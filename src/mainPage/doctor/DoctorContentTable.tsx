@@ -5,13 +5,8 @@ import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { IconButton } from "@mui/material";
-import { EditPatientIcon } from "../../img/svg/EditPatientIcon";
-import { RemovePatientIcon } from "../../img/svg/RemovePatientIcon";
-import { MorePatientInfoIcon } from "../../img/svg/MorePatientInfoIcon";
-import { DropDownMenu, MenuListType } from "../content/DropDownMenu";
-import { SectionContext } from "../../context/SectionContext";
-import { SectionId } from "../../data/sectionIdEnum";
+import { Doctor } from "../../context/DoctorContext";
+import { DoctorMoreInfoMenu } from "./DoctorMoreInfoMenu";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,33 +30,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export interface DoctorRow {
-  id: string;
-  name: string;
-  sex: string;
-  dateOfBirth: string;
-  phoneNumber: string;
-}
-
-export const DoctorContentTable = ({ doctors }: { doctors: DoctorRow[] }) => {
-  const { setSectionId } = React.useContext(SectionContext);
-
-  const MORE_INFO_MENU_LIST: MenuListType[] = [
-    {
-      icon: <EditPatientIcon defaultColor="#8C949D" selectedColor="#0D0C0C" />,
-      text: "Sửa hồ sơ",
-      onClick: () => {
-        setSectionId(SectionId.DOCTOR_DETAIL_PAGE);
-      },
-    },
-    {
-      icon: (
-        <RemovePatientIcon defaultColor="#8C949D" selectedColor="#0D0C0C" />
-      ),
-      text: "Xoá hồ sơ",
-    },
-  ];
-
+export const DoctorContentTable = ({ doctors }: { doctors: Doctor[] }) => {
   return (
     <Table
       sx={{ minWidth: 700, borderCollapse: "separate" }}
@@ -94,18 +63,14 @@ export const DoctorContentTable = ({ doctors }: { doctors: DoctorRow[] }) => {
             <StyledTableCell component="th" scope="row">
               {row.id}
             </StyledTableCell>
-            <StyledTableCell align="left">{row.name}</StyledTableCell>
+            <StyledTableCell align="left">{`${row.firstName} ${row.lastName}`}</StyledTableCell>
             <StyledTableCell align="left">
               <SexBox sex={row.sex} />
             </StyledTableCell>
             <StyledTableCell align="left">{row.dateOfBirth}</StyledTableCell>
             <StyledTableCell align="left">{row.phoneNumber}</StyledTableCell>
             <StyledTableCell align="left">
-              <DropDownMenu
-                Button={MoreInfoButton}
-                menuList={MORE_INFO_MENU_LIST}
-                customStyle={{ width: "207px" }}
-              />
+              <DoctorMoreInfoMenu doctorId={row.id} />
             </StyledTableCell>
           </StyledTableRow>
         ))}
@@ -119,12 +84,4 @@ const SexBox = ({ sex }: { sex: string }) => {
   const text = sex === "Male" ? "Nam" : "Nữ";
 
   return <div className={className}>{text}</div>;
-};
-
-const MoreInfoButton = ({ onClick }: { onClick: any }) => {
-  return (
-    <IconButton sx={{ height: "100%" }} onClick={onClick}>
-      <MorePatientInfoIcon />
-    </IconButton>
-  );
 };

@@ -7,9 +7,11 @@ import { DoctorListPage } from "./mainPage/doctor/DoctorListPage";
 import { DoctorDetailPage } from "./mainPage/doctor/doctor-detail/DoctorDetailPage";
 import { SectionContext } from "./context/SectionContext";
 import "./app.css";
+import { DoctorContext } from "./context/DoctorContext";
+import { DoctorContent } from "./mainPage/doctor/DoctorContent";
 
 // Used to define if a section is invisible
-const visibilityClassnameFactory = (
+export const visibilityClassnameFactory = (
   sectionId: string,
   currentSectionId: string
 ) => {
@@ -35,24 +37,7 @@ function App() {
             >
               <MainPageContent />
             </section>
-            <section
-              id={SectionId.DOCTOR_LIST_PAGE}
-              className={visibilityClassnameFactory(
-                sectionId,
-                SectionId.DOCTOR_LIST_PAGE
-              )}
-            >
-              <DoctorListPage />
-            </section>
-            <section
-              id={SectionId.DOCTOR_DETAIL_PAGE}
-              className={visibilityClassnameFactory(
-                sectionId,
-                SectionId.DOCTOR_DETAIL_PAGE
-              )}
-            >
-              <DoctorDetailPage />
-            </section>
+            <DoctorContent />
           </div>
         </div>
       </div>

@@ -57,14 +57,25 @@ export type MenuListType = {
   onClick?: any;
 };
 
-enum Sex {
+enum SexText {
   MALE = "Nam",
   FEMALE = "Nữ",
 }
 
-export const SexDropDown = () => {
+enum SexOption {
+  MALE = "Male",
+  FEMALE = "Female",
+}
+
+export const SexDropDown = ({
+  sex,
+  setSex,
+}: {
+  sex: string;
+  setSex: Function;
+}) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [selectedOption, setSelectedOption] = React.useState<Sex>(Sex.MALE);
+  const selectedOption = sex === SexOption.MALE ? SexText.MALE : SexText.FEMALE;
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -73,7 +84,7 @@ export const SexDropDown = () => {
     setAnchorEl(null);
   };
   const handleClickOption = (option: any) => {
-    setSelectedOption(option);
+    setSex(option);
     handleClose();
   };
 
@@ -97,11 +108,17 @@ export const SexDropDown = () => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => handleClickOption(Sex.MALE)} disableRipple>
-          {Sex.MALE}
+        <MenuItem
+          onClick={() => handleClickOption(SexOption.MALE)}
+          disableRipple
+        >
+          {SexText.MALE}
         </MenuItem>
-        <MenuItem onClick={() => handleClickOption(Sex.FEMALE)} disableRipple>
-          {Sex.FEMALE}
+        <MenuItem
+          onClick={() => handleClickOption(SexOption.FEMALE)}
+          disableRipple
+        >
+          {SexText.FEMALE}
         </MenuItem>
       </StyledMenu>
     </div>
