@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import { Doctor, DoctorContext } from "../../context/DoctorContext";
 import { DoctorMoreInfoMenu } from "./DoctorMoreInfoMenu";
 import { DeleteConfimModal } from "../../components/DeleteConfirmModal";
+import { useNavigate } from "react-router";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -29,6 +30,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:first-child td, &:first-child th": {
     paddingTop: "24px",
   },
+  "&:hover": {
+    backgroundColor: "#f6f6f9",
+    cursor: "pointer",
+  },
 }));
 
 export const DoctorContentTable = ({ doctors }: { doctors: Doctor[] }) => {
@@ -36,6 +41,7 @@ export const DoctorContentTable = ({ doctors }: { doctors: Doctor[] }) => {
     React.useState(false);
   const [toDeleteDoctorId, setToDeleteDoctorId] = React.useState("");
   const { setDoctors } = React.useContext(DoctorContext);
+  const navigate = useNavigate();
 
   const onClickOpenDeleteConfirmModal = (doctorId: string) => () => {
     setToDeleteDoctorId(doctorId);
@@ -47,6 +53,10 @@ export const DoctorContentTable = ({ doctors }: { doctors: Doctor[] }) => {
       prev.filter((doctor) => doctor.id !== toDeleteDoctorId)
     );
     setIsConfirmDeleteModalOpen(false);
+  };
+
+  const onClickDoctorRow = (doctorId: string) => {
+    navigate(`/doctors/edit-doctor/${doctorId}`);
   };
 
   return (
@@ -84,7 +94,7 @@ export const DoctorContentTable = ({ doctors }: { doctors: Doctor[] }) => {
       </TableHead>
       <TableBody>
         {doctors.map((row) => (
-          <StyledTableRow key={row.id}>
+          <StyledTableRow key={row.id} onClick={() => onClickDoctorRow(row.id)}>
             <StyledTableCell component="th" scope="row">
               {row.id}
             </StyledTableCell>
