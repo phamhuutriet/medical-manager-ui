@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { SearchIcon } from "../../img/svg/SearchIcon";
 import { PaginationBar } from "../content/PaginationBar";
@@ -12,6 +12,10 @@ export const DoctorItemList = () => {
   const maxRowPerPage = 8;
   const [curPage, setCurPage] = useState(0);
   const numOfPages = Math.ceil(doctors.length / maxRowPerPage);
+
+  useEffect(() => {
+    setCurrentDoctors(doctors);
+  }, [doctors]);
 
   const onClickPage = (pageIdx: number) => {
     setCurPage(pageIdx);

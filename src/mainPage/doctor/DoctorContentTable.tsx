@@ -5,8 +5,9 @@ import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { Doctor } from "../../context/DoctorContext";
+import { Doctor, DoctorContext } from "../../context/DoctorContext";
 import { DoctorMoreInfoMenu } from "./DoctorMoreInfoMenu";
+import { DeleteConfimModal } from "./DeleteConfirmModal";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -31,11 +32,35 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export const DoctorContentTable = ({ doctors }: { doctors: Doctor[] }) => {
+  const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
+    React.useState(false);
+  const [toDeleteDoctorId, setToDeleteDoctorId] = React.useState("");
+  const { setDoctors } = React.useContext(DoctorContext);
+
+  const onClickOpenDeleteConfirmModal = (doctorId: string) => () => {
+    setToDeleteDoctorId(doctorId);
+    setIsConfirmDeleteModalOpen(true);
+  };
+
+  const onClickConfirmDelete = () => {
+    setDoctors((prev: Doctor[]) =>
+      prev.filter((doctor) => doctor.id !== toDeleteDoctorId)
+    );
+    setIsConfirmDeleteModalOpen(false);
+  };
+
   return (
     <Table
       sx={{ minWidth: 700, borderCollapse: "separate" }}
       aria-label="customized table"
     >
+      <DeleteConfimModal
+        open={isConfirmDeleteModalOpen}
+        handleClose={() => setIsConfirmDeleteModalOpen(false)}
+        onClickConfirmDelete={onClickConfirmDelete}
+        title="Xoá hồ sơ bác sĩ"
+        innerText="Bạn có chắc muốn xoá hồ sơ bác sĩ này không?"
+      />
       <TableHead
         sx={{
           "& th:first-child": {
@@ -70,7 +95,10 @@ export const DoctorContentTable = ({ doctors }: { doctors: Doctor[] }) => {
             <StyledTableCell align="left">{row.dateOfBirth}</StyledTableCell>
             <StyledTableCell align="left">{row.phoneNumber}</StyledTableCell>
             <StyledTableCell align="left">
-              <DoctorMoreInfoMenu doctorId={row.id} />
+              <DoctorMoreInfoMenu
+                doctorId={row.id}
+                openDeleteConfirmModal={onClickOpenDeleteConfirmModal(row.id)}
+              />
             </StyledTableCell>
           </StyledTableRow>
         ))}

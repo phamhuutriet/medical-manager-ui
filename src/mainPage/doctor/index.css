@@ -1,0 +1,36 @@
+.delete-confirm-modal .MuiBox-root {
+  border-radius: 8px;
+  padding: 24px 24px 24px 24px;
+  width: 552px;
+  height: 232px;
+  border: 0px;
+}
+
+.cancel-delete-confirm-button {
+  padding: 0 0 0 0;
+  width: 264px;
+  height: 48px;
+  border: 1px #586ee0 solid;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cancel-delete-confirm-button .button-inner {
+  color: #586ee0;
+  font-size: 16px;
+}
+
+.cancel-delete-confirm-button:hover {
+  background-color: #e5e9fa;
+}
+
+.delete-confirm-button {
+  padding: 0 0 0 0;
+  width: 264px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
