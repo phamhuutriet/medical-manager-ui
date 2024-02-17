@@ -37,6 +37,7 @@ export const PaginationBar = ({
       {pageElements.map((value, idx) => {
         return (
           <Button
+            key={idx}
             onClick={() => onClickPage(idx)}
             text={(idx + 1).toString()}
             className={

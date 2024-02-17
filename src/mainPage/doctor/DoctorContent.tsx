@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { DoctorListPage } from "./DoctorListPage";
 import { DoctorDetailPage } from "./doctor-detail/DoctorDetailPage";
 import { Doctor, DoctorContext } from "../../context/DoctorContext";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import mockDoctors from "../../mock-data/mock_doctor.json";
 import { RouteEnum } from "../../data/routeEnum";
 import dayjs from "dayjs";
+import { AddDoctorPage } from "./add-doctor/AddDoctorPage";
 
 function createRowData(
   id: string,
@@ -50,6 +52,7 @@ export const DoctorContent = () => {
           path={RouteEnum.EDIT_DOCTOR_PAGE}
           element={<DoctorDetailPage />}
         />
+        <Route path={RouteEnum.ADD_DOCTOR_PAGE} element={<AddDoctorPage />} />
       </Routes>
     </DoctorContext.Provider>
   );

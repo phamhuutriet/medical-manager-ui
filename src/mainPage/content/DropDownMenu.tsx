@@ -97,6 +97,7 @@ export const DropDownMenu = ({
       >
         {menuList.map((menuItem: MenuListType, index: number) => (
           <MenuItem
+            key={index}
             onClick={() => {
               handleClose();
               if (menuItem.onClick) {

@@ -1,47 +1,45 @@
 import React, { useContext, useState } from "react";
-import { BirthBox, NameBox, PhoneNumberBox } from "./NameBox";
+import { AvatarBox } from "../doctor-detail/AvatarBox";
+import { BirthBox, NameBox, PhoneNumberBox } from "../doctor-detail/NameBox";
 import { Button } from "../../../components/Button";
-import { SexDropDown } from "./SexDropDown";
-import { Doctor, DoctorContext } from "../../../context/DoctorContext";
+import { SexDropDown } from "../doctor-detail/SexDropDown";
+import { DoctorContext } from "../../../context/DoctorContext";
 import { useNavigate } from "react-router";
 import { RouteEnum } from "../../../data/routeEnum";
 import "./index.css";
-import { AvatarBox } from "./AvatarBox";
 
-export const DoctorDetailContent = () => {
+const VALID_KEYS = [
+  "firstName",
+  "lastName",
+  "sex",
+  "dateOfBirth",
+  "phoneNumber",
+];
+
+export const AddDoctorPageContent = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
-  const { doctorId, doctors, setDoctors } = useContext(DoctorContext);
-  const currentDoctor = doctors.find((doctor) => doctor.id === doctorId);
-  const [doctor, setDoctor] = useState<Doctor | undefined>(currentDoctor);
+  const { doctors, setDoctors } = useContext(DoctorContext);
+  const [doctor, setDoctor] = useState<any>();
+  const doctorKeys = Object.keys(doctor ? doctor : {});
+  const isValidDoctor = VALID_KEYS.every((key) => doctorKeys.includes(key));
   const navigate = useNavigate();
+
+  console.log("Is valid doctor: ", isValidDoctor, doctor);
 
   const setAttribute = (attribute: string) => {
     return (value: any) => {
-      if (doctor) {
-        setDoctor({ ...doctor, [attribute]: value });
-      }
+      setDoctor({ ...doctor, [attribute]: value });
     };
   };
 
   const saveDoctor = () => {
-    setDoctors(
-      doctors.map((doctorItem) => {
-        if (doctor && doctorItem.id === doctor.id) {
-          return doctor;
-        }
-        return doctorItem;
-      })
-    );
+    setDoctors([...doctors, doctor]);
     navigate(RouteEnum.DOCTOR_PAGE);
   };
 
   const cancelEditDoctor = () => {
     navigate(RouteEnum.DOCTOR_PAGE);
   };
-
-  if (!doctor) {
-    return <>Error no doctor</>;
-  }
 
   return (
     <div>
@@ -52,9 +50,12 @@ export const DoctorDetailContent = () => {
           setFirstName={setAttribute("firstName")}
           setLastName={setAttribute("lastName")}
         />
-        <SexDropDown sex={doctor.sex} setSex={setAttribute("sex")} />
+        <SexDropDown
+          sex={doctor ? doctor.sex : ""}
+          setSex={setAttribute("sex")}
+        />
         <BirthBox
-          dateOfBirth={doctor.dateOfBirth}
+          dateOfBirth={doctor ? doctor.dateOfBirth : "02 / 01 / 1991"}
           setDateOfBirth={setAttribute("dateOfBirth")}
           isCalendarOpen={isCalendarOpen}
           setIsCalendarOpen={setIsCalendarOpen}
@@ -62,18 +63,24 @@ export const DoctorDetailContent = () => {
         <PhoneNumberBox
           isIconDisplay={!isCalendarOpen}
           setPhoneNumber={setAttribute("phoneNumber")}
-          doctorPhoneNumber={doctor.phoneNumber}
+          doctorPhoneNumber={doctor ? doctor.phoneNumber : ""}
         />
       </div>
-      <ButtonsBox saveDoctor={saveDoctor} cancelEditDoctor={cancelEditDoctor} />
+      <ButtonsBox
+        isValidDoctor={isValidDoctor}
+        saveDoctor={saveDoctor}
+        cancelEditDoctor={cancelEditDoctor}
+      />
     </div>
   );
 };
 
 const ButtonsBox = ({
+  isValidDoctor,
   saveDoctor,
   cancelEditDoctor,
 }: {
+  isValidDoctor: boolean;
   saveDoctor: Function;
   cancelEditDoctor: Function;
 }) => {
@@ -86,10 +93,11 @@ const ButtonsBox = ({
         innerButtonClassName="cancel-button-inner"
       />
       <Button
-        text="Lưu"
+        text="Thêm bác sĩ"
         className="save-button"
         onClick={saveDoctor}
         innerButtonClassName="save-button-inner"
+        disable={!isValidDoctor}
       />
     </div>
   );

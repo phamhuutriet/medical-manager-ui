@@ -11,7 +11,7 @@ export const NameBox = ({
   setFirstName,
   setLastName,
 }: {
-  doctor: Doctor;
+  doctor?: Doctor;
   setFirstName: Function;
   setLastName: Function;
 }) => {
@@ -21,8 +21,9 @@ export const NameBox = ({
         <div className="title">Họ</div>
         <div className="content">
           <input
-            value={doctor.firstName}
+            value={doctor ? doctor.firstName : ""}
             className="content-input"
+            placeholder="Họ"
             onChange={(e) => setFirstName(e.target.value)}
           />
           <IconButton>
@@ -34,8 +35,9 @@ export const NameBox = ({
         <div className="title">Tên</div>
         <div className="content">
           <input
-            value={doctor.lastName}
+            value={doctor ? doctor.lastName : ""}
             className="content-input"
+            placeholder="Tên"
             onChange={(e) => setLastName(e.target.value)}
           />
           <IconButton>
@@ -59,6 +61,8 @@ export const BirthBox = ({
   setIsCalendarOpen: Function;
 }) => {
   const selectedDate = dayjs(dateOfBirth, "DD / MM / YYYY");
+  const defaultDate = dayjs("02 / 01 / 1991");
+
   const setSelectedDate = (newDate: Dayjs) => {
     setDateOfBirth(newDate.format("DD / MM / YYYY"));
   };
@@ -69,7 +73,11 @@ export const BirthBox = ({
         <div className="title">Ngày sinh</div>
         <div className="content">
           <div style={{ width: "100%" }}>
-            {selectedDate.format("DD / MM / YYYY")}
+            {dateOfBirth ? (
+              selectedDate.format("DD / MM / YYYY")
+            ) : (
+              <div style={{ color: "#8c949d" }}>DD / MM / YYYY</div>
+            )}
           </div>
           <IconButton
             sx={{ height: "100%" }}
@@ -79,7 +87,7 @@ export const BirthBox = ({
           </IconButton>
         </div>
         <BirthCalendar
-          selectedDate={selectedDate}
+          selectedDate={dateOfBirth ? selectedDate : defaultDate}
           setSelectedDate={setSelectedDate}
           isCalendarOpen={isCalendarOpen}
         />
@@ -104,6 +112,7 @@ export const PhoneNumberBox = ({
         <div className="content">
           <input
             value={doctorPhoneNumber}
+            placeholder="+84 999 999 999"
             className="content-input"
             onChange={(e) => setPhoneNumber(e.target.value)}
           />

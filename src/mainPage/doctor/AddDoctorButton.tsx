@@ -2,8 +2,11 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Menu, { MenuProps } from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { IconButton } from "@mui/material";
-import { ArrowDownIcon } from "../../../img/svg/ArrowDownIcon";
+import { useNavigate } from "react-router";
+import { RouteEnum } from "../../data/routeEnum";
+import { Button } from "../../components/Button";
+import { ArrowDownIcon } from "../../img/svg/ArrowDownIcon";
+import { AddDoctorIcon } from "../../img/svg/AddDoctorIcon";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -51,31 +54,38 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
-export type MenuListType = {
-  icon: any;
-  text: string;
-  onClick?: any;
+const AddButton = ({ onClick }: { onClick?: any }) => {
+  const [isClicked, setIsClicked] = React.useState(false);
+
+  const onMouseLeaveCall = () => {
+    setIsClicked(false);
+  };
+
+  const onClickButton = (event: any) => {
+    onClick(event);
+    setIsClicked(true);
+  };
+
+  return (
+    <div onMouseLeave={onMouseLeaveCall}>
+      <Button
+        onClick={onClickButton}
+        text="Thêm"
+        icon={<ArrowDownIcon defaultColor="white" selectedColor="white" />}
+        isClicked={isClicked}
+      />
+    </div>
+  );
 };
 
-enum SexText {
-  MALE = "Nam",
-  FEMALE = "Nữ",
+enum AddDoctorButtonOptions {
+  ADD = "Thêm bác sĩ",
 }
 
-enum SexOption {
-  MALE = "Male",
-  FEMALE = "Female",
-}
-
-export const SexDropDown = ({
-  sex,
-  setSex,
-}: {
-  sex: string;
-  setSex: Function;
-}) => {
+export const AddDoctorButton = () => {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const selectedOption = sex === SexOption.MALE ? SexText.MALE : SexText.FEMALE;
+  const [selectedOption, setSelectedOption] = React.useState("");
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -83,29 +93,20 @@ export const SexDropDown = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleClickOption = (option: any) => {
-    setSex(option);
+  const handleMouseEnter = (option: string) => {
+    setSelectedOption(option);
+  };
+  const handleMouseLeave = () => {
+    setSelectedOption("");
+  };
+  const onClickAddDoctorOption = () => {
     handleClose();
+    navigate(RouteEnum.ADD_DOCTOR_PAGE);
   };
 
   return (
-    <div className="box">
-      <div className="box-item">
-        <div className="title">Giới tính</div>
-        <div className="content">
-          {sex ? (
-            <div style={{ width: "100%" }}>{selectedOption}</div>
-          ) : (
-            <div style={{ width: "100%", color: "#8C949D" }}>
-              Chọn giới tính
-            </div>
-          )}
-
-          <IconButton sx={{ height: "100%" }} onClick={handleClick}>
-            <ArrowDownIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />
-          </IconButton>
-        </div>
-      </div>
+    <div>
+      <AddButton onClick={handleClick} />
       <StyledMenu
         id="demo-customized-menu"
         MenuListProps={{
@@ -116,16 +117,17 @@ export const SexDropDown = ({
         onClose={handleClose}
       >
         <MenuItem
-          onClick={() => handleClickOption(SexOption.MALE)}
+          onClick={onClickAddDoctorOption}
           disableRipple
+          onMouseEnter={() => handleMouseEnter(AddDoctorButtonOptions.ADD)}
+          onMouseLeave={handleMouseLeave}
         >
-          {SexText.MALE}
-        </MenuItem>
-        <MenuItem
-          onClick={() => handleClickOption(SexOption.FEMALE)}
-          disableRipple
-        >
-          {SexText.FEMALE}
+          <AddDoctorIcon
+            defaultColor="#8C949D"
+            selectedColor="#0D0C0C"
+            isSelected={selectedOption === AddDoctorButtonOptions.ADD}
+          />
+          {AddDoctorButtonOptions.ADD}
         </MenuItem>
       </StyledMenu>
     </div>
