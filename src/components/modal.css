@@ -1,4 +1,4 @@
-.delete-confirm-modal .MuiBox-root {
+.confirm-modal .MuiBox-root {
   border-radius: 8px;
   padding: 24px 24px 24px 24px;
   width: 552px;
@@ -6,7 +6,7 @@
   border: 0px;
 }
 
-.cancel-delete-confirm-button {
+.cancel-confirm-button {
   padding: 0 0 0 0;
   width: 264px;
   height: 48px;
@@ -17,16 +17,16 @@
   align-items: center;
 }
 
-.cancel-delete-confirm-button .button-inner {
+.cancel-confirm-button .button-inner {
   color: #586ee0;
   font-size: 16px;
 }
 
-.cancel-delete-confirm-button:hover {
+.cancel-confirm-button:hover {
   background-color: #e5e9fa;
 }
 
-.delete-confirm-button {
+.confirm-button {
   padding: 0 0 0 0;
   width: 264px;
   height: 48px;

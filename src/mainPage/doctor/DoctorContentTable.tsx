@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Doctor, DoctorContext } from "../../context/DoctorContext";
 import { DoctorMoreInfoMenu } from "./DoctorMoreInfoMenu";
-import { DeleteConfimModal } from "./DeleteConfirmModal";
+import { DeleteConfimModal } from "../../components/DeleteConfirmModal";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

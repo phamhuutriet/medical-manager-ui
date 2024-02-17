@@ -1,9 +1,9 @@
 import React from "react";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
-import { Button } from "../../components/Button";
-import "./index.css";
-import { ExclamationMark } from "../../img/svg/ExclamationMark";
+import { Button } from "./Button";
+import { ExclamationMark } from "../img/svg/ExclamationMark";
+import "./modal.css";
 
 const style = {
   position: "absolute" as "absolute",
@@ -35,7 +35,7 @@ export const DeleteConfimModal = ({
   innerText: string;
 }) => {
   return (
-    <Modal className="delete-confirm-modal" open={open} onClose={handleClose}>
+    <Modal className="confirm-modal" open={open} onClose={handleClose}>
       <Box sx={style}>
         <div
           style={{
@@ -63,13 +63,13 @@ export const DeleteConfimModal = ({
         >
           <Button
             text="Hủy"
-            className="cancel-delete-confirm-button"
+            className="cancel-confirm-button"
             onClick={handleClose}
             innerButtonClassName="cancel-button-inner"
           />
           <Button
             text="Xoá"
-            className="delete-confirm-button"
+            className="confirm-button"
             onClick={onClickConfirmDelete}
             innerButtonClassName="cancel-button-inner"
           />

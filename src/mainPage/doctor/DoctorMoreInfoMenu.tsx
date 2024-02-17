@@ -7,9 +7,6 @@ import { MorePatientInfoIcon } from "../../img/svg/MorePatientInfoIcon";
 import { EditPatientIcon } from "../../img/svg/EditPatientIcon";
 import { RemovePatientIcon } from "../../img/svg/RemovePatientIcon";
 import { useNavigate } from "react-router";
-import { DoctorContext } from "../../context/DoctorContext";
-import { RouteEnum } from "../../data/routeEnum";
-import { DeleteConfimModal } from "./DeleteConfirmModal";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -80,8 +77,6 @@ export const DoctorMoreInfoMenu = ({
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [selectedOption, setSelectedOption] = React.useState("");
-  const { setDoctors, doctors } = React.useContext(DoctorContext);
-
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -99,8 +94,6 @@ export const DoctorMoreInfoMenu = ({
     navigate(`/doctors/edit-doctor/${doctorId}`);
   };
   const onClickDeleteDoctor = () => {
-    // setDoctors(doctors.filter((doctor) => doctor.id !== doctorId));
-    // navigate(RouteEnum.DOCTOR_PAGE);
     openDeleteConfirmModal();
   };
 

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import { RouteEnum } from "../../../data/routeEnum";
 import "./index.css";
 import { AddDoctorAvatarBox } from "./AddDoctorAvatarBox";
+import { AddSuccessfulModal } from "../../../components/AddSuccessfulModal";
 
 const VALID_KEYS = [
   "firstName",
@@ -22,6 +23,8 @@ export const AddDoctorPageContent = () => {
   const [doctor, setDoctor] = useState<any>();
   const doctorKeys = Object.keys(doctor ? doctor : {});
   const isValidDoctor = VALID_KEYS.every((key) => doctorKeys.includes(key));
+  const [isAddSuccessfulModalOpen, setIsAddSuccessfulModalOpen] =
+    useState(false);
   const navigate = useNavigate();
 
   const setAttribute = (attribute: string) => {
@@ -31,8 +34,10 @@ export const AddDoctorPageContent = () => {
   };
 
   const saveDoctor = () => {
-    setDoctors([...doctors, doctor]);
-    navigate(RouteEnum.DOCTOR_PAGE);
+    // TODO: Call api to get doctor id here
+    const newDoctor = { ...doctor, id: "1" };
+    setDoctors([...doctors, newDoctor]);
+    setIsAddSuccessfulModalOpen(true);
   };
 
   const cancelEditDoctor = () => {
@@ -41,6 +46,16 @@ export const AddDoctorPageContent = () => {
 
   return (
     <div>
+      <AddSuccessfulModal
+        open={isAddSuccessfulModalOpen}
+        handleClose={() => setIsAddSuccessfulModalOpen(false)}
+        handleRedirect={() => navigate(RouteEnum.DOCTOR_PAGE)}
+        onClickConfirm={() => {}}
+        title="Thêm bác sĩ thành công"
+        innerText="Chúc mừng bạn đã tạo hồ sơ bác sĩ thành công"
+        leftButtonText="Về danh sách bác sĩ"
+        rightButtonText="Xem chi tiết"
+      />
       <div className="doctor-detail-content">
         <AddDoctorAvatarBox />
         <NameBox
