@@ -3,14 +3,15 @@ import { BirthBox, NameBox, PhoneNumberBox } from "./NameBox";
 import { Button } from "../../../components/Button";
 import { SexDropDown } from "./SexDropDown";
 import { Doctor, DoctorContext } from "../../../context/DoctorContext";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { RouteEnum } from "../../../data/routeEnum";
 import "./index.css";
 import { AvatarBox } from "./AvatarBox";
 
 export const DoctorDetailContent = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
-  const { doctorId, doctors, setDoctors } = useContext(DoctorContext);
+  const { doctorId } = useParams();
+  const { doctors, setDoctors } = useContext(DoctorContext);
   const currentDoctor = doctors.find((doctor) => doctor.id === doctorId);
   const [doctor, setDoctor] = useState<Doctor | undefined>(currentDoctor);
   const navigate = useNavigate();

@@ -8,9 +8,11 @@ export const AddDoctorAvatarBox = () => {
     <div className="avatar-text">
       Ảnh đại diện
       <div className="avatar-box">
-        <IconButton>
-          <UploadImage />
-        </IconButton>
+        <div className="upload-image-button">
+          <IconButton>
+            <UploadImage />
+          </IconButton>
+        </div>
         <div className="avatar-buttons">
           <Button text="Tải lên" className="add-doctor-upload-image-button" />
         </div>

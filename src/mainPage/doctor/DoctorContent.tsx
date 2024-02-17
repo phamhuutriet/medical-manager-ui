@@ -39,13 +39,10 @@ const MOCK_DOCTORS = mockDoctors.map((mockDoctor) =>
 );
 
 export const DoctorContent = () => {
-  const [doctorId, setDoctorId] = useState("");
   const [doctors, setDoctors] = useState<Doctor[]>(MOCK_DOCTORS);
 
   return (
-    <DoctorContext.Provider
-      value={{ doctorId, setDoctorId, doctors, setDoctors }}
-    >
+    <DoctorContext.Provider value={{ doctors, setDoctors }}>
       <Routes>
         <Route path={RouteEnum.DOCTOR_PAGE} element={<DoctorListPage />} />
         <Route

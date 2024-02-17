@@ -6,11 +6,7 @@ import { IconButton } from "@mui/material";
 import { MorePatientInfoIcon } from "../../img/svg/MorePatientInfoIcon";
 import { EditPatientIcon } from "../../img/svg/EditPatientIcon";
 import { RemovePatientIcon } from "../../img/svg/RemovePatientIcon";
-import { DoctorContext } from "../../context/DoctorContext";
-import { SectionContext } from "../../context/SectionContext";
-import { SectionId } from "../../data/sectionIdEnum";
 import { useNavigate } from "react-router";
-import { RouteEnum } from "../../data/routeEnum";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -75,7 +71,6 @@ export const DoctorMoreInfoMenu = ({ doctorId }: { doctorId: string }) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [selectedOption, setSelectedOption] = React.useState("");
-  const { setDoctorId } = React.useContext(DoctorContext);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -90,8 +85,7 @@ export const DoctorMoreInfoMenu = ({ doctorId }: { doctorId: string }) => {
     setSelectedOption("");
   };
   const onClickEditOption = () => {
-    setDoctorId(doctorId);
-    navigate(RouteEnum.EDIT_DOCTOR_PAGE);
+    navigate(`/doctors/edit-doctor/${doctorId}`);
   };
 
   return (
