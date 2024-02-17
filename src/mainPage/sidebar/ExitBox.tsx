@@ -1,16 +1,25 @@
 import React from "react";
-import LogoutIcon from "../../img/logout.svg";
+import { LogoutIcon } from "../../img/svg/LogoutIcon";
+import { TabItem, TabItemIconOnly } from "./TabIcons";
 import "./index.css";
 
-export const ExitBox = () => {
+export const ExitBox = ({ isCollapsed }: { isCollapsed: boolean }) => {
   return (
     <div className="exit-box-container">
-      <div className="exit-box">
-        <div className="tab-item-inner">
-          <img className="img" alt="logo" src={LogoutIcon} />
-          <div className="tab-icon-text">Thoát</div>
-        </div>
-      </div>
+      {!isCollapsed ? (
+        <TabItem
+          icon={<LogoutIcon />}
+          tabName="Thoát"
+          isSelected={false}
+          onClick={() => {}}
+        />
+      ) : (
+        <TabItemIconOnly
+          icon={<LogoutIcon />}
+          isSelected={false}
+          onClick={() => {}}
+        />
+      )}
     </div>
   );
 };

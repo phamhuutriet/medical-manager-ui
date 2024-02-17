@@ -25,15 +25,6 @@
   background: #e5e9fa;
 }
 
-.exit-box {
-  width: 100%;
-  color: #8c949d;
-  height: 5.46vh;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  border-radius: 8px;
-}
-
 .exit-box-container {
   position: absolute;
   margin-left: 16px;
@@ -41,6 +32,7 @@
   left: 0;
   right: 0;
   bottom: 32px;
+  color: #8c949d;
 }
 
 .tab-item-inner {
@@ -62,4 +54,33 @@
   height: auto;
   display: flex;
   flex-direction: column;
+}
+
+.collapse-button {
+  position: absolute;
+  top: 50vh;
+  right: -12px;
+}
+
+.collapse-button:hover {
+  cursor: pointer;
+}
+
+.tab-item-collapsed {
+  padding: 10px 8px 10px 8px;
+  border-radius: 12px;
+  width: 28px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-item-collapsed:hover {
+  color: #586ee0;
+  background: #e5e9fa;
+}
+
+.side-bar-container-collapsed {
+  width: 72px;
 }

@@ -18,7 +18,7 @@ const TAB_LIST = [
   },
 ];
 
-export const TabIcons = () => {
+export const TabIcons = ({ isCollapsed }: { isCollapsed: boolean }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const itemIdx = TAB_LIST.findIndex(
@@ -46,21 +46,30 @@ export const TabIcons = () => {
           gap: "1.5625vh",
         }}
       >
-        {TAB_LIST.map((tabItem, idx) => (
-          <TabItem
-            isSelected={idx === selectedItemIdx}
-            key={tabItem.route}
-            icon={tabItem.icon}
-            tabName={tabItem.tabName}
-            onClick={() => onClickTabItem(idx, tabItem.route)}
-          />
-        ))}
+        {TAB_LIST.map((tabItem, idx) => {
+          return !isCollapsed ? (
+            <TabItem
+              isSelected={idx === selectedItemIdx}
+              key={tabItem.route}
+              icon={tabItem.icon}
+              tabName={tabItem.tabName}
+              onClick={() => onClickTabItem(idx, tabItem.route)}
+            />
+          ) : (
+            <TabItemIconOnly
+              isSelected={idx === selectedItemIdx}
+              key={tabItem.route}
+              icon={tabItem.icon}
+              onClick={() => onClickTabItem(idx, tabItem.route)}
+            />
+          );
+        })}
       </div>
     </div>
   );
 };
 
-const TabItem = ({
+export const TabItem = ({
   icon,
   tabName,
   isSelected,
@@ -94,6 +103,39 @@ const TabItem = ({
         })}
         <div className="tab-icon-text">{tabName}</div>
       </div>
+    </div>
+  );
+};
+
+export const TabItemIconOnly = ({
+  icon,
+  isSelected,
+  onClick,
+}: {
+  icon: any;
+  isSelected?: boolean;
+  onClick: any;
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  return (
+    <div
+      className={`tab-item-collapsed ${isSelected ? "tab-item-selected" : ""}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+    >
+      {React.cloneElement(icon, {
+        isSelected: isHovered || isSelected,
+      })}
     </div>
   );
 };
