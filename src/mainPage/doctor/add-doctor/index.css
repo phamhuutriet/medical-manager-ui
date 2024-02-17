@@ -5,3 +5,27 @@
 .button-disable .button-inner {
   color: #8c949d !important;
 }
+
+.add-doctor-upload-image-button {
+  padding: 4px 8px 4px 8px !important;
+  width: 80px;
+  height: 20px;
+  border-radius: 1px;
+  border: 1px solid #586ee0;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-doctor-upload-image-button:hover {
+  background-color: #e5e9fa;
+}
+
+.add-doctor-upload-image-button .button-inner {
+  color: #586ee0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}

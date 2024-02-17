@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { AvatarBox } from "../doctor-detail/AvatarBox";
 import { BirthBox, NameBox, PhoneNumberBox } from "../doctor-detail/NameBox";
 import { Button } from "../../../components/Button";
 import { SexDropDown } from "../doctor-detail/SexDropDown";
@@ -7,6 +6,7 @@ import { DoctorContext } from "../../../context/DoctorContext";
 import { useNavigate } from "react-router";
 import { RouteEnum } from "../../../data/routeEnum";
 import "./index.css";
+import { AddDoctorAvatarBox } from "./AddDoctorAvatarBox";
 
 const VALID_KEYS = [
   "firstName",
@@ -23,8 +23,6 @@ export const AddDoctorPageContent = () => {
   const doctorKeys = Object.keys(doctor ? doctor : {});
   const isValidDoctor = VALID_KEYS.every((key) => doctorKeys.includes(key));
   const navigate = useNavigate();
-
-  console.log("Is valid doctor: ", isValidDoctor, doctor);
 
   const setAttribute = (attribute: string) => {
     return (value: any) => {
@@ -44,7 +42,7 @@ export const AddDoctorPageContent = () => {
   return (
     <div>
       <div className="doctor-detail-content">
-        <AvatarBox />
+        <AddDoctorAvatarBox />
         <NameBox
           doctor={doctor}
           setFirstName={setAttribute("firstName")}
@@ -55,7 +53,7 @@ export const AddDoctorPageContent = () => {
           setSex={setAttribute("sex")}
         />
         <BirthBox
-          dateOfBirth={doctor ? doctor.dateOfBirth : "02 / 01 / 1991"}
+          dateOfBirth={doctor ? doctor.dateOfBirth : ""}
           setDateOfBirth={setAttribute("dateOfBirth")}
           isCalendarOpen={isCalendarOpen}
           setIsCalendarOpen={setIsCalendarOpen}
