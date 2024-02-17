@@ -29,3 +29,13 @@
   justify-content: center;
   font-size: 14px;
 }
+
+.avatar-box .MuiButtonBase-root {
+  height: 64px;
+  width: 64px;
+  border-radius: 16px;
+  background-color: #f6f6f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

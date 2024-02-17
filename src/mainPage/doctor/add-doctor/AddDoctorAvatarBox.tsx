@@ -1,13 +1,16 @@
 import React from "react";
-import { Avatar } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { Button } from "../../../components/Button";
+import { UploadImage } from "../../../img/svg/UploadImage";
 
 export const AddDoctorAvatarBox = () => {
   return (
     <div className="avatar-text">
       Ảnh đại diện
       <div className="avatar-box">
-        <Avatar sx={{ height: "64px", width: "64px", borderRadius: "16px" }} />
+        <IconButton>
+          <UploadImage />
+        </IconButton>
         <div className="avatar-buttons">
           <Button text="Tải lên" className="add-doctor-upload-image-button" />
         </div>
