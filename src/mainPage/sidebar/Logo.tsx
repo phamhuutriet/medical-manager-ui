@@ -21,6 +21,7 @@ export const LogoComponent = ({ isCollapsed }: { isCollapsed: boolean }) => {
         style={{
           height: "64px",
           width: "152px",
+          transition: "height 0.3s, width 0.3s",
         }}
       />
     </div>
@@ -41,6 +42,7 @@ export const LogoComponent = ({ isCollapsed }: { isCollapsed: boolean }) => {
         style={{
           height: "24px",
           width: "57px",
+          transition: "height 0.3s, width 0.3s",
         }}
       />
     </div>
