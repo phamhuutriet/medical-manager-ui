@@ -13,7 +13,7 @@
   background: white;
   height: 56px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -35,4 +35,36 @@
 .text {
   font-size: 1.5625vh;
   font-family: Be Vietnam Pro;
+}
+
+.header-route-names {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  font-size: 16px;
+  font-family: Be Vietnam Pro;
+  height: 100%;
+}
+
+.header-route-text-container {
+  display: flex;
+  font-weight: 400;
+}
+
+.header-route-text-current-route {
+  color: #586ee0;
+}
+
+.header-route-text-non-current-route-container {
+  display: flex;
+  color: #8c949d;
+}
+
+.header-route-text-non-current-route {
+  color: #8c949d;
+}
+
+.header-route-text-non-current-route:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
