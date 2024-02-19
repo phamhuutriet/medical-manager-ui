@@ -1,11 +1,11 @@
 import React from "react";
 import { SideBar } from "./mainPage/sidebar/SideBar";
 import { Header } from "./mainPage/header/Header";
-import { MainPageContent } from "./mainPage/content/MainPageContent";
 import { DoctorContent } from "./mainPage/doctor/DoctorContent";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./app.css";
-import { RouteEnum } from "./data/routeEnum";
+import { PatientContent } from "./mainPage/content/PatientContent";
 
 function App() {
   return (
@@ -15,9 +15,7 @@ function App() {
           <SideBar />
           <div className="second-column">
             <Header />
-            <Routes>
-              <Route path={RouteEnum.MAIN_PAGE} element={<MainPageContent />} />
-            </Routes>
+            <PatientContent />
             <DoctorContent />
           </div>
         </div>

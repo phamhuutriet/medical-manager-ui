@@ -7,10 +7,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { IconButton } from "@mui/material";
 import "./index.css";
-import { DropDownMenu, MenuListType } from "./DropDownMenu";
+import { MenuListType } from "./DropDownMenu";
 import { EditPatientIcon } from "../../img/svg/EditPatientIcon";
 import { RemovePatientIcon } from "../../img/svg/RemovePatientIcon";
 import { MorePatientInfoIcon } from "../../img/svg/MorePatientInfoIcon";
+import { Patient } from "../../context/PatientContext";
+import { PatientMoreInfoMenu } from "./PatientMoreInfoMenu";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,15 +36,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export interface PatientRow {
-  id: string;
-  name: string;
-  sex: string;
-  dateOfBirth: string;
-  visitDate: string;
-}
-
-export const ContentTable = ({ patients }: { patients: PatientRow[] }) => {
+export const ContentTable = ({ patients }: { patients: Patient[] }) => {
+  console.log("PATIENTS: ", patients);
   return (
     <Table
       sx={{ minWidth: 700, borderCollapse: "separate" }}
@@ -72,22 +67,21 @@ export const ContentTable = ({ patients }: { patients: PatientRow[] }) => {
       </TableHead>
       <TableBody>
         {patients.map((row) => (
-          <StyledTableRow key={row.name}>
+          <StyledTableRow key={`${row.firstName} ${row.lastName}`}>
             <StyledTableCell component="th" scope="row">
               {row.id}
             </StyledTableCell>
-            <StyledTableCell align="left">{row.name}</StyledTableCell>
+            <StyledTableCell align="left">{`${row.firstName} ${row.lastName}`}</StyledTableCell>
             <StyledTableCell align="left">
-              <SexBox sex={row.sex} />
+              <SexBox sex={row.gender} />
             </StyledTableCell>
             <StyledTableCell align="left">{row.dateOfBirth}</StyledTableCell>
-            <StyledTableCell align="left">{row.visitDate}</StyledTableCell>
-            <StyledTableCell align="left">Lam Trung Hung</StyledTableCell>
+            <StyledTableCell align="left">{row.createdAt}</StyledTableCell>
+            <StyledTableCell align="left">{`${row.doctor.firstName} ${row.doctor.lastName}`}</StyledTableCell>
             <StyledTableCell align="left">
-              <DropDownMenu
-                Button={MoreInfoButton}
-                menuList={MORE_INFO_MENU_LIST}
-                customStyle={{ width: "207px" }}
+              <PatientMoreInfoMenu
+                patientId={row.id}
+                openDeleteConfirmModal={() => {}}
               />
             </StyledTableCell>
           </StyledTableRow>

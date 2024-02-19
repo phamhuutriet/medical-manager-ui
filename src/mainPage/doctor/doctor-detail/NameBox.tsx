@@ -6,12 +6,41 @@ import { BirthCalendar } from "./BirthCalendar";
 import dayjs, { Dayjs } from "dayjs";
 import { Doctor } from "../../../context/DoctorContext";
 
+export const TextInputBox = ({
+  entity,
+  setEntity,
+  boxTitle,
+  placeholder,
+}: {
+  entity: any;
+  setEntity: Function;
+  boxTitle: string;
+  placeholder: string;
+}) => {
+  return (
+    <div className="box-item">
+      <div className="title">{boxTitle}</div>
+      <div className="content">
+        <input
+          value={entity}
+          className="content-input"
+          placeholder={placeholder}
+          onChange={(e) => setEntity(e.target.value)}
+        />
+        <IconButton>
+          <EditPatientIcon defaultColor="#0D0C0C" selectedColor="#586EE0" />
+        </IconButton>
+      </div>
+    </div>
+  );
+};
+
 export const NameBox = ({
-  doctor,
+  entity,
   setFirstName,
   setLastName,
 }: {
-  doctor?: Doctor;
+  entity?: any;
   setFirstName: Function;
   setLastName: Function;
 }) => {
@@ -21,7 +50,7 @@ export const NameBox = ({
         <div className="title">Họ</div>
         <div className="content">
           <input
-            value={doctor ? doctor.firstName : ""}
+            value={entity ? entity.firstName : ""}
             className="content-input"
             placeholder="Họ"
             onChange={(e) => setFirstName(e.target.value)}
@@ -35,7 +64,7 @@ export const NameBox = ({
         <div className="title">Tên</div>
         <div className="content">
           <input
-            value={doctor ? doctor.lastName : ""}
+            value={entity ? entity.lastName : ""}
             className="content-input"
             placeholder="Tên"
             onChange={(e) => setLastName(e.target.value)}
@@ -97,11 +126,11 @@ export const BirthBox = ({
 };
 
 export const PhoneNumberBox = ({
-  doctorPhoneNumber,
+  phoneNumber,
   setPhoneNumber,
   isIconDisplay,
 }: {
-  doctorPhoneNumber: string;
+  phoneNumber: string;
   setPhoneNumber: Function;
   isIconDisplay: boolean;
 }) => {
@@ -111,7 +140,7 @@ export const PhoneNumberBox = ({
         <div className="title">Số điện thoại</div>
         <div className="content">
           <input
-            value={doctorPhoneNumber}
+            value={phoneNumber}
             placeholder="+84 999 999 999"
             className="content-input"
             onChange={(e) => setPhoneNumber(e.target.value)}

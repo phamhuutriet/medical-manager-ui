@@ -4,7 +4,7 @@ export interface Doctor {
   id: string;
   firstName: string;
   lastName: string;
-  sex: string;
+  gender: string;
   dateOfBirth: string;
   phoneNumber: string;
 }

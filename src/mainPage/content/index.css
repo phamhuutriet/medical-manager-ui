@@ -192,3 +192,8 @@
 .svg-icon:hover {
   stroke: #ff0000;
 }
+
+.note-box .content {
+  align-items: flex-start;
+  height: 96px !important;
+}

@@ -49,11 +49,11 @@ export const DoctorDetailContent = () => {
       <div className="doctor-detail-content">
         <AvatarBox />
         <NameBox
-          doctor={doctor}
+          entity={doctor}
           setFirstName={setAttribute("firstName")}
           setLastName={setAttribute("lastName")}
         />
-        <SexDropDown sex={doctor.sex} setSex={setAttribute("sex")} />
+        <SexDropDown sex={doctor.gender} setSex={setAttribute("sex")} />
         <BirthBox
           dateOfBirth={doctor.dateOfBirth}
           setDateOfBirth={setAttribute("dateOfBirth")}
@@ -63,7 +63,7 @@ export const DoctorDetailContent = () => {
         <PhoneNumberBox
           isIconDisplay={!isCalendarOpen}
           setPhoneNumber={setAttribute("phoneNumber")}
-          doctorPhoneNumber={doctor.phoneNumber}
+          phoneNumber={doctor.phoneNumber}
         />
       </div>
       <ButtonsBox saveDoctor={saveDoctor} cancelEditDoctor={cancelEditDoctor} />

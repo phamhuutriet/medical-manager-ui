@@ -13,7 +13,7 @@ function createRowData(
   id: string,
   firstName: string,
   lastName: string,
-  sex: string,
+  gender: string,
   dateOfBirth: string,
   phoneNumber: string
 ) {
@@ -21,7 +21,7 @@ function createRowData(
     id,
     firstName,
     lastName,
-    sex,
+    gender,
     dateOfBirth: dayjs(dateOfBirth).format("DD / MM / YYYY"),
     phoneNumber,
   };

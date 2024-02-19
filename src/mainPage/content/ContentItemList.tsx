@@ -6,27 +6,52 @@ import "./index.css";
 import { SearchIcon } from "../../img/svg/SearchIcon";
 import { PaginationBar } from "./PaginationBar";
 import { FilterButtonMenu } from "./FilterButton";
+import { Doctor } from "../../context/DoctorContext";
+import { Patient } from "../../context/PatientContext";
 
-function createRowData(
+const createRowData = (
   id: string,
-  name: string,
-  sex: string,
+  firstName: string,
+  lastName: string,
+  gender: string,
   dateOfBirth: string,
-  visitDate: string
-  // doctor: string
-) {
-  return { id, name, sex, dateOfBirth, visitDate };
-}
+  createdAt: string,
+  doctor: Doctor,
+  note: string,
+  allergies: string[],
+  address: string,
+  phoneNumber: string
+): Patient => {
+  return {
+    id,
+    firstName,
+    lastName,
+    gender,
+    dateOfBirth,
+    createdAt,
+    doctor,
+    note,
+    allergies,
+    address,
+    phoneNumber,
+  };
+};
 
 const patients = mockPatients
   .slice(0, 10)
   .map((mockPatient) =>
     createRowData(
       mockPatient.id,
-      mockPatient.name,
+      mockPatient.firstName,
+      mockPatient.lastName,
       mockPatient.gender,
       mockPatient.dateOfBirth,
-      mockPatient.createdAt
+      mockPatient.createdAt,
+      mockPatient.doctor,
+      mockPatient.note,
+      mockPatient.allergies,
+      mockPatient.address,
+      mockPatient.phoneNumber
     )
   );
 

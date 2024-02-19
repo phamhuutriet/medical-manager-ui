@@ -59,7 +59,7 @@ export const AddDoctorPageContent = () => {
       <div className="doctor-detail-content">
         <AddDoctorAvatarBox />
         <NameBox
-          doctor={doctor}
+          entity={doctor}
           setFirstName={setAttribute("firstName")}
           setLastName={setAttribute("lastName")}
         />
@@ -76,7 +76,7 @@ export const AddDoctorPageContent = () => {
         <PhoneNumberBox
           isIconDisplay={!isCalendarOpen}
           setPhoneNumber={setAttribute("phoneNumber")}
-          doctorPhoneNumber={doctor ? doctor.phoneNumber : ""}
+          phoneNumber={doctor ? doctor.phoneNumber : ""}
         />
       </div>
       <ButtonsBox

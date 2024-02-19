@@ -5,6 +5,7 @@ import { DoctorIcon } from "../../img/svg/DoctorIcon";
 import { useLocation, useNavigate } from "react-router";
 import { RouteEnum } from "../../data/routeEnum";
 
+// MUST SORT BY ROUTE LENGTH -> matching route and tab icon
 const TAB_LIST = [
   {
     icon: <HomeIcon defaultColor="#A5A7AF" selectedColor="#3D57DB" />,
@@ -21,9 +22,15 @@ const TAB_LIST = [
 export const TabIcons = ({ isCollapsed }: { isCollapsed: boolean }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const itemIdx = TAB_LIST.findIndex(
-    (item) => item.route === location.pathname
-  );
+  let itemIdx;
+
+  for (let i = 0; i < TAB_LIST.length; i++) {
+    const item = TAB_LIST[i];
+    if (location.pathname.includes(item.route)) {
+      itemIdx = i;
+    }
+  }
+
   const [selectedItemIdx, setSelectedItemIdx] = useState(itemIdx ? itemIdx : 0);
 
   const onClickTabItem = (idx: number, route: RouteEnum) => {
