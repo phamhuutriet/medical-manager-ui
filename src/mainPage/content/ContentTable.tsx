@@ -5,14 +5,9 @@ import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { IconButton } from "@mui/material";
-import "./index.css";
-import { MenuListType } from "./DropDownMenu";
-import { EditPatientIcon } from "../../img/svg/EditPatientIcon";
-import { RemovePatientIcon } from "../../img/svg/RemovePatientIcon";
-import { MorePatientInfoIcon } from "../../img/svg/MorePatientInfoIcon";
 import { Patient } from "../../context/PatientContext";
 import { PatientMoreInfoMenu } from "./PatientMoreInfoMenu";
+import "./index.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -97,22 +92,3 @@ const SexBox = ({ sex }: { sex: string }) => {
 
   return <div className={className}>{text}</div>;
 };
-
-const MoreInfoButton = ({ onClick }: { onClick: any }) => {
-  return (
-    <IconButton sx={{ height: "100%" }} onClick={onClick}>
-      <MorePatientInfoIcon />
-    </IconButton>
-  );
-};
-
-const MORE_INFO_MENU_LIST: MenuListType[] = [
-  {
-    icon: <EditPatientIcon defaultColor="#8C949D" selectedColor="#0D0C0C" />,
-    text: "Sửa hồ sơ",
-  },
-  {
-    icon: <RemovePatientIcon defaultColor="#8C949D" selectedColor="#0D0C0C" />,
-    text: "Xoá hồ sơ",
-  },
-];

@@ -41,7 +41,7 @@ export const Button = ({
       onClick={!disable ? onClickButton : () => {}}
     >
       <div className={`button-inner ${innerButtonClassName}`}>
-        <div>{text}</div>
+        <div style={{ display: "flex", alignItems: "center" }}>{text}</div>
         {children}
         <div>{icon}</div>
       </div>

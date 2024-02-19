@@ -5,6 +5,7 @@ import { AvatarBox } from "../doctor/doctor-detail/AvatarBox";
 import { Button } from "../../components/Button";
 import {
   BirthBox,
+  MultiOptionBox,
   NameBox,
   PhoneNumberBox,
   TextInputBox,
@@ -28,7 +29,7 @@ export const PatientDetailContent = () => {
     };
   };
 
-  const saveDoctor = () => {
+  const savePatient = () => {
     setPatients(
       patients.map((patientItem) => {
         if (patient && patientItem.id === patient.id) {
@@ -90,6 +91,10 @@ export const PatientDetailContent = () => {
             />
           </div>
         </div>
+        <MultiOptionBox
+          options={patient.allergies}
+          setOptions={setAttribute("allergies")}
+        />
         <div className="note-box">
           <TextInputBox
             entity={patient ? patient.note : ""}
@@ -100,16 +105,19 @@ export const PatientDetailContent = () => {
         </div>
         <SexDropDown sex={patient ? patient.gender : ""} setSex={() => {}} />
       </div>
-      <ButtonsBox saveDoctor={saveDoctor} cancelEditDoctor={cancelEditDoctor} />
+      <ButtonsBox
+        savePatient={savePatient}
+        cancelEditDoctor={cancelEditDoctor}
+      />
     </div>
   );
 };
 
 const ButtonsBox = ({
-  saveDoctor,
+  savePatient,
   cancelEditDoctor,
 }: {
-  saveDoctor: Function;
+  savePatient: Function;
   cancelEditDoctor: Function;
 }) => {
   return (
@@ -123,7 +131,7 @@ const ButtonsBox = ({
       <Button
         text="Lưu"
         className="save-button"
-        onClick={saveDoctor}
+        onClick={savePatient}
         innerButtonClassName="save-button-inner"
       />
     </div>

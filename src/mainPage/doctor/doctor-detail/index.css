@@ -114,3 +114,61 @@
 .content-input::placeholder {
   color: #8c949d;
 }
+
+.multi-option-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.multi-option-box-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.multi-option-box-item .MuiTypography-root {
+  font-size: 14px;
+  font-family: Be Vietnam Pro;
+}
+
+.multi-option-box-item-unchecked .MuiTypography-root {
+  font-size: 14px;
+  font-family: Be Vietnam Pro;
+  color: #8c949d;
+}
+
+.multi-option-box-item .MuiCheckbox-root {
+  padding: 0 0 0 0;
+}
+
+.MuiFormControlLabel-root {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  padding: 12px 12px 12px 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.multi-option .add-button {
+  padding: 0 16px 0 16px;
+  width: 77px;
+  height: 40px;
+  border: 1px #586ee0 solid;
+  border-radius: 12px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.multi-option .button-inner {
+  color: #586ee0;
+  gap: 8px;
+  font-size: 16px;
+}
+
+.multi-option .add-button:hover {
+  background-color: #e5e9fa;
+}
