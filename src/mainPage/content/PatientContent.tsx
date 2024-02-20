@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { RouteEnum } from "../../data/routeEnum";
 import { MainPageContent } from "./MainPageContent";
 import { PatientDetailPage } from "./PatientDetailPage";
+import { AddPatientPage } from "./AddPatientPage";
 
 const createRowData = (
   id: string,
@@ -67,6 +68,7 @@ export const PatientContent = () => {
           path={RouteEnum.EDIT_PATIENT_PAGE}
           element={<PatientDetailPage />}
         />
+        <Route path={RouteEnum.ADD_PATIENT_PAGE} element={<AddPatientPage />} />
       </Routes>
     </PatientContext.Provider>
   );

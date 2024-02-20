@@ -5,6 +5,7 @@ export enum RouteEnum {
   EDIT_DOCTOR_PAGE = "/doctors/edit-doctor/:doctorId",
   ADD_DOCTOR_PAGE = "/doctors/add-doctor",
   EDIT_PATIENT_PAGE = "/patients/edit-patient/:patientId",
+  ADD_PATIENT_PAGE = "/patients/add-patient",
 }
 
 export const RouteToName: Record<string, string> = {
@@ -16,4 +17,5 @@ export const RouteToName: Record<string, string> = {
   [RouteEnum.EDIT_PATIENT_PAGE]: "Chi tiết bệnh nhân",
   [RouteEnum.PATIENT_PAGE]: "Bệnh nhân",
   "/patients/edit-patient": "Chi tiết bệnh nhân",
+  [RouteEnum.ADD_PATIENT_PAGE]: "Thêm bệnh nhân",
 };
