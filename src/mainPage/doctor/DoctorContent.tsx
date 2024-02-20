@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { DoctorListPage } from "./DoctorListPage";
 import { DoctorDetailPage } from "./doctor-detail/DoctorDetailPage";
-import { Doctor, DoctorContext } from "../../context/DoctorContext";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import mockDoctors from "../../mock-data/mock_doctor.json";
@@ -27,7 +26,7 @@ function createRowData(
   };
 }
 
-const MOCK_DOCTORS = mockDoctors.map((mockDoctor) =>
+export const MOCK_DOCTORS = mockDoctors.map((mockDoctor) =>
   createRowData(
     mockDoctor.id,
     mockDoctor.firstName,
@@ -39,18 +38,11 @@ const MOCK_DOCTORS = mockDoctors.map((mockDoctor) =>
 );
 
 export const DoctorContent = () => {
-  const [doctors, setDoctors] = useState<Doctor[]>(MOCK_DOCTORS);
-
   return (
-    <DoctorContext.Provider value={{ doctors, setDoctors }}>
-      <Routes>
-        <Route path={RouteEnum.DOCTOR_PAGE} element={<DoctorListPage />} />
-        <Route
-          path={RouteEnum.EDIT_DOCTOR_PAGE}
-          element={<DoctorDetailPage />}
-        />
-        <Route path={RouteEnum.ADD_DOCTOR_PAGE} element={<AddDoctorPage />} />
-      </Routes>
-    </DoctorContext.Provider>
+    <Routes>
+      <Route path={RouteEnum.DOCTOR_PAGE} element={<DoctorListPage />} />
+      <Route path={RouteEnum.EDIT_DOCTOR_PAGE} element={<DoctorDetailPage />} />
+      <Route path={RouteEnum.ADD_DOCTOR_PAGE} element={<AddDoctorPage />} />
+    </Routes>
   );
 };

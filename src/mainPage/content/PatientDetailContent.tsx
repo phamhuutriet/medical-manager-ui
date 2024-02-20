@@ -12,6 +12,7 @@ import {
 } from "../doctor/doctor-detail/NameBox";
 import { Patient, PatientContext } from "../../context/PatientContext";
 import { SexDropDown } from "../doctor/doctor-detail/SexDropDown";
+import { DoctorContext } from "../../context/DoctorContext";
 
 export const PatientDetailContent = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
@@ -19,6 +20,7 @@ export const PatientDetailContent = () => {
   const { patients, setPatients } = useContext(PatientContext);
   const currentPatient = patients.find((patient) => patient.id === patientId);
   const [patient, setPatient] = useState<Patient | undefined>(currentPatient);
+  const { doctors, setDoctors } = useContext(DoctorContext);
   const navigate = useNavigate();
 
   const setAttribute = (attribute: string) => {
