@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../data/routeEnum";
 import { IconButton } from "@mui/material";
 import { BackIcon } from "../../img/svg/BackIcon";
-import { AddDoctorPageContent } from "../doctor/add-doctor/AddDoctorPageContent";
+import { AddPatientPageContent } from "./AddPatientPageContent";
 
 export const AddPatientPage = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export const AddPatientPage = () => {
           Thêm bệnh nhân
         </div>
       </div>
-      <AddDoctorPageContent />
+      <AddPatientPageContent />
     </div>
   );
 };
