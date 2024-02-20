@@ -13,11 +13,26 @@ import {
 import { PatientContext } from "../../context/PatientContext";
 import { SexDropDown } from "../doctor/doctor-detail/SexDropDown";
 import { DoctorDropDown } from "../doctor/doctor-detail/DoctorDropDown";
+import { AddSuccessfulModal } from "../../components/AddSuccessfulModal";
+
+const VALID_KEYS = [
+  "firstName",
+  "lastName",
+  "gender",
+  "dateOfBirth",
+  "phoneNumber",
+  "address",
+  "doctor",
+];
 
 export const AddPatientPageContent = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
   const { patients, setPatients } = useContext(PatientContext);
   const [patient, setPatient] = useState<any>();
+  const patientKeys = Object.keys(patient ? patient : {});
+  const isValidPatient = VALID_KEYS.every((key) => patientKeys.includes(key));
+  const [isAddSuccessfulModalOpen, setIsAddSuccessfulModalOpen] =
+    useState(false);
   const navigate = useNavigate();
 
   const setAttribute = (attribute: string) => {
@@ -30,7 +45,7 @@ export const AddPatientPageContent = () => {
     // TODO: call API here
     const newPatient = { ...patient, id: "1" };
     setPatients([...patients, newPatient]);
-    navigate(RouteEnum.MAIN_PAGE);
+    setIsAddSuccessfulModalOpen(true);
   };
 
   const cancelEditDoctor = () => {
@@ -39,6 +54,16 @@ export const AddPatientPageContent = () => {
 
   return (
     <div>
+      <AddSuccessfulModal
+        open={isAddSuccessfulModalOpen}
+        handleClose={() => setIsAddSuccessfulModalOpen(false)}
+        handleRedirect={() => navigate(RouteEnum.MAIN_PAGE)}
+        onClickConfirm={() => {}}
+        title="Thêm bệnh nhân thành công"
+        innerText="Chúc mừng bạn đã tạo hồ sơ bệnh nhân thành công"
+        leftButtonText="Về tổng quan"
+        rightButtonText="Xem chi tiết"
+      />
       <div className="doctor-detail-content">
         <AvatarBox />
         <NameBox
@@ -97,26 +122,29 @@ export const AddPatientPageContent = () => {
         />
       </div>
       <ButtonsBox
+        isValidPatient={isValidPatient}
         savePatient={savePatient}
-        cancelEditDoctor={cancelEditDoctor}
+        cancelEditPatient={cancelEditDoctor}
       />
     </div>
   );
 };
 
 const ButtonsBox = ({
+  isValidPatient,
   savePatient,
-  cancelEditDoctor,
+  cancelEditPatient,
 }: {
+  isValidPatient: boolean;
   savePatient: Function;
-  cancelEditDoctor: Function;
+  cancelEditPatient: Function;
 }) => {
   return (
     <div className="buttons-box">
       <Button
         text="Huỷ"
         className="cancel-button"
-        onClick={cancelEditDoctor}
+        onClick={cancelEditPatient}
         innerButtonClassName="cancel-button-inner"
       />
       <Button
@@ -124,6 +152,7 @@ const ButtonsBox = ({
         className="save-button"
         onClick={savePatient}
         innerButtonClassName="save-button-inner"
+        disable={!isValidPatient}
       />
     </div>
   );

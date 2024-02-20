@@ -12,7 +12,7 @@ import { AddSuccessfulModal } from "../../../components/AddSuccessfulModal";
 const VALID_KEYS = [
   "firstName",
   "lastName",
-  "sex",
+  "gender",
   "dateOfBirth",
   "phoneNumber",
 ];
@@ -65,7 +65,7 @@ export const AddDoctorPageContent = () => {
         />
         <SexDropDown
           sex={doctor ? doctor.sex : ""}
-          setSex={setAttribute("sex")}
+          setSex={setAttribute("gender")}
         />
         <BirthBox
           dateOfBirth={doctor ? doctor.dateOfBirth : ""}

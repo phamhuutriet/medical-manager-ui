@@ -26,7 +26,7 @@ export const Button = ({
 
   const onClickButton = (event: any) => {
     onClick(event);
-    setIsClicked(true);
+    // setIsClicked(true);
   };
 
   useEffect(() => {
