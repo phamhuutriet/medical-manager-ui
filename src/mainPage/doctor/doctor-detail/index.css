@@ -172,3 +172,59 @@
 .multi-option .add-button:hover {
   background-color: #e5e9fa;
 }
+
+.doctor-menu-item {
+  width: 100%;
+}
+
+.menu-container {
+  overflow: hidden;
+  max-height: 0;
+  width: 100%;
+  transition: max-height 0.3s ease;
+}
+
+.menu-container.open {
+  max-height: 276px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+.menu-content {
+  width: 100%;
+  height: 100%;
+  background-color: pink;
+}
+
+.dropdown-menu-list {
+  overflow-y: auto;
+  max-height: 276px;
+}
+
+.dropdown-item {
+  width: 100%;
+  height: 24px;
+  padding: 16px 0px 16px 42px;
+  font-size: 16px;
+  font-family: Be Vietnam Pro;
+  color: #8c949d;
+}
+
+.dropdown-item:hover {
+  background-color: #e5e9fa;
+  color: black;
+}
+
+.dropdown-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 8px;
+  padding: 12px 20px 12px 20px;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.dropdown-search-bar .search-bar-input {
+  color: #8c949d;
+  font-family: Be Vietnam Pro;
+}

@@ -12,7 +12,7 @@ import {
 } from "../doctor/doctor-detail/NameBox";
 import { Patient, PatientContext } from "../../context/PatientContext";
 import { SexDropDown } from "../doctor/doctor-detail/SexDropDown";
-import { DoctorContext } from "../../context/DoctorContext";
+import { DoctorDropDown } from "../doctor/doctor-detail/DoctorDropDown";
 
 export const PatientDetailContent = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
@@ -20,7 +20,6 @@ export const PatientDetailContent = () => {
   const { patients, setPatients } = useContext(PatientContext);
   const currentPatient = patients.find((patient) => patient.id === patientId);
   const [patient, setPatient] = useState<Patient | undefined>(currentPatient);
-  const { doctors, setDoctors } = useContext(DoctorContext);
   const navigate = useNavigate();
 
   const setAttribute = (attribute: string) => {
@@ -105,7 +104,10 @@ export const PatientDetailContent = () => {
             setEntity={setAttribute("note")}
           />
         </div>
-        <SexDropDown sex={patient ? patient.gender : ""} setSex={() => {}} />
+        <DoctorDropDown
+          doctor={patient.doctor}
+          setDoctor={setAttribute("doctor")}
+        />
       </div>
       <ButtonsBox
         savePatient={savePatient}
