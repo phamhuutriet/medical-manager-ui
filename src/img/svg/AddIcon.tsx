@@ -1,6 +1,13 @@
 import React from "react";
+import { SVGProps } from "./svgData";
 
-export const AddIcon = () => {
+export const AddIcon = ({
+  defaultColor,
+  selectedColor,
+  isSelected,
+}: SVGProps) => {
+  const color = isSelected ? selectedColor : defaultColor;
+
   return (
     <svg
       width="24"
@@ -13,7 +20,7 @@ export const AddIcon = () => {
         <path
           id="Vector"
           d="M6 12H18"
-          stroke="#586EE0"
+          stroke={color}
           stroke-width="1.5"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -21,7 +28,7 @@ export const AddIcon = () => {
         <path
           id="Vector_2"
           d="M12 18V6"
-          stroke="#586EE0"
+          stroke={color}
           stroke-width="1.5"
           stroke-linecap="round"
           stroke-linejoin="round"

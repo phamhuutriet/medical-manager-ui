@@ -1,0 +1,12 @@
+.add-template-button-container {
+  padding: 0px 16px 0px 16px;
+  width: 147px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.add-template-button-container .button-inner {
+  width: 100%;
+  font-size: 16px;
+}
