@@ -64,6 +64,7 @@ const MoreInfoButton = ({ onClick }: { onClick: any }) => {
 
 enum PatientMoreInfoEnum {
   EDIT = "Sửa hồ sơ",
+  VIEW = "Chi tiết hồ sơ",
   DELETE = "Xoá hồ sơ",
 }
 
@@ -90,6 +91,9 @@ export const PatientMoreInfoMenu = ({
   const handleMouseLeave = () => {
     setSelectedOption("");
   };
+  const onClickViewOption = () => {
+    navigate(`/patients/details/${patientId}`);
+  };
   const onClickEditOption = () => {
     navigate(`/patients/edit-patient/${patientId}`);
   };
@@ -109,6 +113,22 @@ export const PatientMoreInfoMenu = ({
         open={open}
         onClose={handleClose}
       >
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            onClickViewOption();
+          }}
+          disableRipple
+          onMouseEnter={() => handleMouseEnter(PatientMoreInfoEnum.VIEW)}
+          onMouseLeave={handleMouseLeave}
+        >
+          <EditPatientIcon
+            defaultColor="#8C949D"
+            selectedColor="#0D0C0C"
+            isSelected={PatientMoreInfoEnum.VIEW === selectedOption}
+          />
+          {PatientMoreInfoEnum.VIEW}
+        </MenuItem>
         <MenuItem
           onClick={() => {
             handleClose();

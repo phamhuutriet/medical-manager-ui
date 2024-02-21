@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./app.css";
 import { PatientContent } from "./mainPage/content/PatientContent";
 import { Doctor, DoctorContext } from "./context/DoctorContext";
+import { RecordContent } from "./mainPage/record/RecordContent";
 
 function App() {
   const [doctors, setDoctors] = useState<Doctor[]>(MOCK_DOCTORS);
@@ -22,6 +23,7 @@ function App() {
               <DoctorContext.Provider value={{ doctors, setDoctors }}>
                 <PatientContent />
                 <DoctorContent />
+                <RecordContent />
               </DoctorContext.Provider>
             </div>
           </div>

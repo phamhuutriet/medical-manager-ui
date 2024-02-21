@@ -32,7 +32,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export const ContentTable = ({ patients }: { patients: Patient[] }) => {
-  console.log("PATIENTS: ", patients);
   return (
     <Table
       sx={{ minWidth: 700, borderCollapse: "separate" }}

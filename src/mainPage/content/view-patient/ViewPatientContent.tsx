@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { UploadImage } from "../../../img/svg/UploadImage";
 import { IconButton } from "@mui/material";
 import { Button } from "../../../components/Button";
@@ -6,6 +6,10 @@ import { HorizontalBorderLine } from "../../../components/HorizontalBorderLine";
 import { SearchBar } from "../../../components/SearchBar";
 import { RecordsFilterButtonMenu } from "./RecordsFilterButton";
 import { RecordsTable } from "./RecordsTable";
+import { useNavigate, useParams } from "react-router-dom";
+import { PatientContext } from "../../../context/PatientContext";
+import dayjs from "dayjs";
+import { getAge } from "../../../utils/utils";
 
 const MOCK_RECORDS = [
   {
@@ -26,6 +30,21 @@ const MOCK_RECORDS = [
 ];
 
 export const ViewPatientContent = () => {
+  const navigate = useNavigate();
+  const { patientId } = useParams();
+  const { patients } = useContext(PatientContext);
+  const currentPatient = patients.find((patient) => patient.id === patientId);
+
+  if (!currentPatient) {
+    return <div>Error no patient</div>;
+  }
+
+  const onClickUpdateButton = () => {
+    navigate(`/patients/edit-patient/${patientId}`);
+  };
+
+  console.log("Date of birth", currentPatient.dateOfBirth);
+
   return (
     <div className="view-patient-container">
       <div className="info-box">
@@ -35,26 +54,34 @@ export const ViewPatientContent = () => {
           </IconButton>
         </div>
         <div className="info-item-name-age">
-          <div className="name">Triết Phạm</div>
-          <div className="age">25 tuổi</div>
+          <div className="name">{`${currentPatient.firstName} ${currentPatient.lastName}`}</div>
+          <div className="age">
+            {getAge(dayjs(currentPatient.dateOfBirth, "DD / MM / YYYY"))} tuổi
+          </div>
         </div>
         <div className="info-item-button">
-          <Button text="Cập nhật" />
+          <Button text="Cập nhật" onClick={onClickUpdateButton} />
         </div>
         <HorizontalBorderLine />
         <div className="info-item-details">
           <div className="title">Thông tin :</div>
           <div className="details">
-            <PatientInfoItem type="Giới tính" value="Nam" />
             <PatientInfoItem
-              type="Địa chỉ"
-              value="281/24 Lê Văn Sỹ, phường 1, quận Tân Bình, TP.HCM."
+              type="Giới tính"
+              value={currentPatient.gender === "Male" ? "Nam" : "Nữ"}
             />
+            <PatientInfoItem type="Địa chỉ" value={currentPatient.address} />
             <PatientInfoItem type="Dị ứng" value="Không" />
-            <PatientInfoItem type="Số điện thoại" value="+84 854 897 802" />
-            <PatientInfoItem type="Số hồ sơ" value="22083782" />
-            <PatientInfoItem type="Lần cuối khám" value="16 / 12 / 2022" />
-            <PatientInfoItem type="Note" value="Không" />
+            <PatientInfoItem
+              type="Số điện thoại"
+              value={currentPatient.phoneNumber}
+            />
+            <PatientInfoItem type="Số hồ sơ" value={currentPatient.id} />
+            <PatientInfoItem
+              type="Lần cuối khám"
+              value={dayjs(currentPatient.createdAt).format("DD / MM / YYYY")}
+            />
+            <PatientInfoItem type="Note" value={currentPatient.note} />
           </div>
         </div>
       </div>
