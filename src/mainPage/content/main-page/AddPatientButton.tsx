@@ -3,11 +3,11 @@ import { styled } from "@mui/material/styles";
 import Menu, { MenuProps } from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router";
-import { RouteEnum } from "../../data/routeEnum";
-import { Button } from "../../components/Button";
-import { ArrowDownIcon } from "../../img/svg/ArrowDownIcon";
-import { AddDoctorIcon } from "../../img/svg/AddDoctorIcon";
-import { AddPatientIcon } from "../../img/svg/AddPatientIcon";
+import { RouteEnum } from "../../../data/routeEnum";
+import { Button } from "../../../components/Button";
+import { ArrowDownIcon } from "../../../img/svg/ArrowDownIcon";
+import { AddDoctorIcon } from "../../../img/svg/AddDoctorIcon";
+import { AddPatientIcon } from "../../../img/svg/AddPatientIcon";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu

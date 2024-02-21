@@ -6,9 +6,10 @@ import dayjs from "dayjs";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { RouteEnum } from "../../data/routeEnum";
-import { MainPageContent } from "./MainPageContent";
-import { PatientDetailPage } from "./PatientDetailPage";
-import { AddPatientPage } from "./AddPatientPage";
+import { MainPageContent } from "./main-page/MainPageContent";
+import { EditPatientPage } from "./edit-patient/EditPatientPage";
+import { AddPatientPage } from "./add-patient/AddPatientPage";
+import { ViewPatientPage } from "./view-patient/ViewPatientPage";
 
 const createRowData = (
   id: string,
@@ -66,9 +67,13 @@ export const PatientContent = () => {
         <Route path={RouteEnum.PATIENT_PAGE} element={<MainPageContent />} />
         <Route
           path={RouteEnum.EDIT_PATIENT_PAGE}
-          element={<PatientDetailPage />}
+          element={<EditPatientPage />}
         />
         <Route path={RouteEnum.ADD_PATIENT_PAGE} element={<AddPatientPage />} />
+        <Route
+          path={RouteEnum.VIEW_PATIENT_PAGE}
+          element={<ViewPatientPage />}
+        />
       </Routes>
     </PatientContext.Provider>
   );

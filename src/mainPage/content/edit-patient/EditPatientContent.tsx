@@ -1,20 +1,20 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { RouteEnum } from "../../data/routeEnum";
-import { AvatarBox } from "../doctor/doctor-detail/AvatarBox";
-import { Button } from "../../components/Button";
+import { RouteEnum } from "../../../data/routeEnum";
+import { AvatarBox } from "../../doctor/doctor-detail/AvatarBox";
+import { Button } from "../../../components/Button";
 import {
   BirthBox,
   MultiOptionBox,
   NameBox,
   PhoneNumberBox,
   TextInputBox,
-} from "../doctor/doctor-detail/NameBox";
-import { Patient, PatientContext } from "../../context/PatientContext";
-import { SexDropDown } from "../doctor/doctor-detail/SexDropDown";
-import { DoctorDropDown } from "../doctor/doctor-detail/DoctorDropDown";
+} from "../../doctor/doctor-detail/NameBox";
+import { Patient, PatientContext } from "../../../context/PatientContext";
+import { SexDropDown } from "../../doctor/doctor-detail/SexDropDown";
+import { DoctorDropDown } from "../../doctor/doctor-detail/DoctorDropDown";
 
-export const PatientDetailContent = () => {
+export const EditPatientContent = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
   const { patientId } = useParams();
   const { patients, setPatients } = useContext(PatientContext);

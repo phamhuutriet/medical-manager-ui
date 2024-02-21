@@ -1,19 +1,19 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
-import { RouteEnum } from "../../data/routeEnum";
-import { AvatarBox } from "../doctor/doctor-detail/AvatarBox";
-import { Button } from "../../components/Button";
+import { RouteEnum } from "../../../data/routeEnum";
+import { AvatarBox } from "../../doctor/doctor-detail/AvatarBox";
+import { Button } from "../../../components/Button";
 import {
   BirthBox,
   MultiOptionBox,
   NameBox,
   PhoneNumberBox,
   TextInputBox,
-} from "../doctor/doctor-detail/NameBox";
-import { PatientContext } from "../../context/PatientContext";
-import { SexDropDown } from "../doctor/doctor-detail/SexDropDown";
-import { DoctorDropDown } from "../doctor/doctor-detail/DoctorDropDown";
-import { AddSuccessfulModal } from "../../components/AddSuccessfulModal";
+} from "../../doctor/doctor-detail/NameBox";
+import { PatientContext } from "../../../context/PatientContext";
+import { SexDropDown } from "../../doctor/doctor-detail/SexDropDown";
+import { DoctorDropDown } from "../../doctor/doctor-detail/DoctorDropDown";
+import { AddSuccessfulModal } from "../../../components/AddSuccessfulModal";
 
 const VALID_KEYS = [
   "firstName",

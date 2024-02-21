@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { ContentTable } from "./ContentTable";
-import { Button } from "../../components/Button";
-import "./index.css";
-import { SearchIcon } from "../../img/svg/SearchIcon";
+import { Button } from "../../../components/Button";
+import { SearchIcon } from "../../../img/svg/SearchIcon";
 import { PaginationBar } from "./PaginationBar";
 import { FilterButtonMenu } from "./FilterButton";
-import { PatientContext } from "../../context/PatientContext";
+import { PatientContext } from "../../../context/PatientContext";
+import "../index.css";
 
 export const ContentItemList = () => {
   const maxRowPerPage = 8;

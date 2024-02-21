@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FilterIcon } from "../../img/svg/FilterIcon";
-import { DropDownMenu, MenuListType } from "../content/DropDownMenu";
+import { DropDownMenu, MenuListType } from "../content/main-page/DropDownMenu";
 
 export const FilterButton = ({
   onClick,

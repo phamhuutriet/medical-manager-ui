@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { SearchIcon } from "../../img/svg/SearchIcon";
-import { PaginationBar } from "../content/PaginationBar";
+import { PaginationBar } from "../content/main-page/PaginationBar";
 import { FilterDoctorButtonMenu } from "./FilterDoctorButton";
 import { DoctorContentTable } from "./DoctorContentTable";
 import { Doctor, DoctorContext } from "../../context/DoctorContext";

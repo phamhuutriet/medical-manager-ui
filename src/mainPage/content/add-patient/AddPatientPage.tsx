@@ -1,17 +1,16 @@
-import { IconButton } from "@mui/material";
 import React from "react";
-import { RouteEnum } from "../../data/routeEnum";
-import { useNavigate } from "react-router";
-import { BackIcon } from "../../img/svg/BackIcon";
-import { PatientDetailContent } from "./PatientDetailContent";
+import { useNavigate } from "react-router-dom";
+import { RouteEnum } from "../../../data/routeEnum";
+import { IconButton } from "@mui/material";
+import { BackIcon } from "../../../img/svg/BackIcon";
+import { AddPatientPageContent } from "./AddPatientPageContent";
 
-export const PatientDetailPage = () => {
+export const AddPatientPage = () => {
   const navigate = useNavigate();
 
   const onClickBack = () => {
     navigate(RouteEnum.MAIN_PAGE);
   };
-
   return (
     <div className="page-content-container">
       <div className="content-header">
@@ -22,10 +21,10 @@ export const PatientDetailPage = () => {
           >
             <BackIcon />
           </IconButton>
-          Chi tiết bệnh nhân
+          Thêm bệnh nhân
         </div>
       </div>
-      <PatientDetailContent />
+      <AddPatientPageContent />
     </div>
   );
 };

@@ -5,9 +5,9 @@ import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { Patient } from "../../context/PatientContext";
+import { Patient } from "../../../context/PatientContext";
 import { PatientMoreInfoMenu } from "./PatientMoreInfoMenu";
-import "./index.css";
+import "../index.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

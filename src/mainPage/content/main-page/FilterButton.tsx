@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { FilterIcon } from "../../img/svg/FilterIcon";
+import { FilterIcon } from "../../../img/svg/FilterIcon";
 import { DropDownMenu, MenuListType } from "./DropDownMenu";
-import { ArrowDownIcon } from "../../img/svg/ArrowDownIcon";
-import { CalendarIcon } from "../../img/svg/CalendarIcon";
+import { ArrowDownIcon } from "../../../img/svg/ArrowDownIcon";
+import { CalendarIcon } from "../../../img/svg/CalendarIcon";
 
 export const FilterButton = ({
   onClick,

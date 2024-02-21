@@ -1,7 +1,7 @@
 import React from "react";
-import { Button } from "../../components/Button";
-import { ArrowRightIcon } from "../../img/svg/ArrowRightIcon";
-import { ArrowLeftIcon } from "../../img/svg/ArrowLeftIcon";
+import { Button } from "../../../components/Button";
+import { ArrowRightIcon } from "../../../img/svg/ArrowRightIcon";
+import { ArrowLeftIcon } from "../../../img/svg/ArrowLeftIcon";
 
 export const PaginationBar = ({
   numOfPages,

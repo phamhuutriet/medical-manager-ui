@@ -1,11 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { RouteEnum } from "../../data/routeEnum";
+import { RouteEnum } from "../../../data/routeEnum";
 import { IconButton } from "@mui/material";
-import { BackIcon } from "../../img/svg/BackIcon";
-import { AddPatientPageContent } from "./AddPatientPageContent";
+import { BackIcon } from "../../../img/svg/BackIcon";
 
-export const AddPatientPage = () => {
+export const ViewPatientPage = () => {
   const navigate = useNavigate();
 
   const onClickBack = () => {
@@ -21,10 +20,9 @@ export const AddPatientPage = () => {
           >
             <BackIcon />
           </IconButton>
-          Thêm bệnh nhân
+          Thông tin bệnh nhân
         </div>
       </div>
-      <AddPatientPageContent />
     </div>
   );
 };

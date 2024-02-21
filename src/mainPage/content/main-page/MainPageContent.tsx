@@ -1,7 +1,7 @@
 import React from "react";
-import "./index.css";
 import { ContentItemList } from "./ContentItemList";
 import { AddPatientButton } from "./AddPatientButton";
+import "../index.css";
 
 export const MainPageContent = () => {
   return (
