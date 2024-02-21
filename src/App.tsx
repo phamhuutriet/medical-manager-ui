@@ -18,10 +18,12 @@ function App() {
           <SideBar />
           <div className="second-column">
             <Header />
-            <DoctorContext.Provider value={{ doctors, setDoctors }}>
-              <PatientContent />
-              <DoctorContent />
-            </DoctorContext.Provider>
+            <div className="page-content">
+              <DoctorContext.Provider value={{ doctors, setDoctors }}>
+                <PatientContent />
+                <DoctorContent />
+              </DoctorContext.Provider>
+            </div>
           </div>
         </div>
       </div>

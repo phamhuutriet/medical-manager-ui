@@ -4,6 +4,7 @@ import { TabIcons } from "./TabIcons";
 import { ExitBox } from "./ExitBox";
 import { CollapseButton } from "../../img/svg/CollapseButton";
 import { UncollapsedButton } from "../../img/svg/UncollapsedButton";
+import { HorizontalBorderLine } from "../../components/HorizontalBorderLine";
 
 export const SideBar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -25,17 +26,5 @@ export const SideBar = () => {
         {isCollapsed ? <UncollapsedButton /> : <CollapseButton />}
       </div>
     </div>
-  );
-};
-
-const HorizontalBorderLine = ({ customWidth }: { customWidth?: string }) => {
-  return (
-    <div
-      style={{
-        borderTop: "2px solid #E5E7EB",
-        width: customWidth ? customWidth : "100%",
-        margin: "0 auto",
-      }}
-    ></div>
   );
 };

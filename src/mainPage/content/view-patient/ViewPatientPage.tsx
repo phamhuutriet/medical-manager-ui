@@ -4,6 +4,8 @@ import { RouteEnum } from "../../../data/routeEnum";
 import { IconButton } from "@mui/material";
 import { BackIcon } from "../../../img/svg/BackIcon";
 import { ViewPatientAddTemplateButton } from "./ViewPatientAddButton";
+import { ViewPatientContent } from "./ViewPatientContent";
+import "./viewPatient.css";
 
 export const ViewPatientPage = () => {
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ export const ViewPatientPage = () => {
     navigate(RouteEnum.MAIN_PAGE);
   };
   return (
-    <div className="page-content-container">
+    <div className="page-content-container view-patient-content">
       <div className="content-header">
         <div>
           <IconButton
@@ -25,6 +27,7 @@ export const ViewPatientPage = () => {
         </div>
         <ViewPatientAddTemplateButton />
       </div>
+      <ViewPatientContent />
     </div>
   );
 };

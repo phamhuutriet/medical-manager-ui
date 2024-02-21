@@ -1,3 +1,17 @@
+@import "../../../scss/variables.scss";
+
+.view-patient-container {
+  width: 100%;
+  margin-top: 40px;
+  height: 100%;
+  display: flex;
+  /* background-color: pink; */
+}
+
+.view-patient-content {
+  margin-bottom: 0;
+}
+
 .add-template-button-container {
   padding: 0px 16px 0px 16px;
   width: 147px;
@@ -9,4 +23,120 @@
 .add-template-button-container .button-inner {
   width: 100%;
   font-size: 16px;
+}
+
+.info-box {
+  width: 352px;
+  padding: 0px 16px 0px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-right: 1px solid var(--color-border-tertiary);
+  height: 100%;
+}
+
+.info-item-avatar {
+  display: flex;
+  justify-content: center;
+}
+
+.info-item-avatar .MuiButtonBase-root {
+  height: 104px;
+  width: 104px;
+  border-radius: 16px;
+  background-color: #f6f6f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-item-name-age {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  font-family: var(--font-family);
+}
+
+.info-item-name-age .name {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.info-item-name-age .age {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--color-text-secondary);
+}
+
+.info-item-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-item-button .button-inner {
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  width: auto;
+  height: auto;
+}
+
+.info-item-button .button-container {
+  width: 64px;
+  height: 20px;
+  align-items: center;
+}
+
+.info-item-details {
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.info-item-details .title {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+}
+
+.info-item-details .details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: var(--font-family);
+}
+
+.info-item-details .detail-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.detail-item .key {
+  display: flex;
+  align-items: flex-start;
+  font-size: 14px;
+  width: 120px;
+  color: var(--color-text-secondary);
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.detail-item .value {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.key-text {
+  display: flex;
+  align-items: center;
+  line-height: 24px;
 }
