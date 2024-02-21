@@ -3,6 +3,27 @@ import { UploadImage } from "../../../img/svg/UploadImage";
 import { IconButton } from "@mui/material";
 import { Button } from "../../../components/Button";
 import { HorizontalBorderLine } from "../../../components/HorizontalBorderLine";
+import { SearchBar } from "../../../components/SearchBar";
+import { RecordsFilterButtonMenu } from "./RecordsFilterButton";
+import { RecordsTable } from "./RecordsTable";
+
+const MOCK_RECORDS = [
+  {
+    id: "1",
+    createdAt: "07 / 12/ 2022",
+    diagnosis: "Sâu răng",
+  },
+  {
+    id: "2",
+    createdAt: "06 / 12/ 2022",
+    diagnosis: "Sâu răng",
+  },
+  {
+    id: "3",
+    createdAt: "05 / 12/ 2022",
+    diagnosis: "Sâu răng",
+  },
+];
 
 export const ViewPatientContent = () => {
   return (
@@ -38,8 +59,17 @@ export const ViewPatientContent = () => {
         </div>
       </div>
       <div className="record-list-box">
-        <div className="search-filter-bar"></div>
-        <div className="record-table"></div>
+        <div className="search-filter-bar">
+          <SearchBar
+            entities={[]}
+            setEntity={() => {}}
+            placeholder="Tìm kiếm"
+          />
+          <RecordsFilterButtonMenu />
+        </div>
+        <div className="record-table">
+          <RecordsTable records={MOCK_RECORDS} />
+        </div>
       </div>
     </div>
   );

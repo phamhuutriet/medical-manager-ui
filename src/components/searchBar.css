@@ -1,0 +1,35 @@
+@import "../scss/variables.scss";
+
+.search-bar-container {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  width: 344px;
+  gap: 12px;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
+}
+
+.search-bar-input {
+  height: 24px;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  font-family: Be Vietnam Pro;
+}
+
+.search-bar-input::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.search-icon {
+  padding: 0 0 0 0 !important;
+  height: 24px !important;
+  width: 24px !important;
+  background-color: white !important;
+}
