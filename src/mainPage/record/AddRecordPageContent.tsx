@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { RouteEnum } from "../../data/routeEnum";
 import { Button } from "../../components/Button";
-import { BirthBox, TextInputBox } from "../doctor/doctor-detail/NameBox";
+import { TextInputBox } from "../doctor/doctor-detail/NameBox";
 import {
   RecordTestTable,
   RecordTreatmentPlanTable,
   RecordTreatmentsTable,
-  VisitDate,
 } from "./RecordTable";
 import "./index.css";
 import { AddIcon } from "../../img/svg/AddIcon";
@@ -20,6 +19,7 @@ const MOCK_TREATMENTS_PLAN = [
 
 export const AddRecordPageContent = () => {
   const [record, setRecord] = useState<any>();
+  const [isAddNewRow, setIsAddNewRow] = useState(false);
   const navigate = useNavigate();
 
   const setAttribute = (attribute: string) => {
@@ -39,6 +39,10 @@ export const AddRecordPageContent = () => {
         });
       }
     };
+  };
+
+  const removeNewRow = () => {
+    setIsAddNewRow(false);
   };
 
   const saveDoctor = () => {
@@ -139,12 +143,16 @@ export const AddRecordPageContent = () => {
             <Button
               text="Thêm điều trị mới"
               icon={<AddIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />}
-              onClick={() => {}}
+              onClick={() => setIsAddNewRow(true)}
               className="add-treatment-button"
             />
           </div>
           <div className="content">
-            <RecordTreatmentsTable treatments={[]} />
+            <RecordTreatmentsTable
+              treatments={[]}
+              isAddNewTreatment={isAddNewRow}
+              removeNewRow={removeNewRow}
+            />
           </div>
         </div>
       </div>

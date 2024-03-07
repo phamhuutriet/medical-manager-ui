@@ -6,12 +6,29 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Button } from "../../components/Button";
-import { Box, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { CloseIcon } from "../../img/svg/Close";
 import { Treatment } from "../../data/dataTypes";
 import { BirthCalendar } from "../doctor/doctor-detail/BirthCalendar";
 import dayjs, { Dayjs } from "dayjs";
 import { CalendarIcon } from "../../img/svg/CalendarIcon";
+import { DoctorDropDown } from "../doctor/doctor-detail/DoctorDropDown";
+import { TickCircle } from "../../img/svg/TickCircle";
+import { EditAvatarIcon } from "../../img/svg/EditAvatarIcon";
+import { EditPatientIcon } from "../../img/svg/EditPatientIcon";
+
+const StickyTableCell = styled(TableCell)((theme) => ({
+  head: {
+    left: 0,
+    position: "sticky",
+    // zIndex: theme.zIndex.appBar + 2,
+  },
+  body: {
+    left: 0,
+    position: "sticky",
+    // zIndex: theme.zIndex.appBar + 1,
+  },
+}));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -23,6 +40,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: "14px",
     fontFamily: "Be Vietnam Pro",
+    height: "auto",
   },
 }));
 
@@ -146,18 +164,21 @@ export const RecordTreatmentPlanTable = ({
 };
 
 export const RecordTreatmentsTable = ({
+  isAddNewTreatment,
+  removeNewRow,
   treatments,
 }: {
+  isAddNewTreatment?: boolean;
+  removeNewRow: Function;
   treatments: Treatment[];
 }) => {
-  const [visitDate, setVisitDate] = React.useState();
-
   const onClickRemoveOption = () => {};
 
   return (
     <Table
       sx={{ minWidth: 700, borderCollapse: "separate" }}
       aria-label="customized table"
+      stickyHeader
     >
       <TableHead
         sx={{
@@ -172,29 +193,55 @@ export const RecordTreatmentsTable = ({
         }}
       >
         <TableRow>
-          <StyledTableCell align="left">Ngày khám</StyledTableCell>
           <StyledTableCell align="left">Điều trị</StyledTableCell>
+          <StyledTableCell align="left">Ngày khám</StyledTableCell>
           <StyledTableCell align="left">Giá tiền</StyledTableCell>
-          <StyledTableCell align="left">Note</StyledTableCell>
+          <StyledTableCell align="left">Ghi chú</StyledTableCell>
           <StyledTableCell align="left">Bác sĩ</StyledTableCell>
           <StyledTableCell align="right"></StyledTableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        <StyledTableCell align="left">
-          <VisitDate visitDate={visitDate} setVisitDate={setVisitDate} />
-        </StyledTableCell>
-        <StyledTableCell align="left">Điều trị</StyledTableCell>
-        <StyledTableCell align="left">Giá tiền</StyledTableCell>
-        <StyledTableCell align="left">Note</StyledTableCell>
-        <StyledTableCell align="left">Bác sĩ</StyledTableCell>
-        <StyledTableCell align="right"></StyledTableCell>
+        {isAddNewTreatment && <AddRow removeNewRow={removeNewRow} />}
       </TableBody>
     </Table>
   );
 };
 
-export const VisitDate = ({
+const AddRow = ({ removeNewRow }: { removeNewRow: any }) => {
+  return (
+    <>
+      {" "}
+      <StyledTableCell align="left">
+        <VisitDate visitDate="" setVisitDate={() => {}} />
+      </StyledTableCell>
+      <StyledTableCell align="left">
+        <TextBox placeholder="Nhập thông tin điều trị" />
+      </StyledTableCell>
+      <StyledTableCell align="left">
+        <TextBox placeholder="Giá tiền" />
+      </StyledTableCell>
+      <StyledTableCell align="left">
+        <TextBox placeholder="Ghi chú" />
+      </StyledTableCell>
+      <StyledTableCell align="left">
+        <DoctorDropDown setDoctor={() => {}} noTitle />
+      </StyledTableCell>
+      <StyledTableCell align="right">
+        <div className="add-treatment-buttons">
+          <IconButton>
+            <EditPatientIcon defaultColor="black" selectedColor="black" />
+          </IconButton>
+          <IconButton onClick={removeNewRow}>
+            <CloseIcon />
+          </IconButton>
+        </div>
+      </StyledTableCell>
+    </>
+  );
+};
+
+const VisitDate = ({
   visitDate,
   setVisitDate,
 }: {
@@ -207,22 +254,22 @@ export const VisitDate = ({
     setVisitDate(newDate.format("DD / MM / YYYY"));
   };
 
-  console.log("Is calendar open", isCalendarOpen);
-
   return (
     <div className="visit-date-container">
-      <div>Ngày</div>
-      <IconButton
-        sx={{ height: "100%" }}
-        onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-      >
+      <div>{visitDate ? visitDate : "Ngày"}</div>
+      <IconButton onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
         <CalendarIcon defaultColor="#8c949d" selectedColor="#8c949d" />
       </IconButton>
       <BirthCalendar
-        selectedDate={dayjs("02 / 01 / 1991")}
+        selectedDate={visitDate ? dayjs(visitDate) : undefined}
         setSelectedDate={onSelectDate}
         isCalendarOpen={isCalendarOpen}
+        customStyle={{ right: "-90%" }}
       />
     </div>
   );
+};
+
+const TextBox = ({ placeholder }: { placeholder: string }) => {
+  return <input className="treatment-text-box" placeholder={placeholder} />;
 };

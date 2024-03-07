@@ -6,9 +6,11 @@ import { SearchIcon } from "../../../img/svg/SearchIcon";
 export const DoctorDropDown = ({
   doctor,
   setDoctor,
+  noTitle,
 }: {
   doctor?: Doctor;
   setDoctor: Function;
+  noTitle?: boolean;
 }) => {
   const { doctors } = React.useContext(DoctorContext);
   const [currentDoctors, setCurrentDoctors] = React.useState<Doctor[]>(doctors);
@@ -50,14 +52,22 @@ export const DoctorDropDown = ({
         }}
       >
         <div className="box-item" onClick={handleClick}>
-          <div className="title">Bác sĩ</div>
+          {!noTitle && <div className="title">Bác sĩ</div>}
           <div className="content">
             {doctor ? (
               <div
                 style={{ width: "100%" }}
               >{`${doctor.firstName} ${doctor.lastName}`}</div>
             ) : (
-              <div style={{ width: "100%", color: "#8C949D" }}>Chọn bác sĩ</div>
+              <div
+                style={{
+                  width: "100%",
+                  color: "var(--color-text-secondary)",
+                  fontSize: "16px",
+                }}
+              >
+                Chọn bác sĩ
+              </div>
             )}
 
             <ArrowDownIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />

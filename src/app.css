@@ -26,5 +26,6 @@
   border: 1px solid var(--color-border-tertiary);
   border-bottom: none;
   border-left: none;
-  height: 100%;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
 }

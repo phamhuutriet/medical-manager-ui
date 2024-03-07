@@ -9,30 +9,34 @@ interface BirthCalendarProps {
   selectedDate?: Dayjs;
   setSelectedDate: Function;
   isCalendarOpen: boolean;
+  customStyle?: any;
 }
 
 export const BirthCalendar = ({
   selectedDate,
   setSelectedDate,
   isCalendarOpen,
+  customStyle,
 }: BirthCalendarProps) => {
-  const defaultDate = dayjs("02 / 01 / 1991");
+  const defaultDate = dayjs();
+
+  const defaultStyle = {
+    background: "white",
+    position: "absolute",
+    top: "100%",
+    marginTop: "8px",
+    right: "0%",
+    border: "1px solid #A5A7AF",
+    borderRadius: "8px",
+    fontFamily: "Be Vietnam Pro",
+    display: isCalendarOpen ? "" : "none",
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
         value={selectedDate ? selectedDate : defaultDate}
-        sx={{
-          background: "white",
-          position: "absolute",
-          top: "100%",
-          marginTop: "8px",
-          right: "0%",
-          border: "1px solid #A5A7AF",
-          borderRadius: "8px",
-          fontFamily: "Be Vietnam Pro",
-          display: isCalendarOpen ? "" : "none",
-        }}
+        sx={{ ...defaultStyle, ...customStyle }}
         onChange={(newDate) => setSelectedDate(newDate)}
       />
     </LocalizationProvider>
