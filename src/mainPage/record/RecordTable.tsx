@@ -264,7 +264,7 @@ const VisitDate = ({
         selectedDate={visitDate ? dayjs(visitDate) : undefined}
         setSelectedDate={onSelectDate}
         isCalendarOpen={isCalendarOpen}
-        customStyle={{ right: "-90%" }}
+        customStyle={{ right: "-170%" }}
       />
     </div>
   );

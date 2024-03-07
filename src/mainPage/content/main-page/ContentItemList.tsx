@@ -8,7 +8,7 @@ import { PatientContext } from "../../../context/PatientContext";
 import "../index.css";
 
 export const ContentItemList = () => {
-  const maxRowPerPage = 8;
+  const maxRowPerPage = 7;
   const [curPage, setCurPage] = useState(0);
   const { patients } = useContext(PatientContext);
   const numOfPages = Math.ceil(patients.length / maxRowPerPage);

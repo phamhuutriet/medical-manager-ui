@@ -9,7 +9,7 @@ import { Doctor, DoctorContext } from "../../context/DoctorContext";
 export const DoctorItemList = () => {
   const { doctors } = useContext(DoctorContext);
   const [currentDoctors, setCurrentDoctors] = useState<Doctor[]>(doctors);
-  const maxRowPerPage = 8;
+  const maxRowPerPage = 7;
   const [curPage, setCurPage] = useState(0);
   const numOfPages = Math.ceil(doctors.length / maxRowPerPage);
 
