@@ -1,12 +1,12 @@
 import React from "react";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import "./birthCalendar.css";
 
 interface BirthCalendarProps {
-  selectedDate: Dayjs;
+  selectedDate?: Dayjs;
   setSelectedDate: Function;
   isCalendarOpen: boolean;
 }
@@ -16,10 +16,12 @@ export const BirthCalendar = ({
   setSelectedDate,
   isCalendarOpen,
 }: BirthCalendarProps) => {
+  const defaultDate = dayjs("02 / 01 / 1991");
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
-        value={selectedDate}
+        value={selectedDate ? selectedDate : defaultDate}
         sx={{
           background: "white",
           position: "absolute",

@@ -109,8 +109,6 @@ export const BirthBox = ({
     setDateOfBirth(newDate.format("DD / MM / YYYY"));
   };
 
-  console.log("Birth box render");
-
   return (
     <div className="box">
       <div className="box-item" style={{ position: "relative" }}>

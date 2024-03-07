@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import React, { useContext, useState } from "react";
 import { BirthBox, NameBox, PhoneNumberBox } from "../doctor-detail/NameBox";
 import { Button } from "../../../components/Button";
 import { SexDropDown } from "../doctor-detail/SexDropDown";
@@ -27,7 +27,6 @@ export const AddDoctorPageContent = () => {
     dateOfBirth: "",
     phoneNumber: "",
   });
-  const [gender, setGender] = useState<string>("");
   const doctorKeys = Object.keys(doctor ? doctor : {});
   const isValidDoctor = VALID_KEYS.every(
     (key) => doctorKeys.includes(key) && doctor[key]
@@ -72,7 +71,10 @@ export const AddDoctorPageContent = () => {
           setFirstName={setAttribute("firstName")}
           setLastName={setAttribute("lastName")}
         />
-        <SexDropDown sex={gender} setSex={setGender} />
+        <SexDropDown
+          sex={doctor ? doctor.gender : ""}
+          setSex={setAttribute("gender")}
+        />
         <BirthBox
           dateOfBirth={doctor ? doctor.dateOfBirth : ""}
           setDateOfBirth={setAttribute("dateOfBirth")}

@@ -73,3 +73,44 @@
   line-height: 20px;
   color: var(--color-text-primary);
 }
+
+.visit-date-container {
+  max-width: 96px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  position: relative;
+  height: auto;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 8px;
+  height: 24px;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family);
+  font-size: 16px;
+}
+
+.add-treatment-button {
+  background-color: var(--color-brand-1);
+  width: auto;
+  padding: 6px 16px 6px 16px;
+}
+
+.add-treatment-button .button-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  line-height: 20px;
+  gap: 8px;
+  color: var(--color-text-primary);
+}
+
+.add-treatment-button:hover {
+  background-color: whitesmoke;
+}
+
+.record-buttons-box {
+  margin-bottom: 200px;
+}

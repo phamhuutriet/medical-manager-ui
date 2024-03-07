@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { RouteEnum } from "../../data/routeEnum";
 import { Button } from "../../components/Button";
-import { TextInputBox } from "../doctor/doctor-detail/NameBox";
-import { RecordTestTable, RecordTreatmentPlanTable } from "./RecordTable";
+import { BirthBox, TextInputBox } from "../doctor/doctor-detail/NameBox";
+import {
+  RecordTestTable,
+  RecordTreatmentPlanTable,
+  RecordTreatmentsTable,
+  VisitDate,
+} from "./RecordTable";
 import "./index.css";
 import { AddIcon } from "../../img/svg/AddIcon";
 
@@ -128,6 +133,20 @@ export const AddRecordPageContent = () => {
             <RecordTreatmentPlanTable treatmentPlans={MOCK_TREATMENTS_PLAN} />
           </div>
         </div>
+        <div className="table-container">
+          <div className="title-bar">
+            <div>Phác đồ điều trị thực tế</div>
+            <Button
+              text="Thêm điều trị mới"
+              icon={<AddIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />}
+              onClick={() => {}}
+              className="add-treatment-button"
+            />
+          </div>
+          <div className="content">
+            <RecordTreatmentsTable treatments={[]} />
+          </div>
+        </div>
       </div>
       <ButtonsBox saveDoctor={saveDoctor} cancelEditDoctor={cancelEditDoctor} />
     </div>
@@ -142,7 +161,7 @@ const ButtonsBox = ({
   cancelEditDoctor: Function;
 }) => {
   return (
-    <div className="buttons-box">
+    <div className="buttons-box record-buttons-box">
       <Button
         text="Huỷ"
         className="cancel-button"
