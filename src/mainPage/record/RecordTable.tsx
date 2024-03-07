@@ -271,5 +271,5 @@ const VisitDate = ({
 };
 
 const TextBox = ({ placeholder }: { placeholder: string }) => {
-  return <input className="treatment-text-box" placeholder={placeholder} />;
+  return <input className={`treatment-text-box`} placeholder={placeholder} />;
 };

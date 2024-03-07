@@ -118,7 +118,7 @@
   border: 1px solid var(--color-border-secondary);
   padding: 12px;
   border-radius: 8px;
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   font-family: var(--font-family);
   font-size: 16px;
 }
@@ -127,4 +127,21 @@
   display: flex;
   align-items: center;
   gap: 4px;
+}
+
+.treatment-text-box-focus {
+  border: 1px solid var(--color-border-primary);
+  color: var(--color-text-primary);
+}
+
+.treatment-text-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-family: var(--font-family);
+}
+
+.treatment-text-box::placeholder {
+  color: var(--color-text-secondary);
 }
