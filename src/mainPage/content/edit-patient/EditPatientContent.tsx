@@ -68,8 +68,8 @@ export const EditPatientContent = () => {
           </div>
           <div style={{ width: "100%" }}>
             <TextInputBox
-              entity={patient?.address}
-              setEntity={setAttribute("address")}
+              text={patient?.address}
+              setText={setAttribute("address")}
               boxTitle="Địa chỉ"
               placeholder="Địa chỉ bệnh nhân"
             />
@@ -98,10 +98,10 @@ export const EditPatientContent = () => {
         />
         <div className="note-box">
           <TextInputBox
-            entity={patient ? patient.note : ""}
+            text={patient ? patient.note : ""}
             placeholder="Điền ghi chú"
             boxTitle="Ghi chú"
-            setEntity={setAttribute("note")}
+            setText={setAttribute("note")}
           />
         </div>
         <DoctorDropDown

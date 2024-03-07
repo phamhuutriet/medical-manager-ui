@@ -12,28 +12,36 @@ import { Button } from "../../../components/Button";
 import { AddIcon } from "../../../img/svg/AddIcon";
 
 export const TextInputBox = ({
-  entity,
-  setEntity,
+  text,
+  setText,
   boxTitle,
   placeholder,
+  icon,
+  className,
 }: {
-  entity: any;
-  setEntity: Function;
+  text: any;
+  setText: Function;
   boxTitle: string;
-  placeholder: string;
+  placeholder?: string;
+  icon?: any;
+  className?: string;
 }) => {
   return (
-    <div className="box-item">
+    <div className={`box-item ${className}`}>
       <div className="title">{boxTitle}</div>
       <div className="content">
         <input
-          value={entity}
+          value={text}
           className="content-input"
-          placeholder={placeholder}
-          onChange={(e) => setEntity(e.target.value)}
+          placeholder={placeholder ? placeholder : "Nhập thông tin"}
+          onChange={(e) => setText(e.target.value)}
         />
         <IconButton>
-          <EditPatientIcon defaultColor="#0D0C0C" selectedColor="#586EE0" />
+          {icon ? (
+            React.cloneElement(icon)
+          ) : (
+            <EditPatientIcon defaultColor="#0D0C0C" selectedColor="#586EE0" />
+          )}
         </IconButton>
       </div>
     </div>
@@ -100,6 +108,8 @@ export const BirthBox = ({
   const setSelectedDate = (newDate: Dayjs) => {
     setDateOfBirth(newDate.format("DD / MM / YYYY"));
   };
+
+  console.log("Birth box render");
 
   return (
     <div className="box">
@@ -255,7 +265,7 @@ export const MultiOptionBox = ({
         <Button
           className="add-button"
           text="Thêm"
-          icon={<AddIcon />}
+          icon={<AddIcon defaultColor="#586EE0" selectedColor="#586EE0" />}
           onClick={() => setIsAddNewOption(true)}
         />
       ) : (

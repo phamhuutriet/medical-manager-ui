@@ -67,67 +67,66 @@ enum SexOption {
   FEMALE = "Female",
 }
 
-export const SexDropDown = ({
-  sex,
-  setSex,
-}: {
-  sex: string;
-  setSex: Function;
-}) => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const selectedOption = sex === SexOption.MALE ? SexText.MALE : SexText.FEMALE;
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const handleClickOption = (option: any) => {
-    setSex(option);
-    handleClose();
-  };
+export const SexDropDown = React.memo(
+  ({ sex, setSex }: { sex: string; setSex: Function }) => {
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const selectedOption =
+      sex === SexOption.MALE ? SexText.MALE : SexText.FEMALE;
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+    const handleClickOption = (option: any) => {
+      setSex(option);
+      handleClose();
+    };
 
-  return (
-    <div className="box">
-      <div className="box-item">
-        <div className="title">Giới tính</div>
-        <div className="content">
-          {sex ? (
-            <div style={{ width: "100%" }}>{selectedOption}</div>
-          ) : (
-            <div style={{ width: "100%", color: "#8C949D" }}>
-              Chọn giới tính
-            </div>
-          )}
+    console.log("render sex drop down");
 
-          <IconButton sx={{ height: "100%" }} onClick={handleClick}>
-            <ArrowDownIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />
-          </IconButton>
+    return (
+      <div className="box">
+        <div className="box-item">
+          <div className="title">Giới tính</div>
+          <div className="content">
+            {sex ? (
+              <div style={{ width: "100%" }}>{selectedOption}</div>
+            ) : (
+              <div style={{ width: "100%", color: "#8C949D" }}>
+                Chọn giới tính
+              </div>
+            )}
+
+            <IconButton sx={{ height: "100%" }} onClick={handleClick}>
+              <ArrowDownIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />
+            </IconButton>
+          </div>
         </div>
+        <StyledMenu
+          id="demo-customized-menu"
+          MenuListProps={{
+            "aria-labelledby": "demo-customized-button",
+          }}
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+        >
+          <MenuItem
+            onClick={() => handleClickOption(SexOption.MALE)}
+            disableRipple
+          >
+            {SexText.MALE}
+          </MenuItem>
+          <MenuItem
+            onClick={() => handleClickOption(SexOption.FEMALE)}
+            disableRipple
+          >
+            {SexText.FEMALE}
+          </MenuItem>
+        </StyledMenu>
       </div>
-      <StyledMenu
-        id="demo-customized-menu"
-        MenuListProps={{
-          "aria-labelledby": "demo-customized-button",
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-      >
-        <MenuItem
-          onClick={() => handleClickOption(SexOption.MALE)}
-          disableRipple
-        >
-          {SexText.MALE}
-        </MenuItem>
-        <MenuItem
-          onClick={() => handleClickOption(SexOption.FEMALE)}
-          disableRipple
-        >
-          {SexText.FEMALE}
-        </MenuItem>
-      </StyledMenu>
-    </div>
-  );
-};
+    );
+  }
+);

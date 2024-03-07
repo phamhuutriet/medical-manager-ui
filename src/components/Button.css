@@ -34,6 +34,6 @@
   transition: none !important;
 }
 
-.button-disable:hover {
+.button-disable:hover:not(.exclude) {
   background-color: white !important;
 }

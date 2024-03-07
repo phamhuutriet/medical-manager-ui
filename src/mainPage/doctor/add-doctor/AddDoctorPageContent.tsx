@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import { BirthBox, NameBox, PhoneNumberBox } from "../doctor-detail/NameBox";
 import { Button } from "../../../components/Button";
 import { SexDropDown } from "../doctor-detail/SexDropDown";
@@ -20,9 +20,18 @@ const VALID_KEYS = [
 export const AddDoctorPageContent = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
   const { doctors, setDoctors } = useContext(DoctorContext);
-  const [doctor, setDoctor] = useState<any>();
+  const [doctor, setDoctor] = useState<any>({
+    firstName: "",
+    lastName: "",
+    gender: "",
+    dateOfBirth: "",
+    phoneNumber: "",
+  });
+  const [gender, setGender] = useState<string>("");
   const doctorKeys = Object.keys(doctor ? doctor : {});
-  const isValidDoctor = VALID_KEYS.every((key) => doctorKeys.includes(key));
+  const isValidDoctor = VALID_KEYS.every(
+    (key) => doctorKeys.includes(key) && doctor[key]
+  );
   const [isAddSuccessfulModalOpen, setIsAddSuccessfulModalOpen] =
     useState(false);
   const navigate = useNavigate();
@@ -34,7 +43,7 @@ export const AddDoctorPageContent = () => {
   };
 
   const saveDoctor = () => {
-    // TODO: Call api to get doctor id here
+    // TODO: Call api to get doctor id here + gather attributes from other boxes
     const newDoctor = { ...doctor, id: "1" };
     setDoctors([...doctors, newDoctor]);
     setIsAddSuccessfulModalOpen(true);
@@ -63,10 +72,7 @@ export const AddDoctorPageContent = () => {
           setFirstName={setAttribute("firstName")}
           setLastName={setAttribute("lastName")}
         />
-        <SexDropDown
-          sex={doctor ? doctor.sex : ""}
-          setSex={setAttribute("gender")}
-        />
+        <SexDropDown sex={gender} setSex={setGender} />
         <BirthBox
           dateOfBirth={doctor ? doctor.dateOfBirth : ""}
           setDateOfBirth={setAttribute("dateOfBirth")}

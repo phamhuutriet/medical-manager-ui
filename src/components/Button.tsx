@@ -43,7 +43,7 @@ export const Button = ({
       <div className={`button-inner ${innerButtonClassName}`}>
         <div style={{ display: "flex", alignItems: "center" }}>{text}</div>
         {children}
-        <div>{icon}</div>
+        <div style={{ display: "flex", alignItems: "center" }}>{icon}</div>
       </div>
     </div>
   );

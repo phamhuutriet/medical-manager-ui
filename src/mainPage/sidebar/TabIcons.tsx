@@ -105,9 +105,12 @@ export const TabItem = ({
       onClick={onClick}
     >
       <div className="tab-item-inner">
-        {React.cloneElement(icon, {
-          isSelected: isHovered || isSelected,
-        })}
+        {
+          // TODO: refactor this into render props
+          React.cloneElement(icon, {
+            isSelected: isHovered || isSelected,
+          })
+        }
         <div className="tab-icon-text">{tabName}</div>
       </div>
     </div>
