@@ -11,8 +11,8 @@ import { AddIcon } from "../../img/svg/AddIcon";
 
 const MOCK_TESTS = [{ id: "1", createdAt: "07 / 02 / 2022", name: "X-quang" }];
 const MOCK_TREATMENTS_PLAN = [
-  { name: "Cạo vôi răng, đánh bóng hai hàm" },
-  { name: "Phục hình cầu R11 - 14, cầu R23 - 24" },
+  { id: "1", name: "Cạo vôi răng, đánh bóng hai hàm" },
+  { id: "2", name: "Phục hình cầu R11 - 14, cầu R23 - 24" },
 ];
 const MOCK_TREATMENTS: any[] = [
   {
@@ -170,6 +170,10 @@ const ClinicalTest = () => {
 };
 
 const TreatmentPlan = () => {
+  const [treatmentPlans, setTreatmentPlans] = useState(MOCK_TREATMENTS_PLAN);
+  const [isAddNewTreatmentPlan, setIsAddNewTreatmentPlan] =
+    React.useState(false);
+
   return (
     <div className="table-container">
       <div className="title-bar">
@@ -177,12 +181,17 @@ const TreatmentPlan = () => {
         <Button
           text="Thêm"
           icon={<AddIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />}
-          onClick={() => {}}
+          onClick={() => setIsAddNewTreatmentPlan(true)}
           className="add-test-button"
         />
       </div>
       <div className="content">
-        <RecordTreatmentPlanTable treatmentPlans={MOCK_TREATMENTS_PLAN} />
+        <RecordTreatmentPlanTable
+          isAddNewTreatmentPlan={isAddNewTreatmentPlan}
+          setIsAddNewTreatmentPlan={setIsAddNewTreatmentPlan}
+          treatmentPlans={treatmentPlans}
+          setTreatmentPlans={setTreatmentPlans}
+        />
       </div>
     </div>
   );
@@ -191,6 +200,7 @@ const TreatmentPlan = () => {
 const Treatments = () => {
   const [treatments, setTreatments] = useState(MOCK_TREATMENTS);
   const [isAddNewRow, setIsAddNewRow] = useState(false);
+
   const removeNewRow = () => {
     setIsAddNewRow(false);
   };

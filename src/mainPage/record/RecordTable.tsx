@@ -92,16 +92,66 @@ export const RecordTestTable = ({ tests }: { tests: Test[] }) => {
   );
 };
 
+const AddNewTreatmentPlanRow = ({
+  removeNewRow,
+  setTreatmentPlans,
+}: {
+  removeNewRow: any;
+  setTreatmentPlans: Function;
+}) => {
+  const [name, setName] = React.useState("");
+
+  const onClickAddNewTreatmentPlan = () => {
+    setTreatmentPlans((prev: any) => [...prev, { name }]);
+    removeNewRow();
+  };
+
+  return (
+    <StyledTableRow>
+      <StyledTableCell align="left">
+        <TextBox
+          placeholder="Thêm điều trị mới"
+          text={name}
+          setText={setName}
+        />
+      </StyledTableCell>
+      <StyledTableCell className="add-treatment-buttons" align="right">
+        <IconButton onClick={onClickAddNewTreatmentPlan} disabled={name === ""}>
+          <EditPatientIcon
+            defaultColor="var(--color-border-secondary)"
+            selectedColor="black"
+            isSelected={name !== ""}
+          />
+        </IconButton>
+        <IconButton onClick={removeNewRow}>
+          <CloseIcon />
+        </IconButton>
+      </StyledTableCell>
+    </StyledTableRow>
+  );
+};
+
 export interface TreatmentPlan {
+  id: string;
   name: string;
 }
 
 export const RecordTreatmentPlanTable = ({
+  isAddNewTreatmentPlan,
+  setIsAddNewTreatmentPlan,
   treatmentPlans,
+  setTreatmentPlans,
 }: {
+  isAddNewTreatmentPlan: boolean;
+  setIsAddNewTreatmentPlan: Function;
   treatmentPlans: TreatmentPlan[];
+  setTreatmentPlans: Function;
 }) => {
-  const onClickRemoveOption = () => {};
+  const onClickRemoveTreatmentPlan = (id: string) => {
+    setTreatmentPlans((prev: any) =>
+      prev.filter((treatmentPlan: TreatmentPlan) => treatmentPlan.id !== id)
+    );
+  };
 
   return (
     <Table
@@ -121,9 +171,7 @@ export const RecordTreatmentPlanTable = ({
         }}
       >
         <TableRow>
-          <StyledTableCell sx={{ width: "auto" }} align="left">
-            Điều trị
-          </StyledTableCell>
+          <StyledTableCell align="left">Điều trị</StyledTableCell>
           <StyledTableCell align="right"></StyledTableCell>
         </TableRow>
       </TableHead>
@@ -137,12 +185,18 @@ export const RecordTreatmentPlanTable = ({
               sx={{ display: "flex", flexDirection: "flex-end" }}
               align="right"
             >
-              <IconButton onClick={onClickRemoveOption}>
+              <IconButton onClick={() => onClickRemoveTreatmentPlan(row.id)}>
                 <CloseIcon />
               </IconButton>
             </StyledTableCell>
           </StyledTableRow>
         ))}
+        {isAddNewTreatmentPlan && (
+          <AddNewTreatmentPlanRow
+            setTreatmentPlans={setTreatmentPlans}
+            removeNewRow={() => setIsAddNewTreatmentPlan(false)}
+          />
+        )}
       </TableBody>
     </Table>
   );
@@ -243,7 +297,7 @@ const AddRow = ({
   };
 
   return (
-    <>
+    <StyledTableRow>
       {" "}
       <StyledTableCell align="left">
         <VisitDate visitDate={visitDate} setVisitDate={setVisitDate} />
@@ -274,7 +328,7 @@ const AddRow = ({
           </IconButton>
         </div>
       </StyledTableCell>
-    </>
+    </StyledTableRow>
   );
 };
 
