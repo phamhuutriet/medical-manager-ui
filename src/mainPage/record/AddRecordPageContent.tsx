@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
-import { RouteEnum } from "../../data/routeEnum";
 import { Button } from "../../components/Button";
 import { TextInputBox } from "../doctor/doctor-detail/NameBox";
 import {
@@ -16,11 +14,28 @@ const MOCK_TREATMENTS_PLAN = [
   { name: "Cạo vôi răng, đánh bóng hai hàm" },
   { name: "Phục hình cầu R11 - 14, cầu R23 - 24" },
 ];
+const MOCK_TREATMENTS: any[] = [
+  {
+    data: {
+      treatmentType: "Mo ruot thua",
+      visitDate: "02 / 12 / 2023",
+      cost: "100.000",
+      note: "viem ruot thua",
+      doctor: {
+        id: "2c275720-0c18-446b-96b3-2b94cc3db6fe",
+        firstName: "Triet",
+        lastName: "Pham",
+        gender: "Male",
+        dateOfBirth: "2/1/1991",
+        phoneNumber: "+62 207 553 4237",
+        createdAt: "9/16/2023",
+      },
+    },
+  },
+];
 
 export const AddRecordPageContent = () => {
   const [record, setRecord] = useState<any>();
-  const [isAddNewRow, setIsAddNewRow] = useState(false);
-  const navigate = useNavigate();
 
   const setAttribute = (attribute: string) => {
     return (value: any) => {
@@ -39,26 +54,6 @@ export const AddRecordPageContent = () => {
         });
       }
     };
-  };
-
-  const removeNewRow = () => {
-    setIsAddNewRow(false);
-  };
-
-  const saveDoctor = () => {
-    // setDoctors(
-    //   doctors.map((doctorItem) => {
-    //     if (doctor && doctorItem.id === doctor.id) {
-    //       return doctor;
-    //     }
-    //     return doctorItem;
-    //   })
-    // );
-    // navigate(RouteEnum.DOCTOR_PAGE);
-  };
-
-  const cancelEditDoctor = () => {
-    navigate(RouteEnum.DOCTOR_PAGE);
   };
 
   return (
@@ -81,107 +76,144 @@ export const AddRecordPageContent = () => {
           boxTitle="Triệu chứng"
           className="big-box"
         />
-        <div className="vital-signs-container">
-          <TextInputBox
-            text={record?.vitalSigns.heartRate}
-            setText={() => setNestedAttribute("vitalSigns", "reasonForVisit")}
-            boxTitle="Mạch"
-          />
-          <TextInputBox
-            text={record?.vitalSigns.temperature}
-            setText={() => setNestedAttribute("vitalSigns", "temperature")}
-            boxTitle="Nhiệt độ"
-          />
-          <TextInputBox
-            text={record?.vitalSigns.bloodPressure}
-            setText={() => setNestedAttribute("vitalSigns", "bloodPressure")}
-            boxTitle="Huyết áp"
-          />
-          <TextInputBox
-            text={record?.vitalSigns.breathRate}
-            setText={() => setNestedAttribute("vitalSigns", "breathRate")}
-            boxTitle="Nhịp thở"
-          />
-        </div>
-        <div className="table-container">
-          <div className="title-bar">
-            <div>Xét nghiệm cận lâm sàng</div>
-            <Button
-              text="Thêm"
-              icon={<AddIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />}
-              onClick={() => {}}
-              className="add-test-button"
-            />
-          </div>
-          <div className="content">
-            <RecordTestTable tests={MOCK_TESTS} />
-          </div>
-        </div>
+        <VitalSigns record={record} setNestedAttribute={setNestedAttribute} />
+        <ClinicalTest />
         <TextInputBox
           text={record?.diagnosis}
           setText={() => setAttribute("diagnosis")}
           boxTitle="Chẩn đoán"
           className="big-box"
         />
-        <div className="table-container">
-          <div className="title-bar">
-            <div>Kế hoạch điều trị</div>
-            <Button
-              text="Thêm"
-              icon={<AddIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />}
-              onClick={() => {}}
-              className="add-test-button"
-            />
-          </div>
-          <div className="content">
-            <RecordTreatmentPlanTable treatmentPlans={MOCK_TREATMENTS_PLAN} />
-          </div>
-        </div>
-        <div className="table-container">
-          <div className="title-bar">
-            <div>Phác đồ điều trị thực tế</div>
-            <Button
-              text="Thêm điều trị mới"
-              icon={<AddIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />}
-              onClick={() => setIsAddNewRow(true)}
-              className="add-treatment-button"
-            />
-          </div>
-          <div className="content">
-            <RecordTreatmentsTable
-              treatments={[]}
-              isAddNewTreatment={isAddNewRow}
-              removeNewRow={removeNewRow}
-            />
-          </div>
-        </div>
+        <TreatmentPlan />
+        <Treatments />
       </div>
-      <ButtonsBox saveDoctor={saveDoctor} cancelEditDoctor={cancelEditDoctor} />
+      <ButtonsBox saveRecord={() => {}} cancelEditRecord={() => {}} />
     </div>
   );
 };
 
 const ButtonsBox = ({
-  saveDoctor,
-  cancelEditDoctor,
+  saveRecord,
+  cancelEditRecord,
 }: {
-  saveDoctor: Function;
-  cancelEditDoctor: Function;
+  saveRecord: Function;
+  cancelEditRecord: Function;
 }) => {
   return (
     <div className="buttons-box record-buttons-box">
       <Button
         text="Huỷ"
         className="cancel-button"
-        onClick={cancelEditDoctor}
+        onClick={cancelEditRecord}
         innerButtonClassName="cancel-button-inner"
       />
       <Button
         text="Lưu"
         className="save-button"
-        onClick={saveDoctor}
+        onClick={saveRecord}
         innerButtonClassName="save-button-inner"
       />
+    </div>
+  );
+};
+
+const VitalSigns = ({
+  record,
+  setNestedAttribute,
+}: {
+  record: any;
+  setNestedAttribute: Function;
+}) => {
+  return (
+    <div className="vital-signs-container">
+      <TextInputBox
+        text={record?.vitalSigns.heartRate}
+        setText={() => setNestedAttribute("vitalSigns", "reasonForVisit")}
+        boxTitle="Mạch"
+      />
+      <TextInputBox
+        text={record?.vitalSigns.temperature}
+        setText={() => setNestedAttribute("vitalSigns", "temperature")}
+        boxTitle="Nhiệt độ"
+      />
+      <TextInputBox
+        text={record?.vitalSigns.bloodPressure}
+        setText={() => setNestedAttribute("vitalSigns", "bloodPressure")}
+        boxTitle="Huyết áp"
+      />
+      <TextInputBox
+        text={record?.vitalSigns.breathRate}
+        setText={() => setNestedAttribute("vitalSigns", "breathRate")}
+        boxTitle="Nhịp thở"
+      />
+    </div>
+  );
+};
+
+const ClinicalTest = () => {
+  return (
+    <div className="table-container">
+      <div className="title-bar">
+        <div>Xét nghiệm cận lâm sàng</div>
+        <Button
+          text="Thêm"
+          icon={<AddIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />}
+          onClick={() => {}}
+          className="add-test-button"
+        />
+      </div>
+      <div className="content">
+        <RecordTestTable tests={MOCK_TESTS} />
+      </div>
+    </div>
+  );
+};
+
+const TreatmentPlan = () => {
+  return (
+    <div className="table-container">
+      <div className="title-bar">
+        <div>Kế hoạch điều trị</div>
+        <Button
+          text="Thêm"
+          icon={<AddIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />}
+          onClick={() => {}}
+          className="add-test-button"
+        />
+      </div>
+      <div className="content">
+        <RecordTreatmentPlanTable treatmentPlans={MOCK_TREATMENTS_PLAN} />
+      </div>
+    </div>
+  );
+};
+
+const Treatments = () => {
+  const [treatments, setTreatments] = useState(MOCK_TREATMENTS);
+  const [isAddNewRow, setIsAddNewRow] = useState(false);
+  const removeNewRow = () => {
+    setIsAddNewRow(false);
+  };
+
+  return (
+    <div className="table-container">
+      <div className="title-bar">
+        <div>Phác đồ điều trị thực tế</div>
+        <Button
+          text="Thêm điều trị mới"
+          icon={<AddIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />}
+          onClick={() => setIsAddNewRow(true)}
+          className="add-treatment-button"
+        />
+      </div>
+      <div className="content">
+        <RecordTreatmentsTable
+          treatments={treatments}
+          isAddNewTreatment={isAddNewRow}
+          removeNewRow={removeNewRow}
+          setTreatments={setTreatments}
+        />
+      </div>
     </div>
   );
 };

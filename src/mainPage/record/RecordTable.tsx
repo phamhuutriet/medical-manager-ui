@@ -13,22 +13,7 @@ import { BirthCalendar } from "../doctor/doctor-detail/BirthCalendar";
 import dayjs, { Dayjs } from "dayjs";
 import { CalendarIcon } from "../../img/svg/CalendarIcon";
 import { DoctorDropDown } from "../doctor/doctor-detail/DoctorDropDown";
-import { TickCircle } from "../../img/svg/TickCircle";
-import { EditAvatarIcon } from "../../img/svg/EditAvatarIcon";
 import { EditPatientIcon } from "../../img/svg/EditPatientIcon";
-
-const StickyTableCell = styled(TableCell)((theme) => ({
-  head: {
-    left: 0,
-    position: "sticky",
-    // zIndex: theme.zIndex.appBar + 2,
-  },
-  body: {
-    left: 0,
-    position: "sticky",
-    // zIndex: theme.zIndex.appBar + 1,
-  },
-}));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -167,13 +152,13 @@ export const RecordTreatmentsTable = ({
   isAddNewTreatment,
   removeNewRow,
   treatments,
+  setTreatments,
 }: {
   isAddNewTreatment?: boolean;
   removeNewRow: Function;
   treatments: Treatment[];
+  setTreatments: Function;
 }) => {
-  const onClickRemoveOption = () => {};
-
   return (
     <Table
       sx={{ minWidth: 700, borderCollapse: "separate" }}
@@ -193,8 +178,8 @@ export const RecordTreatmentsTable = ({
         }}
       >
         <TableRow>
-          <StyledTableCell align="left">Điều trị</StyledTableCell>
           <StyledTableCell align="left">Ngày khám</StyledTableCell>
+          <StyledTableCell align="left">Điều trị</StyledTableCell>
           <StyledTableCell align="left">Giá tiền</StyledTableCell>
           <StyledTableCell align="left">Ghi chú</StyledTableCell>
           <StyledTableCell align="left">Bác sĩ</StyledTableCell>
@@ -202,34 +187,86 @@ export const RecordTreatmentsTable = ({
         </TableRow>
       </TableHead>
       <TableBody>
-        {isAddNewTreatment && <AddRow removeNewRow={removeNewRow} />}
+        {treatments.map((treatment) => (
+          <StyledTableRow>
+            <StyledTableCell align="left">
+              {treatment.data.visitDate}
+            </StyledTableCell>
+            <StyledTableCell align="left">
+              {treatment.data.treatmentType}
+            </StyledTableCell>
+            <StyledTableCell align="left">
+              {treatment.data.cost}
+            </StyledTableCell>
+            <StyledTableCell align="left">
+              {treatment.data.note}
+            </StyledTableCell>
+            <StyledTableCell align="left">{`${treatment.data.doctor.firstName} ${treatment.data.doctor.lastName}`}</StyledTableCell>
+            <StyledTableCell align="right"></StyledTableCell>
+          </StyledTableRow>
+        ))}
+        {isAddNewTreatment && (
+          <AddRow removeNewRow={removeNewRow} setTreatments={setTreatments} />
+        )}
       </TableBody>
     </Table>
   );
 };
 
-const AddRow = ({ removeNewRow }: { removeNewRow: any }) => {
+const AddRow = ({
+  removeNewRow,
+  setTreatments,
+}: {
+  removeNewRow: any;
+  setTreatments: Function;
+}) => {
+  const [visitDate, setVisitDate] = React.useState();
+  const [treatmentType, setTreatmentType] = React.useState("");
+  const [cost, setCost] = React.useState("");
+  const [note, setNote] = React.useState("");
+  const [doctor, setDoctor] = React.useState();
+
+  const onClickAddNewTreatment = () => {
+    setTreatments((prev: any) => [
+      ...prev,
+      {
+        data: {
+          visitDate,
+          treatmentType,
+          cost,
+          note,
+          doctor,
+        },
+      },
+    ]);
+    removeNewRow();
+  };
+
   return (
     <>
       {" "}
       <StyledTableCell align="left">
-        <VisitDate visitDate="" setVisitDate={() => {}} />
+        <VisitDate visitDate={visitDate} setVisitDate={setVisitDate} />
       </StyledTableCell>
       <StyledTableCell align="left">
-        <TextBox placeholder="Nhập thông tin điều trị" />
+        <TextBox
+          text={treatmentType}
+          setText={setTreatmentType}
+          placeholder="Nhập thông tin điều trị"
+        />
       </StyledTableCell>
       <StyledTableCell align="left">
-        <TextBox placeholder="Giá tiền" />
+        <TextBox text={cost} setText={setCost} placeholder="Giá tiền" />
       </StyledTableCell>
       <StyledTableCell align="left">
-        <TextBox placeholder="Ghi chú" />
+        <TextBox text={note} setText={setNote} placeholder="Ghi chú" />
       </StyledTableCell>
       <StyledTableCell align="left">
-        <DoctorDropDown setDoctor={() => {}} noTitle />
+        <DoctorDropDown doctor={doctor} setDoctor={setDoctor} noTitle />
       </StyledTableCell>
       <StyledTableCell align="right">
         <div className="add-treatment-buttons">
-          <IconButton>
+          <IconButton onClick={onClickAddNewTreatment}>
             <EditPatientIcon defaultColor="black" selectedColor="black" />
           </IconButton>
           <IconButton onClick={removeNewRow}>
@@ -255,13 +292,19 @@ const VisitDate = ({
   };
 
   return (
-    <div className="visit-date-container">
+    <div className={`visit-date-container ${visitDate && "text-box-filled"}`}>
       <div>{visitDate ? visitDate : "Ngày"}</div>
       <IconButton onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
-        <CalendarIcon defaultColor="#8c949d" selectedColor="#8c949d" />
+        <CalendarIcon
+          defaultColor="#8c949d"
+          selectedColor="black"
+          isSelected={visitDate !== undefined}
+        />
       </IconButton>
       <BirthCalendar
-        selectedDate={visitDate ? dayjs(visitDate) : undefined}
+        selectedDate={
+          visitDate ? dayjs(visitDate, "DD / MM / YYYY") : undefined
+        }
         setSelectedDate={onSelectDate}
         isCalendarOpen={isCalendarOpen}
         customStyle={{ right: "-170%" }}
@@ -270,6 +313,21 @@ const VisitDate = ({
   );
 };
 
-const TextBox = ({ placeholder }: { placeholder: string }) => {
-  return <input className={`treatment-text-box`} placeholder={placeholder} />;
+const TextBox = ({
+  placeholder,
+  text,
+  setText,
+}: {
+  placeholder: string;
+  text: string;
+  setText: Function;
+}) => {
+  return (
+    <input
+      className={`treatment-text-box ${text && "text-box-filled"}`}
+      placeholder={placeholder}
+      value={text}
+      onChange={(e) => setText(e.target.value)}
+    />
+  );
 };
