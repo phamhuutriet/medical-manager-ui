@@ -100,7 +100,7 @@ const ButtonsBox = ({
   cancelEditRecord: Function;
 }) => {
   return (
-    <div className="buttons-box record-buttons-box">
+    <div className="buttons-box">
       <Button
         text="Huỷ"
         className="cancel-button"

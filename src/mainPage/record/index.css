@@ -110,10 +110,6 @@
   background-color: whitesmoke;
 }
 
-.record-buttons-box {
-  margin-bottom: 200px;
-}
-
 .treatment-text-box {
   border: 1px solid var(--color-border-secondary);
   padding: 12px;
