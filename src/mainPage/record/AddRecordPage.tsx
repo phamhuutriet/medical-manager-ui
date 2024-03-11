@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { RouteEnum } from "../../data/routeEnum";
 import { IconButton } from "@mui/material";
 import { BackIcon } from "../../img/svg/BackIcon";
 import "./index.css";
@@ -10,7 +9,7 @@ export const AddRecordPage = () => {
   const navigate = useNavigate();
 
   const onClickBack = () => {
-    navigate(RouteEnum.MAIN_PAGE);
+    navigate(-1);
   };
   return (
     <div className="page-content-container">

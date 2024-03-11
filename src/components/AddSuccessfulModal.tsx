@@ -84,16 +84,3 @@ export const AddSuccessfulModal = ({
     </Modal>
   );
 };
-
-{
-  /* <AddSuccessfulModal
-        open
-        handleClose={() => {}} // do nothing here since we will use the buttons to navigate
-        handleRedirect={() => {}}
-        onClickConfirm={() => {}}
-        title="Thêm bệnh án thành công"
-        innerText="Chúc mừng bạn đã tạo hồ sơ bệnh án thành công"
-        leftButtonText="Quay về hồ sơ bệnh nhân"
-        rightButtonText="Xem chi tiết"
-      /> */
-}

@@ -6,7 +6,7 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import "../index.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,9 +38,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export const RecordsTable = ({ records }: { records: any[] }) => {
+  const { patientId } = useParams();
   const navigate = useNavigate();
   const onClickRecordRow = (recordId: string) => {
-    navigate(`/records/${recordId}`);
+    navigate(
+      `/patients/details/${patientId ? patientId : ""}/records/${recordId}`
+    );
   };
 
   return (

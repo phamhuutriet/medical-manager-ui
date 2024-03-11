@@ -6,9 +6,12 @@ import {
   RecordTreatmentPlanTable,
   RecordTreatmentsTable,
 } from "./RecordTable";
-import "./index.css";
 import { AddIcon } from "../../img/svg/AddIcon";
 import { AddRecordTestModal } from "./AddRecordTestModal";
+import { AddSuccessfulModal } from "../../components/AddSuccessfulModal";
+import { useNavigate } from "react-router-dom";
+import { RouteEnum } from "../../data/routeEnum";
+import "./index.css";
 
 const MOCK_TESTS = [
   { id: "1", createdAt: "07 / 02 / 2022", name: "X-quang", images: [] },
@@ -38,7 +41,28 @@ const MOCK_TREATMENTS: any[] = [
 ];
 
 export const AddRecordPageContent = () => {
-  const [record, setRecord] = useState<any>();
+  const [record, setRecord] = useState<any>({
+    symptom: "",
+    reasonForVisit: "",
+    medicalHistory: "",
+    diagnosis: "",
+    vitalSigns: {
+      heartRate: "",
+      temperature: "",
+      bloodPressure: "",
+      breathRate: "",
+    },
+  });
+  const [tests, setTests] = useState([]);
+  const [treatmentPlans, setTreatmentPlans] = useState([]);
+  const [treatments, setTreatments] = useState([]);
+  const [isAddedRecord, setIsAddedRecord] = useState(false);
+  const isAddable =
+    record.symptom &&
+    record.reasonForVisit &&
+    record.medicalHistory &&
+    record.diagnosis;
+  const navigate = useNavigate();
 
   const setAttribute = (attribute: string) => {
     return (value: any) => {
@@ -50,60 +74,84 @@ export const AddRecordPageContent = () => {
 
   const setNestedAttribute = (outerAttr: string, innerAttr: string) => {
     return (value: any) => {
-      if (record) {
-        setRecord({
-          ...record,
-          [outerAttr]: { ...record[outerAttr], [innerAttr]: value },
-        });
-      }
+      setRecord({
+        ...record,
+        [outerAttr]: { ...record[outerAttr], [innerAttr]: value },
+      });
     };
+  };
+
+  const onClickSaveRecord = () => {
+    setIsAddedRecord(true);
   };
 
   return (
     <div>
+      <AddSuccessfulModal
+        open={isAddedRecord}
+        handleClose={() => setIsAddedRecord(false)} // do nothing here since we will use the buttons to navigate
+        handleRedirect={() => navigate(RouteEnum.MAIN_PAGE)}
+        onClickConfirm={() => {}}
+        title="Thêm bệnh án thành công"
+        innerText="Chúc mừng bạn đã tạo hồ sơ bệnh án thành công"
+        leftButtonText="Quay về hồ sơ bệnh nhân"
+        rightButtonText="Xem chi tiết"
+      />
       <div className="record-content-container">
         <TextInputBox
-          text={record?.reasonForVisit}
-          setText={() => setAttribute("reasonForVisit")}
+          text={record.reasonForVisit}
+          setText={setAttribute("reasonForVisit")}
           boxTitle="Lý do đến khám"
         />
         <TextInputBox
-          text={record?.medicalHistory}
-          setText={() => setAttribute("medicalHistory")}
+          text={record.medicalHistory}
+          setText={setAttribute("medicalHistory")}
           boxTitle="Bệnh sử"
           className="big-box"
         />
         <TextInputBox
-          text={record?.symptom}
-          setText={() => setAttribute("symptom")}
+          text={record.symptom}
+          setText={setAttribute("symptom")}
           boxTitle="Triệu chứng"
           className="big-box"
         />
-        <VitalSigns record={record} setNestedAttribute={setNestedAttribute} />
-        <ClinicalTest />
+        <VitalSigns
+          vitalSigns={record.vitalSigns}
+          setNestedAttribute={setNestedAttribute}
+        />
+        <ClinicalTest tests={tests} setTests={setTests} />
         <TextInputBox
-          text={record?.diagnosis}
-          setText={() => setAttribute("diagnosis")}
+          text={record.diagnosis}
+          setText={setAttribute("diagnosis")}
           boxTitle="Chẩn đoán"
           className="big-box"
         />
-        <TreatmentPlan />
-        <Treatments />
+        <TreatmentPlan
+          treatmentPlans={treatmentPlans}
+          setTreatmentPlans={setTreatmentPlans}
+        />
+        <Treatments treatments={treatments} setTreatments={setTreatments} />
       </div>
-      <ButtonsBox saveRecord={() => {}} cancelEditRecord={() => {}} />
+      <ButtonsBox
+        isAddable={isAddable}
+        saveRecord={onClickSaveRecord}
+        cancelEditRecord={() => navigate(-1)}
+      />
     </div>
   );
 };
 
 const ButtonsBox = ({
+  isAddable,
   saveRecord,
   cancelEditRecord,
 }: {
+  isAddable: boolean;
   saveRecord: Function;
   cancelEditRecord: Function;
 }) => {
   return (
-    <div className="buttons-box">
+    <div className="buttons-box add-record-buttons">
       <Button
         text="Huỷ"
         className="cancel-button"
@@ -112,50 +160,50 @@ const ButtonsBox = ({
       />
       <Button
         text="Lưu"
-        className="save-button"
+        className={`save-button ${!isAddable && "background-disable"}`}
         onClick={saveRecord}
-        innerButtonClassName="save-button-inner"
+        disable={!isAddable}
+        innerButtonClassName={`${!isAddable && "save-button-inner-disable"}`}
       />
     </div>
   );
 };
 
 const VitalSigns = ({
-  record,
+  vitalSigns,
   setNestedAttribute,
 }: {
-  record: any;
+  vitalSigns: any;
   setNestedAttribute: Function;
 }) => {
   return (
     <div className="vital-signs-container">
       <TextInputBox
-        text={record?.vitalSigns.heartRate}
-        setText={() => setNestedAttribute("vitalSigns", "reasonForVisit")}
+        text={vitalSigns.heartRate}
+        setText={setNestedAttribute("vitalSigns", "heartRate")}
         boxTitle="Mạch"
       />
       <TextInputBox
-        text={record?.vitalSigns.temperature}
-        setText={() => setNestedAttribute("vitalSigns", "temperature")}
+        text={vitalSigns.temperature}
+        setText={setNestedAttribute("vitalSigns", "temperature")}
         boxTitle="Nhiệt độ"
       />
       <TextInputBox
-        text={record?.vitalSigns.bloodPressure}
-        setText={() => setNestedAttribute("vitalSigns", "bloodPressure")}
+        text={vitalSigns.bloodPressure}
+        setText={setNestedAttribute("vitalSigns", "bloodPressure")}
         boxTitle="Huyết áp"
       />
       <TextInputBox
-        text={record?.vitalSigns.breathRate}
-        setText={() => setNestedAttribute("vitalSigns", "breathRate")}
+        text={vitalSigns.breathRate}
+        setText={setNestedAttribute("vitalSigns", "breathRate")}
         boxTitle="Nhịp thở"
       />
     </div>
   );
 };
 
-const ClinicalTest = () => {
+const ClinicalTest = ({ tests, setTests }: { tests: any; setTests: any }) => {
   const [open, setOpen] = useState(false);
-  const [tests, setTests] = useState(MOCK_TESTS);
 
   return (
     <div className="table-container">
@@ -180,8 +228,13 @@ const ClinicalTest = () => {
   );
 };
 
-const TreatmentPlan = () => {
-  const [treatmentPlans, setTreatmentPlans] = useState(MOCK_TREATMENTS_PLAN);
+const TreatmentPlan = ({
+  treatmentPlans,
+  setTreatmentPlans,
+}: {
+  treatmentPlans: any;
+  setTreatmentPlans: any;
+}) => {
   const [isAddNewTreatmentPlan, setIsAddNewTreatmentPlan] =
     React.useState(false);
 
@@ -208,8 +261,13 @@ const TreatmentPlan = () => {
   );
 };
 
-const Treatments = () => {
-  const [treatments, setTreatments] = useState(MOCK_TREATMENTS);
+const Treatments = ({
+  treatments,
+  setTreatments,
+}: {
+  treatments: any;
+  setTreatments: any;
+}) => {
   const [isAddNewRow, setIsAddNewRow] = useState(false);
 
   const removeNewRow = () => {

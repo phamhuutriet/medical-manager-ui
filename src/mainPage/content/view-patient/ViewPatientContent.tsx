@@ -43,8 +43,6 @@ export const ViewPatientContent = () => {
     navigate(`/patients/edit-patient/${patientId}`);
   };
 
-  console.log("Date of birth", currentPatient.dateOfBirth);
-
   return (
     <div className="view-patient-container">
       <div className="info-box">
