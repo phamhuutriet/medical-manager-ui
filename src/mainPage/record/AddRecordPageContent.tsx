@@ -8,6 +8,7 @@ import {
 } from "./RecordTable";
 import "./index.css";
 import { AddIcon } from "../../img/svg/AddIcon";
+import { AddRecordTestModal } from "./AddRecordTestModal";
 
 const MOCK_TESTS = [{ id: "1", createdAt: "07 / 02 / 2022", name: "X-quang" }];
 const MOCK_TREATMENTS_PLAN = [
@@ -151,14 +152,17 @@ const VitalSigns = ({
 };
 
 const ClinicalTest = () => {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="table-container">
+      <AddRecordTestModal open={open} handleClose={() => setOpen(false)} />
       <div className="title-bar">
         <div>Xét nghiệm cận lâm sàng</div>
         <Button
           text="Thêm"
           icon={<AddIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />}
-          onClick={() => {}}
+          onClick={() => setOpen(true)}
           className="add-test-button"
         />
       </div>
