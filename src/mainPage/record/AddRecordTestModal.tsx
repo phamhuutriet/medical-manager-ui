@@ -22,6 +22,9 @@ const style = {
   alignItems: "center",
   padding: "24px",
   boxSizing: "border-box",
+  borderRadius: "8px",
+  overflow: "auto",
+  maxHeight: "70vh",
 };
 
 const VisuallyHiddenInput = styled("input")({
@@ -74,7 +77,8 @@ export const AddRecordTestModal = ({
     }
   };
 
-  const isDisableSaveButton = testName === "" || createdAt === "";
+  const isDisableSaveButton =
+    testName === "" || createdAt === "" || testImages.length === 0;
 
   const onClose = () => {
     resetState();
@@ -197,5 +201,80 @@ export const AddRecordTestModal = ({
         </div>
       </Box>
     </Modal>
+  );
+};
+
+export const ViewRecordTestModal = ({
+  open,
+  handleClose,
+  recordTest,
+}: {
+  open: boolean;
+  handleClose: any;
+  recordTest: any;
+}) => {
+  const [selectedImage, setSelectedImage] = useState();
+
+  const onClose = () => {
+    setSelectedImage(undefined);
+    handleClose();
+  };
+
+  const onClickSelectImage = (image: any) => {
+    setSelectedImage(image);
+  };
+
+  return (
+    <Modal open={open} onClose={onClose}>
+      {selectedImage ? (
+        <ImageViewModal image={selectedImage} />
+      ) : (
+        <Box sx={style}>
+          <div className="modal-title-row">
+            <div className="add-test-modal-title">{recordTest.name}</div>
+            <IconButton onClick={handleClose} sx={{ height: "24px" }}>
+              <CloseIcon />
+            </IconButton>
+          </div>
+          {recordTest.images.map((image: any) => (
+            <img
+              alt="record-test-img"
+              src={image}
+              width="100%"
+              onClick={() => onClickSelectImage(image)}
+            />
+          ))}
+        </Box>
+      )}
+    </Modal>
+  );
+};
+
+const imageModalStyle = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  bgcolor: "inherit",
+  boxShadow: 24,
+  p: 4,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: "24px",
+  boxSizing: "border-box",
+  borderRadius: "8px",
+  overflow: "auto",
+};
+
+const ImageViewModal = ({ image }: { image: any }) => {
+  return (
+    <Box sx={imageModalStyle}>
+      <img
+        alt="imageModalView"
+        src={image}
+        style={{ maxHeight: "100vh", maxWidth: "100%" }}
+      />
+    </Box>
   );
 };

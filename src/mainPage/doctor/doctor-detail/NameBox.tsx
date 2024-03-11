@@ -105,7 +105,7 @@ export const BirthBox = ({
   setIsCalendarOpen: Function;
 }) => {
   const selectedDate = dayjs(dateOfBirth, "DD / MM / YYYY");
-  const defaultDate = dayjs("02 / 01 / 1991");
+  const defaultDate = dayjs();
 
   const setSelectedDate = (newDate: Dayjs) => {
     setDateOfBirth(newDate.format("DD / MM / YYYY"));

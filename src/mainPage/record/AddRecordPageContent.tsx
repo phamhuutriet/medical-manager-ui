@@ -10,7 +10,9 @@ import "./index.css";
 import { AddIcon } from "../../img/svg/AddIcon";
 import { AddRecordTestModal } from "./AddRecordTestModal";
 
-const MOCK_TESTS = [{ id: "1", createdAt: "07 / 02 / 2022", name: "X-quang" }];
+const MOCK_TESTS = [
+  { id: "1", createdAt: "07 / 02 / 2022", name: "X-quang", images: [] },
+];
 const MOCK_TREATMENTS_PLAN = [
   { id: "1", name: "Cạo vôi răng, đánh bóng hai hàm" },
   { id: "2", name: "Phục hình cầu R11 - 14, cầu R23 - 24" },

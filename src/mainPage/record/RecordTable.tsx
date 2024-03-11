@@ -14,6 +14,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { CalendarIcon } from "../../img/svg/CalendarIcon";
 import { DoctorDropDown } from "../doctor/doctor-detail/DoctorDropDown";
 import { EditPatientIcon } from "../../img/svg/EditPatientIcon";
+import { ViewRecordTestModal } from "./AddRecordTestModal";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -45,11 +46,27 @@ export interface Test {
 }
 
 export const RecordTestTable = ({ tests }: { tests: Test[] }) => {
+  const [open, setOpen] = React.useState(false);
+  const [selectedRecordTest, setSelectedRecordTest] = React.useState();
+
+  const onClickViewMoreRecordTest = (test: any) => {
+    setSelectedRecordTest(test);
+    setOpen(true);
+  };
+
   return (
     <Table
       sx={{ minWidth: 700, borderCollapse: "separate" }}
       aria-label="customized table"
     >
+      {selectedRecordTest && (
+        <ViewRecordTestModal
+          open={open}
+          handleClose={() => setOpen(false)}
+          recordTest={selectedRecordTest}
+        />
+      )}
+
       <TableHead
         sx={{
           "& th:first-child": {
@@ -81,7 +98,7 @@ export const RecordTestTable = ({ tests }: { tests: Test[] }) => {
             >
               <Button
                 text="Xem chi tiết"
-                onClick={() => {}}
+                onClick={() => onClickViewMoreRecordTest(row)}
                 className="view-record-test-button"
               />
             </StyledTableCell>
