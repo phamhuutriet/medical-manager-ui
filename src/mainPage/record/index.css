@@ -245,11 +245,27 @@
   align-items: center;
 }
 
+.add-test-modal-button-rows .save-button:hover {
+  background-color: #344abb;
+}
+
 .add-test-modal-button-rows .background-disable {
-  background-color: var(--color-surface-secondary);
+  background-color: var(--color-surface-secondary) !important;
   cursor: auto;
+}
+
+.add-test-modal-button-rows .background-disable:hover {
+  background-color: var(--color-surface-secondary) !important;
 }
 
 .add-test-modal-button-rows .save-button-inner-disable {
   color: var(--color-text-secondary);
+}
+
+.uploaded-images {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
 }

@@ -153,10 +153,15 @@ const VitalSigns = ({
 
 const ClinicalTest = () => {
   const [open, setOpen] = useState(false);
+  const [tests, setTests] = useState(MOCK_TESTS);
 
   return (
     <div className="table-container">
-      <AddRecordTestModal open={open} handleClose={() => setOpen(false)} />
+      <AddRecordTestModal
+        open={open}
+        handleClose={() => setOpen(false)}
+        setTests={setTests}
+      />
       <div className="title-bar">
         <div>Xét nghiệm cận lâm sàng</div>
         <Button
@@ -167,7 +172,7 @@ const ClinicalTest = () => {
         />
       </div>
       <div className="content">
-        <RecordTestTable tests={MOCK_TESTS} />
+        <RecordTestTable tests={tests} />
       </div>
     </div>
   );

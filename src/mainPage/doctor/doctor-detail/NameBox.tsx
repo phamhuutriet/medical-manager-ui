@@ -92,11 +92,13 @@ export const NameBox = ({
 };
 
 export const BirthBox = ({
+  title,
   dateOfBirth,
   setDateOfBirth,
   isCalendarOpen,
   setIsCalendarOpen,
 }: {
+  title?: string;
   dateOfBirth: string;
   setDateOfBirth: Function;
   isCalendarOpen: boolean;
@@ -112,7 +114,7 @@ export const BirthBox = ({
   return (
     <div className="box">
       <div className="box-item" style={{ position: "relative" }}>
-        <div className="title">Ngày sinh</div>
+        <div className="title">{title ? title : "Ngày sinh"}</div>
         <div className="content">
           <div style={{ width: "100%" }}>
             {dateOfBirth ? (
