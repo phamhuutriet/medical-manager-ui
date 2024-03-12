@@ -18,6 +18,7 @@ export const TextInputBox = ({
   placeholder,
   icon,
   className,
+  isPassword,
 }: {
   text: any;
   setText: Function;
@@ -25,22 +26,32 @@ export const TextInputBox = ({
   placeholder?: string;
   icon?: any;
   className?: string;
+  isPassword?: boolean;
 }) => {
+  const [isFocus, setIsFocus] = useState(false);
+
   return (
     <div className={`box-item ${className}`}>
       <div className="title">{boxTitle}</div>
-      <div className="content">
+      <div className={`content ${isFocus && "box-item-focus"}`}>
         <input
           value={text}
           className="content-input"
           placeholder={placeholder ? placeholder : "Nhập thông tin"}
           onChange={(e) => setText(e.target.value)}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          type={isPassword ? "password" : ""}
         />
         <IconButton>
           {icon ? (
-            React.cloneElement(icon)
+            React.cloneElement(icon, { isSelected: isFocus || text.length > 0 })
           ) : (
-            <EditPatientIcon defaultColor="#0D0C0C" selectedColor="#586EE0" />
+            <EditPatientIcon
+              defaultColor="#8C949D"
+              selectedColor="black"
+              isSelected={isFocus || text.length > 0}
+            />
           )}
         </IconButton>
       </div>

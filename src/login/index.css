@@ -1,0 +1,166 @@
+@import "../scss/variables.scss";
+
+.signup-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  font-family: var(--font-family);
+}
+
+.singup-page-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 44px;
+}
+
+.signup-page-titlte {
+  display: flex;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 600;
+  width: 100%;
+}
+
+.signup-page-title-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.signup-page-description {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 16px;
+  line-height: 20px;
+}
+
+.signup-page-description .light-text {
+  color: var(--color-text-secondary);
+  max-width: 400px;
+  text-align: center;
+}
+
+.signup-page-input-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+}
+
+.agree-policy-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  width: 80%;
+}
+
+.input-box-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.input-box-title {
+  font-size: 14px;
+  color: var(--color-text-primary);
+}
+
+.signup-input {
+  border: 1px solid var(--color-border-secondary);
+  padding: 12px 20px 12px 20px;
+  color: var(--color-text-secondary);
+  line-height: 16px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.signup-input:focus {
+  border: 1px solid var(--color-border-secondary);
+}
+
+.agree-policy-box {
+  width: 100%;
+  display: flex;
+  padding: 12px;
+  box-sizing: border-box;
+  flex-direction: row;
+  align-items: center;
+  gap: 0px;
+}
+
+.agree-policy-box .MuiTypography-root {
+  font-size: 14px;
+  font-family: Be Vietnam Pro;
+}
+
+.agree-policy-box-unchecked .MuiTypography-root {
+  font-size: 14px;
+  font-family: Be Vietnam Pro;
+  color: #8c949d;
+}
+
+.agree-policy-box .MuiCheckbox-root {
+  padding: 0 0 0 0;
+}
+
+.MuiFormControlLabel-root {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  padding: 0px;
+  display: flex;
+}
+
+.agree-policy-text {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.agree-policy-text a {
+  color: var(--color-text-brand);
+  text-decoration-line: none;
+}
+
+.buttons-rows {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.signup-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-surface-secondary);
+  box-sizing: border-box;
+}
+
+.signup-button:hover {
+  background-color: #e6e6e9;
+}
+
+.signup-button .button-inner {
+  color: var(--color-text-secondary);
+}
+
+.signup-page-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
