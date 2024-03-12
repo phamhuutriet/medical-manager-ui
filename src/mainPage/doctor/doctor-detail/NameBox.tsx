@@ -19,6 +19,8 @@ export const TextInputBox = ({
   icon,
   className,
   isPassword,
+  isError,
+  errorMessage,
 }: {
   text: any;
   setText: Function;
@@ -27,13 +29,20 @@ export const TextInputBox = ({
   icon?: any;
   className?: string;
   isPassword?: boolean;
+  isError?: boolean;
+  errorMessage?: any;
 }) => {
   const [isFocus, setIsFocus] = useState(false);
+  const isActive = isFocus;
 
   return (
     <div className={`box-item ${className}`}>
       <div className="title">{boxTitle}</div>
-      <div className={`content ${isFocus && "box-item-focus"}`}>
+      <div
+        className={`content ${isActive && "box-item-focus"} ${
+          isError && "box-item-error"
+        }`}
+      >
         <input
           value={text}
           className="content-input"
@@ -45,16 +54,17 @@ export const TextInputBox = ({
         />
         <IconButton>
           {icon ? (
-            React.cloneElement(icon, { isSelected: isFocus || text.length > 0 })
+            React.cloneElement(icon, { isSelected: isActive })
           ) : (
             <EditPatientIcon
               defaultColor="#8C949D"
-              selectedColor="black"
-              isSelected={isFocus || text.length > 0}
+              selectedColor={isError ? "var(--color-text-error)" : "black"}
+              isSelected={isActive}
             />
           )}
         </IconButton>
       </div>
+      {isError && <div className="error-message">{errorMessage}</div>}
     </div>
   );
 };

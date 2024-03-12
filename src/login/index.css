@@ -132,7 +132,7 @@
   line-height: 20px;
 }
 
-.agree-policy-text a {
+.signup-page a {
   color: var(--color-text-brand);
   text-decoration-line: none;
 }
@@ -159,6 +159,26 @@
 
 .signup-button .button-inner {
   color: var(--color-text-secondary);
+}
+
+.is-enabled-button {
+  background-color: var(--color-surface-brand);
+}
+
+.is-enabled-button:hover {
+  background-color: #344abb;
+}
+
+.is-enabled-button .button-inner {
+  color: white;
+}
+
+.buttons-rows .button-disable {
+  background-color: var(--color-surface-secondary) !important;
+}
+
+.buttons-rows .button-disable:hover {
+  background-color: var(--color-surface-secondary) !important;
 }
 
 .signup-page-input-container {
