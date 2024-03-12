@@ -1,5 +1,6 @@
 export enum RouteEnum {
   MAIN_PAGE = "/",
+  SIGN_UP = "/signup",
   PATIENT_PAGE = "/patients",
   DOCTOR_PAGE = "/doctors",
   EDIT_DOCTOR_PAGE = "/doctors/edit-doctor/:doctorId",

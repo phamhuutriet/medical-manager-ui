@@ -21,6 +21,7 @@ export const TextInputBox = ({
   isPassword,
   isError,
   errorMessage,
+  onClickIcon,
 }: {
   text: any;
   setText: Function;
@@ -31,6 +32,7 @@ export const TextInputBox = ({
   isPassword?: boolean;
   isError?: boolean;
   errorMessage?: any;
+  onClickIcon?: any;
 }) => {
   const [isFocus, setIsFocus] = useState(false);
   const isActive = isFocus;
@@ -52,7 +54,7 @@ export const TextInputBox = ({
           onBlur={() => setIsFocus(false)}
           type={isPassword ? "password" : ""}
         />
-        <IconButton>
+        <IconButton onClick={onClickIcon ? onClickIcon : () => {}}>
           {icon ? (
             React.cloneElement(icon, { isSelected: isActive })
           ) : (

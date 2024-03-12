@@ -139,7 +139,7 @@ export const SignUpPage = () => {
   );
 };
 
-const isValidEmail = (email: string) => {
+export const isValidEmail = (email: string) => {
   // Regular expression for email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
