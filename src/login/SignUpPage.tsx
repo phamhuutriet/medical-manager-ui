@@ -10,6 +10,7 @@ import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { RouteEnum } from "../data/routeEnum";
 import { signUp } from "../service/accessService";
+import { useThrowAsyncError } from "../hooks/useThrowAsyncError";
 
 export const SignUpPage = () => {
   const [username, setUsername] = useState("");
@@ -20,6 +21,7 @@ export const SignUpPage = () => {
   const [hasPasswordChanged, setHasPasswordChanged] = useState(false);
   const [isCheckedPolicy, setIsCheckedPolicy] = useState(false);
   const [isPasswordReveal, setIsPasswordReveal] = useState(false);
+  const throwAsyncError = useThrowAsyncError();
   const navigate = useNavigate();
 
   const isSignupButtonEnable =
@@ -47,12 +49,23 @@ export const SignUpPage = () => {
   };
 
   const onClickSignUp = async () => {
-    await signUp({
-      username,
-      email,
-      password,
-    });
-    navigate(RouteEnum.VERIFICATION_PAGE);
+    try {
+      await signUp({
+        username,
+        email,
+        password,
+      });
+      navigate(RouteEnum.VERIFICATION_PAGE);
+    } catch (e: any) {
+      // TODO: replace this with internal error code
+      if (e.response.data.message.startsWith("Duplicate email")) {
+        throwAsyncError(
+          new Error("Email này đã được sử dụng, vui lòng dùng một email khác")
+        );
+      } else {
+        throwAsyncError(new Error("Đăng ký thất bại, vui lòng thử lại"));
+      }
+    }
   };
 
   return (
