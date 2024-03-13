@@ -1,0 +1,6 @@
+.error-modal .MuiBox-root {
+  border-radius: 8px;
+  padding: 24px 24px 24px 24px;
+  max-width: 500px;
+  border: 0px;
+}
