@@ -7,10 +7,9 @@ import { FormControlLabel } from "@mui/material";
 import CheckBox from "@mui/material/Checkbox";
 import { CheckedBox } from "../img/svg/CheckedBox";
 import { UncheckBox } from "../img/svg/UncheckBox";
-import "./index.css";
 import { signIn } from "../service/accessService";
-import { useNavigate } from "react-router-dom";
-import { RouteEnum } from "../data/routeEnum";
+import { useThrowAsyncError } from "../hooks/useThrowAsyncError";
+import "./index.css";
 
 export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
   const [email, setEmail] = useState("");
@@ -18,7 +17,7 @@ export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
   const [isPasswordReveal, setIsPasswordReveal] = useState(false);
   const [hasEmailChanged, setHasEmailChanged] = useState(false);
   const [hasPasswordChanged, setHasPasswordChanged] = useState(false);
-  const navigate = useNavigate();
+  const throwAsyncError = useThrowAsyncError();
   const isSignInButtonEnabled =
     hasEmailChanged &&
     isValidEmail(email) &&
@@ -36,8 +35,12 @@ export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
   };
 
   const onClickSignIn = async () => {
-    await signIn({ email, password });
-    setIsSignedIn(true);
+    try {
+      await signIn({ email, password });
+      setIsSignedIn(true);
+    } catch (e) {
+      throwAsyncError(new Error("Thông tin đăng nhập không hợp lệ"));
+    }
     // Only navigate if path is defined
     // navigate(RouteEnum.MAIN_PAGE);
   };
