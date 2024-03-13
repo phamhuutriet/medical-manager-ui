@@ -9,14 +9,14 @@ import { PatientContent } from "./mainPage/content/PatientContent";
 import { Doctor, DoctorContext } from "./context/DoctorContext";
 import { RecordContent } from "./mainPage/record/RecordContent";
 
-export const AppContent = () => {
+export const AppContent = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
   const [doctors, setDoctors] = useState<Doctor[]>(MOCK_DOCTORS);
 
   return (
     <Router>
       <div className="App">
         <div className="app-container">
-          <SideBar />
+          <SideBar setIsSignedIn={setIsSignedIn} />
           <div className="second-column">
             <Header />
             <div className="page-content">

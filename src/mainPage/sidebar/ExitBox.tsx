@@ -1,9 +1,21 @@
 import React from "react";
 import { LogoutIcon } from "../../img/svg/LogoutIcon";
 import { TabItem, TabItemIconOnly } from "./TabIcons";
+import { removeAccessToken } from "../../utils/auth";
 import "./index.css";
 
-export const ExitBox = ({ isCollapsed }: { isCollapsed: boolean }) => {
+export const ExitBox = ({
+  isCollapsed,
+  setIsSignedIn,
+}: {
+  isCollapsed: boolean;
+  setIsSignedIn: Function;
+}) => {
+  const signOut = () => {
+    removeAccessToken();
+    setIsSignedIn(false);
+  };
+
   return (
     <div className="exit-box-container">
       {!isCollapsed ? (
@@ -11,13 +23,13 @@ export const ExitBox = ({ isCollapsed }: { isCollapsed: boolean }) => {
           icon={<LogoutIcon />}
           tabName="Thoát"
           isSelected={false}
-          onClick={() => {}}
+          onClick={signOut}
         />
       ) : (
         <TabItemIconOnly
           icon={<LogoutIcon />}
           isSelected={false}
-          onClick={() => {}}
+          onClick={signOut}
         />
       )}
     </div>

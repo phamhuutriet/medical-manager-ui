@@ -6,7 +6,7 @@ import { CollapseButton } from "../../img/svg/CollapseButton";
 import { UncollapsedButton } from "../../img/svg/UncollapsedButton";
 import { HorizontalBorderLine } from "../../components/HorizontalBorderLine";
 
-export const SideBar = () => {
+export const SideBar = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
@@ -18,7 +18,7 @@ export const SideBar = () => {
       <LogoComponent isCollapsed={isCollapsed} />
       <HorizontalBorderLine customWidth="80%" />
       <TabIcons isCollapsed={isCollapsed} />
-      <ExitBox isCollapsed={isCollapsed} />
+      <ExitBox isCollapsed={isCollapsed} setIsSignedIn={setIsSignedIn} />
       <div
         className="collapse-button"
         onClick={() => setIsCollapsed(!isCollapsed)}

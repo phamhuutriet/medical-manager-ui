@@ -9,6 +9,7 @@ import { CheckedBox } from "../img/svg/CheckedBox";
 import { UncheckBox } from "../img/svg/UncheckBox";
 import { signIn } from "../service/accessService";
 import { useThrowAsyncError } from "../hooks/useThrowAsyncError";
+import { setAccessToken, setUserId } from "../utils/auth";
 import "./index.css";
 
 export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
@@ -36,7 +37,9 @@ export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
 
   const onClickSignIn = async () => {
     try {
-      await signIn({ email, password });
+      const data = await signIn({ email, password });
+      setAccessToken(data.accessToken);
+      setUserId(data.userId);
       setIsSignedIn(true);
     } catch (e) {
       throwAsyncError(new Error("Thông tin đăng nhập không hợp lệ"));

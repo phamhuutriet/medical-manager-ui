@@ -26,7 +26,3 @@ export const RouteToName: Record<string, string> = {
 export const getHostName = () => {
   return "http://127.0.0.1:8000";
 };
-
-export const getAuthObject = () => {
-  return {};
-};
