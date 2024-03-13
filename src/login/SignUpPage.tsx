@@ -7,6 +7,9 @@ import CheckBox from "@mui/material/Checkbox";
 import { CheckedBox } from "../img/svg/CheckedBox";
 import { UncheckBox } from "../img/svg/UncheckBox";
 import { Button } from "../components/Button";
+import { useNavigate } from "react-router-dom";
+import { RouteEnum } from "../data/routeEnum";
+import { signUp } from "../service/accessService";
 
 export const SignUpPage = () => {
   const [username, setUsername] = useState("");
@@ -16,6 +19,8 @@ export const SignUpPage = () => {
   const [hasEmailChanged, setHasEmailChanged] = useState(false);
   const [hasPasswordChanged, setHasPasswordChanged] = useState(false);
   const [isCheckedPolicy, setIsCheckedPolicy] = useState(false);
+  const [isPasswordReveal, setIsPasswordReveal] = useState(false);
+  const navigate = useNavigate();
 
   const isSignupButtonEnable =
     hasUsernamChanged &&
@@ -39,6 +44,15 @@ export const SignUpPage = () => {
   const onChangePassword = (value: string) => {
     setHasPasswordChanged(true);
     setPassword(value);
+  };
+
+  const onClickSignUp = async () => {
+    await signUp({
+      username,
+      email,
+      password,
+    });
+    navigate(RouteEnum.VERIFICATION_PAGE);
   };
 
   return (
@@ -77,7 +91,7 @@ export const SignUpPage = () => {
               errorMessage="Lỗi cú pháp. Hãy kiểm tra lại"
             />
             <TextInputBox
-              isPassword
+              isPassword={!isPasswordReveal}
               text={password}
               setText={onChangePassword}
               boxTitle="Mật khẩu"
@@ -89,6 +103,7 @@ export const SignUpPage = () => {
                 />
               }
               isError={hasPasswordChanged && !isValidPassword(password)}
+              onClickIcon={() => setIsPasswordReveal((prev) => !prev)}
               errorMessage={
                 <div>
                   <div>
@@ -130,7 +145,7 @@ export const SignUpPage = () => {
               isSignupButtonEnable && "is-enabled-button"
             }`}
             text="Đăng ký"
-            onClick={() => {}}
+            onClick={onClickSignUp}
             disable={!isSignupButtonEnable}
           />
         </div>

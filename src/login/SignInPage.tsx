@@ -8,13 +8,17 @@ import CheckBox from "@mui/material/Checkbox";
 import { CheckedBox } from "../img/svg/CheckedBox";
 import { UncheckBox } from "../img/svg/UncheckBox";
 import "./index.css";
+import { signIn } from "../service/accessService";
+import { useNavigate } from "react-router-dom";
+import { RouteEnum } from "../data/routeEnum";
 
-export const SignInPage = () => {
+export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordReveal, setIsPasswordReveal] = useState(false);
   const [hasEmailChanged, setHasEmailChanged] = useState(false);
   const [hasPasswordChanged, setHasPasswordChanged] = useState(false);
+  const navigate = useNavigate();
   const isSignInButtonEnabled =
     hasEmailChanged &&
     isValidEmail(email) &&
@@ -29,6 +33,13 @@ export const SignInPage = () => {
   const onChangePassword = (value: string) => {
     setHasPasswordChanged(true);
     setPassword(value);
+  };
+
+  const onClickSignIn = async () => {
+    await signIn({ email, password });
+    setIsSignedIn(true);
+    // Only navigate if path is defined
+    // navigate(RouteEnum.MAIN_PAGE);
   };
 
   return (
@@ -95,7 +106,7 @@ export const SignInPage = () => {
               isSignInButtonEnabled && "is-enabled-button"
             }`}
             text="Đăng nhập"
-            onClick={() => {}}
+            onClick={onClickSignIn}
             disable={!isSignInButtonEnabled}
           />
         </div>

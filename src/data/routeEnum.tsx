@@ -1,6 +1,7 @@
 export enum RouteEnum {
   MAIN_PAGE = "/",
   SIGN_UP = "/signup",
+  VERIFICATION_PAGE = "/verify-page",
   PATIENT_PAGE = "/patients",
   DOCTOR_PAGE = "/doctors",
   EDIT_DOCTOR_PAGE = "/doctors/edit-doctor/:doctorId",
@@ -20,4 +21,12 @@ export const RouteToName: Record<string, string> = {
   "/patients/edit-patient": "Chỉnh sửa bệnh nhân",
   [RouteEnum.ADD_PATIENT_PAGE]: "Thêm bệnh nhân",
   "/patients/details": "Chi tiết bệnh nhân",
+};
+
+export const getHostName = () => {
+  return "http://127.0.0.1:8000";
+};
+
+export const getAuthObject = () => {
+  return {};
 };
