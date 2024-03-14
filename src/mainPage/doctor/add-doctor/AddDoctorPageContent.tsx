@@ -8,6 +8,9 @@ import { RouteEnum } from "../../../data/routeEnum";
 import "./index.css";
 import { AddDoctorAvatarBox } from "./AddDoctorAvatarBox";
 import { AddSuccessfulModal } from "../../../components/AddSuccessfulModal";
+import { useThrowAsyncError } from "../../../hooks/useThrowAsyncError";
+import { createDoctor } from "../../../service/doctorService";
+import { WholeComponentLoadingWrapper } from "../../../components/LoadingWrapper";
 
 const VALID_KEYS = [
   "firstName",
@@ -33,6 +36,8 @@ export const AddDoctorPageContent = () => {
   );
   const [isAddSuccessfulModalOpen, setIsAddSuccessfulModalOpen] =
     useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const throwAsyncError = useThrowAsyncError();
   const navigate = useNavigate();
 
   const setAttribute = (attribute: string) => {
@@ -41,11 +46,16 @@ export const AddDoctorPageContent = () => {
     };
   };
 
-  const saveDoctor = () => {
-    // TODO: Call api to get doctor id here + gather attributes from other boxes
-    const newDoctor = { ...doctor, id: "1" };
-    setDoctors([...doctors, newDoctor]);
-    setIsAddSuccessfulModalOpen(true);
+  const saveDoctor = async () => {
+    try {
+      setIsLoading(true);
+      const newDoctor = await createDoctor(doctor);
+      setDoctors([...doctors, newDoctor]);
+      setIsAddSuccessfulModalOpen(true);
+      setIsLoading(false);
+    } catch {
+      throwAsyncError(new Error("Tạo bác sĩ thất bại, vui lòng thử lại"));
+    }
   };
 
   const cancelEditDoctor = () => {
@@ -53,46 +63,51 @@ export const AddDoctorPageContent = () => {
   };
 
   return (
-    <div>
-      <AddSuccessfulModal
-        open={isAddSuccessfulModalOpen}
-        handleClose={() => setIsAddSuccessfulModalOpen(false)}
-        handleRedirect={() => navigate(RouteEnum.DOCTOR_PAGE)}
-        onClickConfirm={() => {}}
-        title="Thêm bác sĩ thành công"
-        innerText="Chúc mừng bạn đã tạo hồ sơ bác sĩ thành công"
-        leftButtonText="Về danh sách bác sĩ"
-        rightButtonText="Xem chi tiết"
-      />
-      <div className="doctor-detail-content">
-        <AddDoctorAvatarBox />
-        <NameBox
-          entity={doctor}
-          setFirstName={setAttribute("firstName")}
-          setLastName={setAttribute("lastName")}
+    <WholeComponentLoadingWrapper
+      isLoading={isLoading}
+      loadingText="Đang tạo bác sĩ"
+    >
+      <div>
+        <AddSuccessfulModal
+          open={isAddSuccessfulModalOpen}
+          handleClose={() => setIsAddSuccessfulModalOpen(false)}
+          handleRedirect={() => navigate(RouteEnum.DOCTOR_PAGE)}
+          onClickConfirm={() => {}}
+          title="Thêm bác sĩ thành công"
+          innerText="Chúc mừng bạn đã tạo hồ sơ bác sĩ thành công"
+          leftButtonText="Về danh sách bác sĩ"
+          rightButtonText="Xem chi tiết"
         />
-        <SexDropDown
-          sex={doctor ? doctor.gender : ""}
-          setSex={setAttribute("gender")}
-        />
-        <BirthBox
-          dateOfBirth={doctor ? doctor.dateOfBirth : ""}
-          setDateOfBirth={setAttribute("dateOfBirth")}
-          isCalendarOpen={isCalendarOpen}
-          setIsCalendarOpen={setIsCalendarOpen}
-        />
-        <PhoneNumberBox
-          isIconDisplay={!isCalendarOpen}
-          setPhoneNumber={setAttribute("phoneNumber")}
-          phoneNumber={doctor ? doctor.phoneNumber : ""}
+        <div className="doctor-detail-content">
+          <AddDoctorAvatarBox />
+          <NameBox
+            entity={doctor}
+            setFirstName={setAttribute("firstName")}
+            setLastName={setAttribute("lastName")}
+          />
+          <SexDropDown
+            sex={doctor ? doctor.gender : ""}
+            setSex={setAttribute("gender")}
+          />
+          <BirthBox
+            dateOfBirth={doctor ? doctor.dateOfBirth : ""}
+            setDateOfBirth={setAttribute("dateOfBirth")}
+            isCalendarOpen={isCalendarOpen}
+            setIsCalendarOpen={setIsCalendarOpen}
+          />
+          <PhoneNumberBox
+            isIconDisplay={!isCalendarOpen}
+            setPhoneNumber={setAttribute("phoneNumber")}
+            phoneNumber={doctor ? doctor.phoneNumber : ""}
+          />
+        </div>
+        <ButtonsBox
+          isValidDoctor={isValidDoctor}
+          saveDoctor={saveDoctor}
+          cancelEditDoctor={cancelEditDoctor}
         />
       </div>
-      <ButtonsBox
-        isValidDoctor={isValidDoctor}
-        saveDoctor={saveDoctor}
-        cancelEditDoctor={cancelEditDoctor}
-      />
-    </div>
+    </WholeComponentLoadingWrapper>
   );
 };
 

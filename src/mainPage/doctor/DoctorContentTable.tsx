@@ -8,7 +8,8 @@ import TableRow from "@mui/material/TableRow";
 import { Doctor, DoctorContext } from "../../context/DoctorContext";
 import { DoctorMoreInfoMenu } from "./DoctorMoreInfoMenu";
 import { DeleteConfimModal } from "../../components/DeleteConfirmModal";
-import { useNavigate } from "react-router";
+import { deleteDoctor } from "../../service/doctorService";
+import { useThrowAsyncError } from "../../hooks/useThrowAsyncError";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -41,22 +42,23 @@ export const DoctorContentTable = ({ doctors }: { doctors: Doctor[] }) => {
     React.useState(false);
   const [toDeleteDoctorId, setToDeleteDoctorId] = React.useState("");
   const { setDoctors } = React.useContext(DoctorContext);
-  const navigate = useNavigate();
+  const throwAsyncError = useThrowAsyncError();
 
   const onClickOpenDeleteConfirmModal = (doctorId: string) => () => {
     setToDeleteDoctorId(doctorId);
     setIsConfirmDeleteModalOpen(true);
   };
 
-  const onClickConfirmDelete = () => {
-    setDoctors((prev: Doctor[]) =>
-      prev.filter((doctor) => doctor.id !== toDeleteDoctorId)
-    );
-    setIsConfirmDeleteModalOpen(false);
-  };
-
-  const onClickDoctorRow = (doctorId: string) => {
-    navigate(`/doctors/edit-doctor/${doctorId}`);
+  const onClickConfirmDelete = async () => {
+    try {
+      await deleteDoctor(toDeleteDoctorId);
+      setDoctors((prev: Doctor[]) =>
+        prev.filter((doctor) => doctor.id !== toDeleteDoctorId)
+      );
+      setIsConfirmDeleteModalOpen(false);
+    } catch {
+      throwAsyncError(new Error("Lỗi xoá bác sĩ, vui lòng thử lại"));
+    }
   };
 
   return (
@@ -94,7 +96,7 @@ export const DoctorContentTable = ({ doctors }: { doctors: Doctor[] }) => {
       </TableHead>
       <TableBody>
         {doctors.map((row) => (
-          <StyledTableRow key={row.id} onClick={() => onClickDoctorRow(row.id)}>
+          <StyledTableRow key={row.id}>
             <StyledTableCell component="th" scope="row">
               {row.id}
             </StyledTableCell>

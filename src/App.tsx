@@ -13,7 +13,7 @@ function App() {
       {!isSignedIn ? (
         <AuthenticationPage setIsSignedIn={setIsSignedIn} />
       ) : (
-        <AppContent setIsSignedIn={setIsSignedIn} />
+        <AppContent isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
       )}
     </ErrorBoundary>
   );

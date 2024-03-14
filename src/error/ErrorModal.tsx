@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Modal } from "@mui/material";
 import { ExclamationMark } from "../img/svg/ExclamationMark";
 import "./index.css";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute" as "absolute",

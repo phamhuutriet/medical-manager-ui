@@ -1,20 +1,30 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BirthBox, NameBox, PhoneNumberBox } from "./NameBox";
 import { Button } from "../../../components/Button";
 import { SexDropDown } from "./SexDropDown";
 import { Doctor, DoctorContext } from "../../../context/DoctorContext";
 import { useNavigate, useParams } from "react-router";
 import { RouteEnum } from "../../../data/routeEnum";
-import "./index.css";
 import { AvatarBox } from "./AvatarBox";
+import { useThrowAsyncError } from "../../../hooks/useThrowAsyncError";
+import { updateDoctor } from "../../../service/doctorService";
+import { AddSuccessfulModal } from "../../../components/AddSuccessfulModal";
+import "./index.css";
 
 export const DoctorDetailContent = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
   const { doctorId } = useParams();
   const { doctors, setDoctors } = useContext(DoctorContext);
-  const currentDoctor = doctors.find((doctor) => doctor.id === doctorId);
-  const [doctor, setDoctor] = useState<Doctor | undefined>(currentDoctor);
+  const [doctor, setDoctor] = useState<Doctor | undefined>();
+  const [isUpdateSuccessfulModalOpen, setIsUpdateSuccessfulModalOpen] =
+    useState(false);
   const navigate = useNavigate();
+  const throwAsyncError = useThrowAsyncError();
+
+  useEffect(() => {
+    const currentDoctor = doctors.find((doctor) => doctor.id === doctorId);
+    setDoctor(currentDoctor);
+  }, [doctors, doctorId]);
 
   const setAttribute = (attribute: string) => {
     return (value: any) => {
@@ -24,16 +34,21 @@ export const DoctorDetailContent = () => {
     };
   };
 
-  const saveDoctor = () => {
-    setDoctors(
-      doctors.map((doctorItem) => {
-        if (doctor && doctorItem.id === doctor.id) {
-          return doctor;
-        }
-        return doctorItem;
-      })
-    );
-    navigate(RouteEnum.DOCTOR_PAGE);
+  const saveDoctor = async () => {
+    try {
+      const updatedDoctor = await updateDoctor(doctor as Doctor);
+      setDoctors(
+        doctors.map((doctorItem) => {
+          if (doctor && doctorItem.id === updatedDoctor.id) {
+            return updatedDoctor;
+          }
+          return doctorItem;
+        })
+      );
+      setIsUpdateSuccessfulModalOpen(true);
+    } catch {
+      throwAsyncError(new Error("Cập nhật bác sĩ thất bại, vui lòng thử lại"));
+    }
   };
 
   const cancelEditDoctor = () => {
@@ -41,12 +56,22 @@ export const DoctorDetailContent = () => {
   };
 
   if (!doctor) {
-    return <>Error no doctor</>;
+    return <>Bác sĩ không tồn tại</>;
   }
 
   return (
     <div>
       <div className="doctor-detail-content">
+        <AddSuccessfulModal
+          open={isUpdateSuccessfulModalOpen}
+          handleClose={() => setIsUpdateSuccessfulModalOpen(false)}
+          handleRedirect={() => navigate(RouteEnum.DOCTOR_PAGE)}
+          onClickConfirm={() => setIsUpdateSuccessfulModalOpen(false)}
+          title="Cập nhật bác sĩ thành công"
+          innerText="Chúc mừng bạn đã cập nhật hồ sơ bác sĩ thành công"
+          leftButtonText="Về danh sách bác sĩ"
+          rightButtonText="Xem chi tiết"
+        />
         <AvatarBox />
         <NameBox
           entity={doctor}

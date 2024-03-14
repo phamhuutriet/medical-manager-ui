@@ -11,7 +11,13 @@ import { RecordContent } from "./mainPage/record/RecordContent";
 import { useThrowAsyncError } from "./hooks/useThrowAsyncError";
 import { getAllDoctors } from "./service/doctorService";
 
-export const AppContent = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
+export const AppContent = ({
+  isSignedIn,
+  setIsSignedIn,
+}: {
+  isSignedIn: boolean;
+  setIsSignedIn: Function;
+}) => {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const throwAsyncError = useThrowAsyncError();
 
@@ -29,7 +35,6 @@ export const AppContent = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
       }
     };
     fetchDoctors();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
