@@ -26,17 +26,16 @@ export class ErrorBoundary extends React.Component<
 
   render() {
     // Render the children inside a fragment and the modal
-    return (
-      <>
-        {this.props.children}
-        {this.state.hasError && (
-          <ErrorModal
-            open
-            handleClose={this.handleClose}
-            errorText={this.state.error ? this.state.error.message : "Error"}
-          />
-        )}
-      </>
-    );
+    if (this.state.hasError) {
+      return (
+        <ErrorModal
+          open
+          handleClose={this.handleClose}
+          errorText={this.state.error ? this.state.error.message : "Error"}
+        />
+      );
+    }
+
+    return this.props.children;
   }
 }

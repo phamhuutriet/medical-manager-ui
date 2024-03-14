@@ -11,5 +11,5 @@ export const signUp = async (signUpData: SignUpData) => {
 export const signIn = async (signInData: SignInData) => {
   const url = `${getHostName()}/access/signin/`;
   const { data } = await axios.post(url, signInData);
-  return data;
+  return data.metadata;
 };

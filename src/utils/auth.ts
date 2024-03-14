@@ -3,7 +3,8 @@ import { AuthEnum } from "../data/authEnum";
 export const getAuthObject = () => {
   return {
     headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
+      "local-authorization": getAccessToken(),
+      "x-client-id": getUserId(),
     },
   };
 };

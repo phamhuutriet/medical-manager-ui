@@ -63,8 +63,8 @@ enum SexText {
 }
 
 enum SexOption {
-  MALE = "Male",
-  FEMALE = "Female",
+  MALE = "M",
+  FEMALE = "F",
 }
 
 export const SexDropDown = React.memo(
@@ -83,8 +83,6 @@ export const SexDropDown = React.memo(
       setSex(option);
       handleClose();
     };
-
-    console.log("render sex drop down");
 
     return (
       <div className="box">

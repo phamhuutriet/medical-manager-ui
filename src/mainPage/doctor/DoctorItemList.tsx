@@ -21,8 +21,6 @@ export const DoctorItemList = () => {
     setCurPage(pageIdx);
   };
 
-  console.log("DOCTORS: ", doctors);
-
   return (
     <div className="content-item-list">
       <div className="filter-container">

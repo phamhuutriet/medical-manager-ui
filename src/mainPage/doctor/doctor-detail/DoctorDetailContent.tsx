@@ -53,7 +53,7 @@ export const DoctorDetailContent = () => {
           setFirstName={setAttribute("firstName")}
           setLastName={setAttribute("lastName")}
         />
-        <SexDropDown sex={doctor.gender} setSex={setAttribute("sex")} />
+        <SexDropDown sex={doctor.gender} setSex={setAttribute("gender")} />
         <BirthBox
           dateOfBirth={doctor.dateOfBirth}
           setDateOfBirth={setAttribute("dateOfBirth")}

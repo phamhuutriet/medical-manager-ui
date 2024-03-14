@@ -7,7 +7,6 @@ export interface RouteListItem {
 }
 
 export const getRoutesList = (route: string): RouteListItem[] => {
-  console.log("GET ROUTE LIST: ", route);
   if (!route) {
     return [];
   }

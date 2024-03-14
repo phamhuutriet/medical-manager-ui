@@ -1,16 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SideBar } from "./mainPage/sidebar/SideBar";
 import { Header } from "./mainPage/header/Header";
-import { DoctorContent, MOCK_DOCTORS } from "./mainPage/doctor/DoctorContent";
+import { DoctorContent } from "./mainPage/doctor/DoctorContent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./app.css";
 import { PatientContent } from "./mainPage/content/PatientContent";
 import { Doctor, DoctorContext } from "./context/DoctorContext";
 import { RecordContent } from "./mainPage/record/RecordContent";
+import { useThrowAsyncError } from "./hooks/useThrowAsyncError";
+import { getAllDoctors } from "./service/doctorService";
 
 export const AppContent = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
-  const [doctors, setDoctors] = useState<Doctor[]>(MOCK_DOCTORS);
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const throwAsyncError = useThrowAsyncError();
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const fetchedDoctors = await getAllDoctors();
+        setDoctors(fetchedDoctors);
+      } catch (e) {
+        throwAsyncError(
+          new Error(
+            "Không thể lấy được danh sách bác sĩ, vui lòng tải lại trang"
+          )
+        );
+      }
+    };
+    fetchDoctors();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Router>

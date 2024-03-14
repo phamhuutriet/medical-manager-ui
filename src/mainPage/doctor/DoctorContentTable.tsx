@@ -118,8 +118,8 @@ export const DoctorContentTable = ({ doctors }: { doctors: Doctor[] }) => {
 };
 
 const SexBox = ({ sex }: { sex: string }) => {
-  const className = sex === "Male" ? "sex-box-male" : "sex-box-female";
-  const text = sex === "Male" ? "Nam" : "Nữ";
+  const className = sex === "M" ? "sex-box-male" : "sex-box-female";
+  const text = sex === "M" ? "Nam" : "Nữ";
 
   return <div className={className}>{text}</div>;
 };
