@@ -53,7 +53,6 @@ export const AddRecordTestModal = ({
   const [testName, setTestName] = useState("");
   const [createdAt, setCreatedAt] = useState("");
   const [testImages, setTestImages] = useState<any[]>([]);
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const fileInputRef = useRef<any>();
 
   const handleButtonClick = () => {
@@ -124,8 +123,6 @@ export const AddRecordTestModal = ({
             title="Ngày xét nghiệm"
             dateOfBirth={createdAt}
             setDateOfBirth={setCreatedAt}
-            isCalendarOpen={isCalendarOpen}
-            setIsCalendarOpen={setIsCalendarOpen}
           />
         </div>
         <div className="upload-test-image">

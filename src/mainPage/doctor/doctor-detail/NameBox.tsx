@@ -118,15 +118,12 @@ export const BirthBox = ({
   title,
   dateOfBirth,
   setDateOfBirth,
-  isCalendarOpen,
-  setIsCalendarOpen,
 }: {
   title?: string;
   dateOfBirth: string;
   setDateOfBirth: Function;
-  isCalendarOpen: boolean;
-  setIsCalendarOpen: Function;
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const selectedDate = dayjs(dateOfBirth, "DD / MM / YYYY");
   const defaultDate = dayjs();
 
@@ -148,7 +145,7 @@ export const BirthBox = ({
           </div>
           <IconButton
             sx={{ height: "100%" }}
-            onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+            onClick={() => setIsOpen(!isOpen)}
           >
             <CalendarIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />
           </IconButton>
@@ -156,7 +153,8 @@ export const BirthBox = ({
         <BirthCalendar
           selectedDate={dateOfBirth ? selectedDate : defaultDate}
           setSelectedDate={setSelectedDate}
-          isCalendarOpen={isCalendarOpen}
+          isCalendarOpen={isOpen}
+          customStyle={{ zIndex: "3" }}
         />
       </div>
     </div>
@@ -166,11 +164,9 @@ export const BirthBox = ({
 export const PhoneNumberBox = ({
   phoneNumber,
   setPhoneNumber,
-  isIconDisplay,
 }: {
   phoneNumber: string;
   setPhoneNumber: Function;
-  isIconDisplay: boolean;
 }) => {
   return (
     <div className="box">
@@ -186,7 +182,6 @@ export const PhoneNumberBox = ({
           <IconButton
             sx={{
               height: "100%",
-              display: isIconDisplay ? "" : "none",
             }}
           >
             <EditPatientIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />

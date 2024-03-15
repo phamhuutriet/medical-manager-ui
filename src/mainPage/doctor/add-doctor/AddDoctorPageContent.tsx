@@ -21,7 +21,6 @@ const VALID_KEYS = [
 ];
 
 export const AddDoctorPageContent = () => {
-  const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
   const { doctors, setDoctors } = useContext(DoctorContext);
   const [doctor, setDoctor] = useState<any>({
     firstName: "",
@@ -92,11 +91,8 @@ export const AddDoctorPageContent = () => {
           <BirthBox
             dateOfBirth={doctor ? doctor.dateOfBirth : ""}
             setDateOfBirth={setAttribute("dateOfBirth")}
-            isCalendarOpen={isCalendarOpen}
-            setIsCalendarOpen={setIsCalendarOpen}
           />
           <PhoneNumberBox
-            isIconDisplay={!isCalendarOpen}
             setPhoneNumber={setAttribute("phoneNumber")}
             phoneNumber={doctor ? doctor.phoneNumber : ""}
           />

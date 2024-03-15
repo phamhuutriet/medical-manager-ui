@@ -29,7 +29,6 @@ const VALID_KEYS = [
 ];
 
 export const AddPatientPageContent = () => {
-  const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
   const { patients, setPatients } = useContext(PatientContext);
   const [patient, setPatient] = useState<any>();
   const patientKeys = Object.keys(patient ? patient : {});
@@ -109,15 +108,12 @@ export const AddPatientPageContent = () => {
               <BirthBox
                 dateOfBirth={patient ? patient.dateOfBirth : ""}
                 setDateOfBirth={setAttribute("dateOfBirth")}
-                isCalendarOpen={isCalendarOpen}
-                setIsCalendarOpen={setIsCalendarOpen}
               />
             </div>
             <div style={{ width: "100%" }}>
               <PhoneNumberBox
                 phoneNumber={patient ? patient.phoneNumber : ""}
                 setPhoneNumber={setAttribute("phoneNumber")}
-                isIconDisplay={true}
               />
             </div>
           </div>

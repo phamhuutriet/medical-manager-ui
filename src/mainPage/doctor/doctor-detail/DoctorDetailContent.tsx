@@ -12,7 +12,6 @@ import { AddSuccessfulModal } from "../../../components/AddSuccessfulModal";
 import "./index.css";
 
 export const DoctorDetailContent = () => {
-  const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
   const { doctorId } = useParams();
   const { doctors, setDoctors } = useContext(DoctorContext);
   const [doctor, setDoctor] = useState<Doctor | undefined>();
@@ -82,11 +81,8 @@ export const DoctorDetailContent = () => {
         <BirthBox
           dateOfBirth={doctor.dateOfBirth}
           setDateOfBirth={setAttribute("dateOfBirth")}
-          isCalendarOpen={isCalendarOpen}
-          setIsCalendarOpen={setIsCalendarOpen}
         />
         <PhoneNumberBox
-          isIconDisplay={!isCalendarOpen}
           setPhoneNumber={setAttribute("phoneNumber")}
           phoneNumber={doctor.phoneNumber}
         />

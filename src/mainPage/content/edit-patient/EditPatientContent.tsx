@@ -19,7 +19,6 @@ import { WholeComponentLoadingWrapper } from "../../../components/LoadingWrapper
 import { AddSuccessfulModal } from "../../../components/AddSuccessfulModal";
 
 export const EditPatientContent = () => {
-  const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
   const { patientId } = useParams();
   const { patients, setPatients } = useContext(PatientContext);
   const currentPatient = patients.find((patient) => patient.id === patientId);
@@ -109,15 +108,12 @@ export const EditPatientContent = () => {
               <BirthBox
                 dateOfBirth={patient ? patient.dateOfBirth : ""}
                 setDateOfBirth={setAttribute("dateOfBirth")}
-                isCalendarOpen={isCalendarOpen}
-                setIsCalendarOpen={setIsCalendarOpen}
               />
             </div>
             <div style={{ width: "100%" }}>
               <PhoneNumberBox
                 phoneNumber={patient ? patient.phoneNumber : ""}
                 setPhoneNumber={setAttribute("phoneNumber")}
-                isIconDisplay={true}
               />
             </div>
           </div>
