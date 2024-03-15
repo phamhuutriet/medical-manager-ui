@@ -96,13 +96,15 @@ export const ContentTable = ({ patients }: { patients: Patient[] }) => {
             <StyledTableCell component="th" scope="row">
               {row.id}
             </StyledTableCell>
-            <StyledTableCell align="left">{`${row.firstName} ${row.lastName}`}</StyledTableCell>
+            <StyledTableCell align="left">{`${row.lastName} ${row.firstName}`}</StyledTableCell>
             <StyledTableCell align="left">
               <SexBox sex={row.gender} />
             </StyledTableCell>
             <StyledTableCell align="left">{row.dateOfBirth}</StyledTableCell>
             <StyledTableCell align="left">{row.createdAt}</StyledTableCell>
-            <StyledTableCell align="left">{`${row.doctor.firstName} ${row.doctor.lastName}`}</StyledTableCell>
+            <StyledTableCell align="left">
+              {row.doctor && `${row.doctor.lastName} ${row.doctor.firstName}`}
+            </StyledTableCell>
             <StyledTableCell align="left">
               <PatientMoreInfoMenu
                 patientId={row.id}

@@ -100,7 +100,7 @@ export const DoctorContentTable = ({ doctors }: { doctors: Doctor[] }) => {
             <StyledTableCell component="th" scope="row">
               {row.id}
             </StyledTableCell>
-            <StyledTableCell align="left">{`${row.firstName} ${row.lastName}`}</StyledTableCell>
+            <StyledTableCell align="left">{`${row.lastName} ${row.firstName}`}</StyledTableCell>
             <StyledTableCell align="left">
               <SexBox sex={row.gender} />
             </StyledTableCell>
