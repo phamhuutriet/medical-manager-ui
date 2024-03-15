@@ -9,11 +9,9 @@ export const getAllRecords = async (patientId: string) => {
   return data;
 };
 
-export const addRecord = async (record: Record) => {
-  const url = `${getHostName()}/user/${getUserId()}/patients/${
-    record.patientId
-  }/records/`;
-  const { data } = await axios.post(url, getAuthObject());
+export const addRecord = async (record: Record, patientId: string) => {
+  const url = `${getHostName()}/user/${getUserId()}/patients/${patientId}/records/`;
+  const { data } = await axios.post(url, record, getAuthObject());
   return data;
 };
 

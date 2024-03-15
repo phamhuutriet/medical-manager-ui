@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { RouteEnum } from "../../../data/routeEnum";
 import { IconButton } from "@mui/material";
 import { BackIcon } from "../../../img/svg/BackIcon";
-import { ViewPatientAddTemplateButton } from "./ViewPatientAddButton";
+import { ViewPatientAddRecordButton } from "./ViewPatientAddButton";
 import { ViewPatientContent } from "./ViewPatientContent";
 import "./viewPatient.css";
 
@@ -25,7 +25,7 @@ export const ViewPatientPage = () => {
           </IconButton>
           Thông tin bệnh nhân
         </div>
-        <ViewPatientAddTemplateButton />
+        <ViewPatientAddRecordButton />
       </div>
       <ViewPatientContent />
     </div>

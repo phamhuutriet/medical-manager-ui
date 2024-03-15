@@ -119,7 +119,7 @@ const AddNewTreatmentPlanRow = ({
   const [name, setName] = React.useState("");
 
   const onClickAddNewTreatmentPlan = () => {
-    setTreatmentPlans((prev: any) => [...prev, { name }]);
+    setTreatmentPlans((prev: any) => [...prev, name]);
     removeNewRow();
   };
 

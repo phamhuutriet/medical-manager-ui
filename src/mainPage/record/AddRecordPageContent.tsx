@@ -9,7 +9,7 @@ import {
 import { AddIcon } from "../../img/svg/AddIcon";
 import { AddRecordTestModal } from "./AddRecordTestModal";
 import { AddSuccessfulModal } from "../../components/AddSuccessfulModal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { RouteEnum } from "../../data/routeEnum";
 import { addRecord } from "../../service/recordService";
 import { useThrowAsyncError } from "../../hooks/useThrowAsyncError";
@@ -38,8 +38,9 @@ export const AddRecordPageContent = () => {
     record.reasonForVisit &&
     record.medicalHistory &&
     record.diagnosis;
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { patientId } = useParams();
   const throwAsyncError = useThrowAsyncError();
 
   const setAttribute = (attribute: string) => {
@@ -62,7 +63,7 @@ export const AddRecordPageContent = () => {
   const onClickSaveRecord = async () => {
     try {
       setIsLoading(true);
-      await addRecord({ ...record, treatmentPlan });
+      await addRecord({ ...record, treatmentPlan }, patientId as string);
       setIsLoading(false);
       setIsAddedRecord(true);
     } catch (error) {
@@ -79,8 +80,8 @@ export const AddRecordPageContent = () => {
         <AddSuccessfulModal
           open={isAddedRecord}
           handleClose={() => setIsAddedRecord(false)} // do nothing here since we will use the buttons to navigate
-          handleRedirect={() => navigate(RouteEnum.MAIN_PAGE)}
-          onClickConfirm={() => {}}
+          handleRedirect={() => navigate(`/patients/details/${patientId}`)}
+          onClickConfirm={() => navigate(`/patients/details/${patientId}`)}
           title="Thêm bệnh án thành công"
           innerText="Chúc mừng bạn đã tạo hồ sơ bệnh án thành công"
           leftButtonText="Quay về hồ sơ bệnh nhân"
