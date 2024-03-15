@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { TextInputBox } from "../doctor/doctor-detail/NameBox";
 import {
@@ -9,38 +9,40 @@ import {
 import { AddIcon } from "../../img/svg/AddIcon";
 import { AddRecordTestModal } from "./AddRecordTestModal";
 import { AddSuccessfulModal } from "../../components/AddSuccessfulModal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { RouteEnum } from "../../data/routeEnum";
-import { addRecord } from "../../service/recordService";
+import { getRecord, updateRecord } from "../../service/recordService";
 import { useThrowAsyncError } from "../../hooks/useThrowAsyncError";
 import { WholeComponentLoadingWrapper } from "../../components/LoadingWrapper";
 import "./index.css";
 
-export const AddRecordPageContent = () => {
-  const [record, setRecord] = useState<any>({
-    symptom: "",
-    reasonForVisit: "",
-    medicalHistory: "",
-    diagnosis: "",
-    vitalSigns: {
-      heartRate: "",
-      temperature: "",
-      bloodPressure: "",
-      breathRate: "",
-    },
-  });
+export const EditRecordPageContent = () => {
+  const { recordId, patientId } = useParams();
+  const [record, setRecord] = useState<any>();
   const [tests, setTests] = useState([]);
-  const [treatmentPlan, setTreatmentPlans] = useState([]);
+  const [treatmentPlans, setTreatmentPlans] = useState([]);
   const [treatments, setTreatments] = useState([]);
   const [isAddedRecord, setIsAddedRecord] = useState(false);
-  const isAddable =
-    record.symptom &&
-    record.reasonForVisit &&
-    record.medicalHistory &&
-    record.diagnosis;
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const throwAsyncError = useThrowAsyncError();
+
+  useEffect(() => {
+    const fetchRecord = async () => {
+      try {
+        const fetchedRecord = await getRecord(
+          patientId as string,
+          recordId as string
+        );
+        setRecord(fetchedRecord);
+        setTreatmentPlans(fetchedRecord.treatmentPlan);
+        setTreatments(fetchedRecord.treatments);
+      } catch (error) {
+        throwAsyncError(new Error("Lỗi tải bệnh án, vui lòng thử lại"));
+      }
+    };
+    fetchRecord();
+  }, [recordId, patientId]);
 
   const setAttribute = (attribute: string) => {
     return (value: any) => {
@@ -52,28 +54,32 @@ export const AddRecordPageContent = () => {
 
   const setNestedAttribute = (outerAttr: string, innerAttr: string) => {
     return (value: any) => {
-      setRecord({
-        ...record,
-        [outerAttr]: { ...record[outerAttr], [innerAttr]: value },
-      });
+      if (record) {
+        setRecord({
+          ...record,
+          [outerAttr]: { ...record[outerAttr], [innerAttr]: value },
+        });
+      }
     };
   };
 
   const onClickSaveRecord = async () => {
     try {
       setIsLoading(true);
-      await addRecord({ ...record, treatmentPlan });
+      await updateRecord(record);
       setIsLoading(false);
-      setIsAddedRecord(true);
     } catch (error) {
-      throwAsyncError(new Error("Lỗi thêm bệnh án, vui lòng thử lại"));
+      throwAsyncError(new Error("Lỗi cập nhật bệnh án"));
     }
+    setIsAddedRecord(true);
   };
+
+  if (!record) return <>Bệnh án không tồn tại</>;
 
   return (
     <WholeComponentLoadingWrapper
       isLoading={isLoading}
-      loadingText="Đang thêm bệnh án"
+      loadingText="Đang tải bệnh án, vui lòng đợi tí"
     >
       <div>
         <AddSuccessfulModal
@@ -116,13 +122,13 @@ export const AddRecordPageContent = () => {
             className="big-box"
           />
           <TreatmentPlan
-            treatmentPlans={treatmentPlan}
+            treatmentPlans={treatmentPlans}
             setTreatmentPlans={setTreatmentPlans}
           />
           <Treatments treatments={treatments} setTreatments={setTreatments} />
         </div>
         <ButtonsBox
-          isAddable={isAddable}
+          isAddable
           saveRecord={onClickSaveRecord}
           cancelEditRecord={() => navigate(-1)}
         />

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UploadImage } from "../../../img/svg/UploadImage";
 import { IconButton } from "@mui/material";
 import { Button } from "../../../components/Button";
@@ -10,6 +10,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PatientContext } from "../../../context/PatientContext";
 import dayjs from "dayjs";
 import { getAge } from "../../../utils/utils";
+import { Record } from "../../../data/dataTypes";
+import { getAllRecords } from "../../../service/recordService";
+import { useThrowAsyncError } from "../../../hooks/useThrowAsyncError";
+import { WholeComponentLoadingWrapper } from "../../../components/LoadingWrapper";
 
 const MOCK_RECORDS = [
   {
@@ -34,6 +38,25 @@ export const ViewPatientContent = () => {
   const { patientId } = useParams();
   const { patients } = useContext(PatientContext);
   const currentPatient = patients.find((patient) => patient.id === patientId);
+  const [records, setRecords] = useState<Record[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const throwAsyncError = useThrowAsyncError();
+
+  useEffect(() => {
+    const fetchRecords = async () => {
+      try {
+        setIsLoading(true);
+        const fetchedRecords = await getAllRecords(patientId as string);
+        setRecords(fetchedRecords);
+        setIsLoading(false);
+      } catch (error) {
+        throwAsyncError(
+          new Error("Lỗi tải danh sách bệnh án, vui lòng thử lại")
+        );
+      }
+    };
+    fetchRecords();
+  }, [patientId]);
 
   if (!currentPatient) {
     return <div>Error no patient</div>;
@@ -105,7 +128,12 @@ export const ViewPatientContent = () => {
           <RecordsFilterButtonMenu />
         </div>
         <div className="record-table">
-          <RecordsTable records={MOCK_RECORDS} />
+          <WholeComponentLoadingWrapper
+            isLoading={isLoading}
+            loadingText="Đang tải danh sách bệnh án"
+          >
+            <RecordsTable records={records} />
+          </WholeComponentLoadingWrapper>
         </div>
       </div>
     </div>

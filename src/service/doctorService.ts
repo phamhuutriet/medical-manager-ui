@@ -11,13 +11,8 @@ export const getAllDoctors = async () => {
 
 export const createDoctor = async (doctor: Doctor) => {
   // TODO: change this later -> maybe put into user data
-  const roleId = "a8a22270-f512-43e2-9359-805869d226a0";
   const url = `${getHostName()}/user/${getUserId()}/doctors/`;
-  const { data } = await axios.post(
-    url,
-    { ...doctor, roleId },
-    getAuthObject()
-  );
+  const { data } = await axios.post(url, doctor, getAuthObject());
   return data;
 };
 

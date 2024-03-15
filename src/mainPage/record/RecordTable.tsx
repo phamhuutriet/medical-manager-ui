@@ -148,11 +148,6 @@ const AddNewTreatmentPlanRow = ({
   );
 };
 
-export interface TreatmentPlan {
-  id: string;
-  name: string;
-}
-
 export const RecordTreatmentPlanTable = ({
   isAddNewTreatmentPlan,
   setIsAddNewTreatmentPlan,
@@ -161,12 +156,12 @@ export const RecordTreatmentPlanTable = ({
 }: {
   isAddNewTreatmentPlan: boolean;
   setIsAddNewTreatmentPlan: Function;
-  treatmentPlans: TreatmentPlan[];
+  treatmentPlans: string[];
   setTreatmentPlans: Function;
 }) => {
-  const onClickRemoveTreatmentPlan = (id: string) => {
+  const onClickRemoveTreatmentPlan = (treatment: string) => {
     setTreatmentPlans((prev: any) =>
-      prev.filter((treatmentPlan: TreatmentPlan) => treatmentPlan.id !== id)
+      prev.filter((treatmentPlan: string) => treatmentPlan !== treatment)
     );
   };
 
@@ -196,13 +191,13 @@ export const RecordTreatmentPlanTable = ({
         {treatmentPlans.map((row, idx) => (
           <StyledTableRow key={idx}>
             <StyledTableCell component="th" scope="row">
-              {row.name}
+              {row}
             </StyledTableCell>
             <StyledTableCell
               sx={{ display: "flex", flexDirection: "flex-end" }}
               align="right"
             >
-              <IconButton onClick={() => onClickRemoveTreatmentPlan(row.id)}>
+              <IconButton onClick={() => onClickRemoveTreatmentPlan(row)}>
                 <CloseIcon />
               </IconButton>
             </StyledTableCell>
