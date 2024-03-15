@@ -361,7 +361,6 @@ const VisitDate = ({
   const onSelectDate = (newDate: Dayjs) => {
     setVisitDate(newDate.format("DD / MM / YYYY"));
   };
-
   return (
     <div className={`visit-date-container ${visitDate && "text-box-filled"}`}>
       <div>{visitDate ? visitDate : "Ngày"}</div>
@@ -378,7 +377,7 @@ const VisitDate = ({
         }
         setSelectedDate={onSelectDate}
         isCalendarOpen={isCalendarOpen}
-        customStyle={{ right: "-170%" }}
+        customStyle={{ left: 0 }}
       />
     </div>
   );
