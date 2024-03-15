@@ -83,12 +83,12 @@ export const NameBox = ({
   return (
     <div className="box">
       <div className="box-item">
-        <div className="title">Họ</div>
+        <div className="title">Tên</div>
         <div className="content">
           <input
             value={entity ? entity.firstName : ""}
             className="content-input"
-            placeholder="Họ"
+            placeholder="Tên"
             onChange={(e) => setFirstName(e.target.value)}
           />
           <IconButton>
@@ -97,12 +97,12 @@ export const NameBox = ({
         </div>
       </div>
       <div className="box-item">
-        <div className="title">Tên</div>
+        <div className="title">Họ</div>
         <div className="content">
           <input
             value={entity ? entity.lastName : ""}
             className="content-input"
-            placeholder="Tên"
+            placeholder="Họ"
             onChange={(e) => setLastName(e.target.value)}
           />
           <IconButton>

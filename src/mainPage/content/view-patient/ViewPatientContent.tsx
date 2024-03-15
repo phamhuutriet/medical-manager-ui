@@ -66,10 +66,19 @@ export const ViewPatientContent = () => {
           <div className="details">
             <PatientInfoItem
               type="Giới tính"
-              value={currentPatient.gender === "Male" ? "Nam" : "Nữ"}
+              value={currentPatient.gender === "M" ? "Nam" : "Nữ"}
             />
             <PatientInfoItem type="Địa chỉ" value={currentPatient.address} />
-            <PatientInfoItem type="Dị ứng" value="Không" />
+            <PatientInfoItem
+              type="Dị ứng"
+              value={
+                currentPatient.allergies.length > 0 ? (
+                  <ListItem list={currentPatient.allergies} />
+                ) : (
+                  "Không"
+                )
+              }
+            />
             <PatientInfoItem
               type="Số điện thoại"
               value={currentPatient.phoneNumber}
@@ -77,9 +86,12 @@ export const ViewPatientContent = () => {
             <PatientInfoItem type="Số hồ sơ" value={currentPatient.id} />
             <PatientInfoItem
               type="Lần cuối khám"
-              value={dayjs(currentPatient.createdAt).format("DD / MM / YYYY")}
+              value={currentPatient.createdAt}
             />
-            <PatientInfoItem type="Note" value={currentPatient.note} />
+            <PatientInfoItem
+              type="Note"
+              value={currentPatient.note ? currentPatient.note : "Không"}
+            />
           </div>
         </div>
       </div>
@@ -100,7 +112,7 @@ export const ViewPatientContent = () => {
   );
 };
 
-const PatientInfoItem = ({ type, value }: { type: string; value: string }) => {
+const PatientInfoItem = ({ type, value }: { type: string; value: any }) => {
   return (
     <div className="detail-item">
       <div className="key">
@@ -108,5 +120,15 @@ const PatientInfoItem = ({ type, value }: { type: string; value: string }) => {
       </div>
       <div className="value">{value}</div>
     </div>
+  );
+};
+
+const ListItem = ({ list }: { list: string[] }) => {
+  return (
+    <>
+      {list.map((item) => (
+        <li>{item}</li>
+      ))}
+    </>
   );
 };

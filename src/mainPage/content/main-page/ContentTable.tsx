@@ -5,9 +5,12 @@ import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { Patient } from "../../../context/PatientContext";
+import { Patient, PatientContext } from "../../../context/PatientContext";
 import { PatientMoreInfoMenu } from "./PatientMoreInfoMenu";
 import "../index.css";
+import { DeleteConfimModal } from "../../../components/DeleteConfirmModal";
+import { deletePatient } from "../../../service/patientService";
+import { useThrowAsyncError } from "../../../hooks/useThrowAsyncError";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,11 +35,39 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export const ContentTable = ({ patients }: { patients: Patient[] }) => {
+  const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
+    React.useState(false);
+  const [toDeletePatient, setToDeletePatient] = React.useState("");
+  const { setPatients } = React.useContext(PatientContext);
+  const throwAsyncError = useThrowAsyncError();
+
+  const onClickOpenDeleteConfirmModal = (patientId: string) => {
+    setIsConfirmDeleteModalOpen(true);
+    setToDeletePatient(patientId);
+  };
+
+  const onClickConfirmDelete = async () => {
+    try {
+      await deletePatient(toDeletePatient);
+      setPatients(patients.filter((patient) => patient.id !== toDeletePatient));
+      setIsConfirmDeleteModalOpen(false);
+    } catch (error) {
+      throwAsyncError(new Error("Lỗi xoá bệnh nhân, vui lòng thử lại"));
+    }
+  };
+
   return (
     <Table
       sx={{ minWidth: 700, borderCollapse: "separate" }}
       aria-label="customized table"
     >
+      <DeleteConfimModal
+        open={isConfirmDeleteModalOpen}
+        handleClose={() => setIsConfirmDeleteModalOpen(false)}
+        onClickConfirmDelete={onClickConfirmDelete}
+        title="Xoá hồ sơ bác sĩ"
+        innerText="Bạn có chắc muốn xoá hồ sơ bác sĩ này không?"
+      />
       <TableHead
         sx={{
           "& th:first-child": {
@@ -75,7 +106,9 @@ export const ContentTable = ({ patients }: { patients: Patient[] }) => {
             <StyledTableCell align="left">
               <PatientMoreInfoMenu
                 patientId={row.id}
-                openDeleteConfirmModal={() => {}}
+                openDeleteConfirmModal={() =>
+                  onClickOpenDeleteConfirmModal(row.id)
+                }
               />
             </StyledTableCell>
           </StyledTableRow>
@@ -86,8 +119,8 @@ export const ContentTable = ({ patients }: { patients: Patient[] }) => {
 };
 
 const SexBox = ({ sex }: { sex: string }) => {
-  const className = sex === "Male" ? "sex-box-male" : "sex-box-female";
-  const text = sex === "Male" ? "Nam" : "Nữ";
+  const className = sex === "M" ? "sex-box-male" : "sex-box-female";
+  const text = sex === "M" ? "Nam" : "Nữ";
 
   return <div className={className}>{text}</div>;
 };

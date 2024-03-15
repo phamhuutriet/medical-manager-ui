@@ -13,6 +13,10 @@ import {
 import { Patient, PatientContext } from "../../../context/PatientContext";
 import { SexDropDown } from "../../doctor/doctor-detail/SexDropDown";
 import { DoctorDropDown } from "../../doctor/doctor-detail/DoctorDropDown";
+import { updatePatient } from "../../../service/patientService";
+import { useThrowAsyncError } from "../../../hooks/useThrowAsyncError";
+import { WholeComponentLoadingWrapper } from "../../../components/LoadingWrapper";
+import { AddSuccessfulModal } from "../../../components/AddSuccessfulModal";
 
 export const EditPatientContent = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
@@ -20,6 +24,10 @@ export const EditPatientContent = () => {
   const { patients, setPatients } = useContext(PatientContext);
   const currentPatient = patients.find((patient) => patient.id === patientId);
   const [patient, setPatient] = useState<Patient | undefined>(currentPatient);
+  const [isUpdateSuccessfulModalOpen, setIsUpdateSuccessfulModalOpen] =
+    useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const throwAsyncError = useThrowAsyncError();
   const navigate = useNavigate();
 
   const setAttribute = (attribute: string) => {
@@ -30,16 +38,23 @@ export const EditPatientContent = () => {
     };
   };
 
-  const savePatient = () => {
-    setPatients(
-      patients.map((patientItem) => {
-        if (patient && patientItem.id === patient.id) {
-          return patient;
-        }
-        return patientItem;
-      })
-    );
-    navigate(RouteEnum.MAIN_PAGE);
+  const savePatient = async () => {
+    try {
+      setIsLoading(true);
+      const updatedPatient = await updatePatient(patient as Patient);
+      setPatients(
+        patients.map((patientItem) => {
+          if (patientItem.id === updatedPatient.id) {
+            return updatedPatient;
+          }
+          return patientItem;
+        })
+      );
+      setIsLoading(false);
+      setIsUpdateSuccessfulModalOpen(true);
+    } catch {
+      throwAsyncError(new Error("Lỗi cập nhật bệnh nhân, vui lòng thử lại"));
+    }
   };
 
   const cancelEditDoctor = () => {
@@ -51,69 +66,84 @@ export const EditPatientContent = () => {
   }
 
   return (
-    <div>
-      <div className="doctor-detail-content">
-        <AvatarBox />
-        <NameBox
-          entity={patient}
-          setFirstName={setAttribute("firstName")}
-          setLastName={setAttribute("lastName")}
+    <WholeComponentLoadingWrapper
+      isLoading={isLoading}
+      loadingText="Đang cập nhật bệnh nhân, vui lòng đợi tí"
+    >
+      <div>
+        <AddSuccessfulModal
+          open={isUpdateSuccessfulModalOpen}
+          handleClose={() => setIsUpdateSuccessfulModalOpen(false)}
+          handleRedirect={() => navigate(RouteEnum.PATIENT_PAGE)}
+          onClickConfirm={() => navigate(`/patients/details/${patient.id}`)}
+          title="Cập nhật bệnh nhân thành công"
+          innerText="Chúc mừng bạn đã cập nhật hồ sơ bệnh nhân thành công"
+          leftButtonText="Về danh sách bệnh nhân"
+          rightButtonText="Xem chi tiết"
         />
-        <div className="box">
-          <div style={{ width: "100%" }}>
-            <SexDropDown
-              sex={patient ? patient.gender : ""}
-              setSex={setAttribute("gender")}
-            />
+        <div className="doctor-detail-content">
+          <AvatarBox />
+          <NameBox
+            entity={patient}
+            setFirstName={setAttribute("firstName")}
+            setLastName={setAttribute("lastName")}
+          />
+          <div className="box">
+            <div style={{ width: "100%" }}>
+              <SexDropDown
+                sex={patient ? patient.gender : ""}
+                setSex={setAttribute("gender")}
+              />
+            </div>
+            <div style={{ width: "100%" }}>
+              <TextInputBox
+                text={patient?.address}
+                setText={setAttribute("address")}
+                boxTitle="Địa chỉ"
+                placeholder="Địa chỉ bệnh nhân"
+              />
+            </div>
           </div>
-          <div style={{ width: "100%" }}>
+          <div className="box">
+            <div style={{ width: "100%" }}>
+              <BirthBox
+                dateOfBirth={patient ? patient.dateOfBirth : ""}
+                setDateOfBirth={setAttribute("dateOfBirth")}
+                isCalendarOpen={isCalendarOpen}
+                setIsCalendarOpen={setIsCalendarOpen}
+              />
+            </div>
+            <div style={{ width: "100%" }}>
+              <PhoneNumberBox
+                phoneNumber={patient ? patient.phoneNumber : ""}
+                setPhoneNumber={setAttribute("phoneNumber")}
+                isIconDisplay={true}
+              />
+            </div>
+          </div>
+          <MultiOptionBox
+            options={patient.allergies}
+            setOptions={setAttribute("allergies")}
+          />
+          <div className="note-box">
             <TextInputBox
-              text={patient?.address}
-              setText={setAttribute("address")}
-              boxTitle="Địa chỉ"
-              placeholder="Địa chỉ bệnh nhân"
+              text={patient ? patient.note : ""}
+              placeholder="Điền ghi chú"
+              boxTitle="Ghi chú"
+              setText={setAttribute("note")}
             />
           </div>
-        </div>
-        <div className="box">
-          <div style={{ width: "100%" }}>
-            <BirthBox
-              dateOfBirth={patient ? patient.dateOfBirth : ""}
-              setDateOfBirth={setAttribute("dateOfBirth")}
-              isCalendarOpen={isCalendarOpen}
-              setIsCalendarOpen={setIsCalendarOpen}
-            />
-          </div>
-          <div style={{ width: "100%" }}>
-            <PhoneNumberBox
-              phoneNumber={patient ? patient.phoneNumber : ""}
-              setPhoneNumber={setAttribute("phoneNumber")}
-              isIconDisplay={true}
-            />
-          </div>
-        </div>
-        <MultiOptionBox
-          options={patient.allergies}
-          setOptions={setAttribute("allergies")}
-        />
-        <div className="note-box">
-          <TextInputBox
-            text={patient ? patient.note : ""}
-            placeholder="Điền ghi chú"
-            boxTitle="Ghi chú"
-            setText={setAttribute("note")}
+          <DoctorDropDown
+            doctor={patient.doctor}
+            setDoctor={setAttribute("doctor")}
           />
         </div>
-        <DoctorDropDown
-          doctor={patient.doctor}
-          setDoctor={setAttribute("doctor")}
+        <ButtonsBox
+          savePatient={savePatient}
+          cancelEditDoctor={cancelEditDoctor}
         />
       </div>
-      <ButtonsBox
-        savePatient={savePatient}
-        cancelEditDoctor={cancelEditDoctor}
-      />
-    </div>
+    </WholeComponentLoadingWrapper>
   );
 };
 
