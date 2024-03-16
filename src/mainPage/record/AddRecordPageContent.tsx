@@ -81,6 +81,8 @@ export const AddRecordPageContent = () => {
     }
   };
 
+  console.log("NEED: ", needUpdateTreatments);
+
   return (
     <WholeComponentLoadingWrapper
       isLoading={isLoading}

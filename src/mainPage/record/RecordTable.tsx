@@ -229,10 +229,22 @@ export const RecordTreatmentsTable = ({
   setNeedUpdateTreatments: Function;
 }) => {
   const onClickRemoveRow = (treatment: Treatment) => {
-    setNeedUpdateTreatments((prev: any) => [
-      ...prev,
-      { ...treatment, isDelete: true },
-    ]);
+    setNeedUpdateTreatments((prev: any) => {
+      const index = prev.findIndex(
+        (item: any) => JSON.stringify(item) === JSON.stringify(treatment)
+      );
+      if (index !== -1) {
+        console.log("Found");
+        return [
+          ...prev.slice(0, index),
+          { ...prev[index], isDelete: true },
+          ...prev.slice(index + 1),
+        ];
+      } else {
+        console.log("Not found");
+        return [...prev, { ...treatment, isDelete: true }];
+      }
+    });
     setTreatments((prev: any) =>
       prev.filter((item: any) => item !== treatment)
     );

@@ -57,7 +57,7 @@ export const createUpdateTreatments = async (
       requests.push(updateTreatment(patientId, recordId, treatment));
     } else if (treatment.id !== undefined) {
       requests.push(deleteTreatment(patientId, recordId, treatment));
-    } else {
+    } else if (!treatment.isDelete) {
       requests.push(createTreatment(patientId, recordId, treatment));
     }
   });
