@@ -34,9 +34,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "& td, & th": {
     border: 0,
   },
-  "&:first-child td, &:first-child th": {
-    paddingTop: "24px",
-  },
+  // "&:hover": {
+  //   backgroundColor: "var(--color-surface-accent)",
+  //   cursor: "pointer",
+  // },
 }));
 
 export interface Test {
@@ -227,7 +228,16 @@ export const RecordTreatmentsTable = ({
   setTreatments: Function;
   setNeedUpdateTreatments: Function;
 }) => {
-  console.log("TREATMENTS:", treatments);
+  const onClickRemoveRow = (treatment: Treatment) => {
+    setNeedUpdateTreatments((prev: any) => [
+      ...prev,
+      { ...treatment, isDelete: true },
+    ]);
+    setTreatments((prev: any) =>
+      prev.filter((item: any) => item !== treatment)
+    );
+  };
+
   return (
     <Table
       sx={{ minWidth: 700, borderCollapse: "separate" }}
@@ -252,7 +262,7 @@ export const RecordTreatmentsTable = ({
           <StyledTableCell align="left">Giá tiền</StyledTableCell>
           <StyledTableCell align="left">Ghi chú</StyledTableCell>
           <StyledTableCell align="left">Bác sĩ</StyledTableCell>
-          <StyledTableCell align="right"></StyledTableCell>
+          <StyledTableCell align="left"></StyledTableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -263,7 +273,11 @@ export const RecordTreatmentsTable = ({
             <StyledTableCell align="left">{treatment.cost}</StyledTableCell>
             <StyledTableCell align="left">{treatment.note}</StyledTableCell>
             <StyledTableCell align="left">{`${treatment.doctor.firstName} ${treatment.doctor.lastName}`}</StyledTableCell>
-            <StyledTableCell align="right"></StyledTableCell>
+            <StyledTableCell align="left">
+              <IconButton onClick={() => onClickRemoveRow(treatment)}>
+                <CloseIcon />
+              </IconButton>
+            </StyledTableCell>
           </StyledTableRow>
         ))}
         {isAddNewTreatment && (

@@ -31,8 +31,19 @@ export const updateTreatment = async (
   const url = `${getHostName()}/user/${getUserId()}/patients/${patientId}/records/${recordId}/treatments/${
     treatment.id
   }/`;
-  const { data } = await axios.post(url, treatment, getAuthObject());
+  const { data } = await axios.patch(url, treatment, getAuthObject());
   return data;
+};
+
+export const deleteTreatment = async (
+  patientId: string,
+  recordId: string,
+  treatment: Treatment
+) => {
+  const url = `${getHostName()}/user/${getUserId()}/patients/${patientId}/records/${recordId}/treatments/${
+    treatment.id
+  }/`;
+  await axios.delete(url, getAuthObject());
 };
 
 export const createUpdateTreatments = async (
@@ -42,8 +53,10 @@ export const createUpdateTreatments = async (
 ) => {
   const requests: any[] = [];
   treatments.forEach((treatment) => {
-    if (treatment.id !== undefined) {
+    if (treatment.id !== undefined && !treatment.isDelete) {
       requests.push(updateTreatment(patientId, recordId, treatment));
+    } else if (treatment.id !== undefined) {
+      requests.push(deleteTreatment(patientId, recordId, treatment));
     } else {
       requests.push(createTreatment(patientId, recordId, treatment));
     }

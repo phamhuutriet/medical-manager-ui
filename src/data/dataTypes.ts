@@ -6,6 +6,7 @@ export interface Treatment {
   recordId: string;
   note: string;
   doctor: Doctor;
+  isDelete?: boolean;
 }
 
 export interface Doctor {

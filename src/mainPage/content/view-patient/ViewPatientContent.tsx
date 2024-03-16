@@ -15,24 +15,6 @@ import { getAllRecords } from "../../../service/recordService";
 import { useThrowAsyncError } from "../../../hooks/useThrowAsyncError";
 import { WholeComponentLoadingWrapper } from "../../../components/LoadingWrapper";
 
-const MOCK_RECORDS = [
-  {
-    id: "1",
-    createdAt: "07 / 12/ 2022",
-    diagnosis: "Sâu răng",
-  },
-  {
-    id: "2",
-    createdAt: "06 / 12/ 2022",
-    diagnosis: "Sâu răng",
-  },
-  {
-    id: "3",
-    createdAt: "05 / 12/ 2022",
-    diagnosis: "Sâu răng",
-  },
-];
-
 export const ViewPatientContent = () => {
   const navigate = useNavigate();
   const { patientId } = useParams();

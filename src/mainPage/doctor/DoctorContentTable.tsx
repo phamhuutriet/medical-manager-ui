@@ -31,10 +31,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:first-child td, &:first-child th": {
     paddingTop: "24px",
   },
-  "&:hover": {
-    backgroundColor: "#f6f6f9",
-    cursor: "pointer",
-  },
+  // "&:hover": {
+  //   backgroundColor: "var(--color-surface-accent)",
+  //   cursor: "pointer",
+  // },
 }));
 
 export const DoctorContentTable = ({ doctors }: { doctors: Doctor[] }) => {

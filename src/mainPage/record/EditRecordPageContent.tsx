@@ -10,7 +10,6 @@ import { AddIcon } from "../../img/svg/AddIcon";
 import { AddRecordTestModal } from "./AddRecordTestModal";
 import { AddSuccessfulModal } from "../../components/AddSuccessfulModal";
 import { useNavigate, useParams } from "react-router-dom";
-import { RouteEnum } from "../../data/routeEnum";
 import { getRecord, updateRecord } from "../../service/recordService";
 import { useThrowAsyncError } from "../../hooks/useThrowAsyncError";
 import { WholeComponentLoadingWrapper } from "../../components/LoadingWrapper";
@@ -94,8 +93,8 @@ export const EditRecordPageContent = () => {
         <AddSuccessfulModal
           open={isAddedRecord}
           handleClose={() => setIsAddedRecord(false)} // do nothing here since we will use the buttons to navigate
-          handleRedirect={() => navigate(RouteEnum.MAIN_PAGE)}
-          onClickConfirm={() => {}}
+          handleRedirect={() => navigate(`/patients/details/${patientId}`)}
+          onClickConfirm={() => setIsAddedRecord(false)}
           title="Thêm bệnh án thành công"
           innerText="Chúc mừng bạn đã tạo hồ sơ bệnh án thành công"
           leftButtonText="Quay về hồ sơ bệnh nhân"

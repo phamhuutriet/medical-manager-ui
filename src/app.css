@@ -27,7 +27,7 @@ body {
   border-bottom: none;
   border-left: none;
   height: calc(100vh - 83px);
-  max-width: 100vw;
+  max-width: 100%;
   position: relative;
   z-index: 3;
   overflow-y: auto;
