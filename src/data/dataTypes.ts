@@ -1,8 +1,20 @@
 export interface Treatment {
   id: string;
-  data: any;
-  template: any;
-  record: string;
+  date: string;
+  name: string;
+  cost: number;
+  recordId: string;
+  note: string;
+  doctor: Doctor;
+}
+
+export interface Doctor {
+  id: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  dateOfBirth: string;
+  phoneNumber: string;
 }
 
 export interface SignUpData {

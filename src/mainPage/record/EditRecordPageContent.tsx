@@ -15,6 +15,7 @@ import { getRecord, updateRecord } from "../../service/recordService";
 import { useThrowAsyncError } from "../../hooks/useThrowAsyncError";
 import { WholeComponentLoadingWrapper } from "../../components/LoadingWrapper";
 import "./index.css";
+import { createUpdateTreatments } from "../../service/treatmentService";
 
 export const EditRecordPageContent = () => {
   const { recordId, patientId } = useParams();
@@ -24,6 +25,7 @@ export const EditRecordPageContent = () => {
   const [treatments, setTreatments] = useState([]);
   const [isAddedRecord, setIsAddedRecord] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [needUpdateTreatments, setNeedUpdateTreatments] = useState([]);
   const navigate = useNavigate();
   const throwAsyncError = useThrowAsyncError();
 
@@ -67,12 +69,19 @@ export const EditRecordPageContent = () => {
     try {
       setIsLoading(true);
       await updateRecord(record);
+      await createUpdateTreatments(
+        patientId as string,
+        recordId as string,
+        needUpdateTreatments
+      );
       setIsLoading(false);
     } catch (error) {
       throwAsyncError(new Error("Lỗi cập nhật bệnh án"));
     }
     setIsAddedRecord(true);
   };
+
+  console.log("Need update treatments: ", needUpdateTreatments);
 
   if (!record) return <>Bệnh án không tồn tại</>;
 
@@ -125,7 +134,11 @@ export const EditRecordPageContent = () => {
             treatmentPlans={treatmentPlans}
             setTreatmentPlans={setTreatmentPlans}
           />
-          <Treatments treatments={treatments} setTreatments={setTreatments} />
+          <Treatments
+            treatments={treatments}
+            setTreatments={setTreatments}
+            setNeedUpdateTreatments={setNeedUpdateTreatments}
+          />
         </div>
         <ButtonsBox
           isAddable
@@ -260,9 +273,11 @@ const TreatmentPlan = ({
 const Treatments = ({
   treatments,
   setTreatments,
+  setNeedUpdateTreatments,
 }: {
   treatments: any;
   setTreatments: any;
+  setNeedUpdateTreatments: Function;
 }) => {
   const [isAddNewRow, setIsAddNewRow] = useState(false);
 
@@ -287,6 +302,7 @@ const Treatments = ({
           isAddNewTreatment={isAddNewRow}
           removeNewRow={removeNewRow}
           setTreatments={setTreatments}
+          setNeedUpdateTreatments={setNeedUpdateTreatments}
         />
       </div>
     </div>

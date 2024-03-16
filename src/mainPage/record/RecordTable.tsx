@@ -219,12 +219,15 @@ export const RecordTreatmentsTable = ({
   removeNewRow,
   treatments,
   setTreatments,
+  setNeedUpdateTreatments,
 }: {
   isAddNewTreatment?: boolean;
   removeNewRow: Function;
   treatments: Treatment[];
   setTreatments: Function;
+  setNeedUpdateTreatments: Function;
 }) => {
+  console.log("TREATMENTS:", treatments);
   return (
     <Table
       sx={{ minWidth: 700, borderCollapse: "separate" }}
@@ -255,24 +258,20 @@ export const RecordTreatmentsTable = ({
       <TableBody>
         {treatments.map((treatment) => (
           <StyledTableRow>
-            <StyledTableCell align="left">
-              {treatment.data.visitDate}
-            </StyledTableCell>
-            <StyledTableCell align="left">
-              {treatment.data.treatmentType}
-            </StyledTableCell>
-            <StyledTableCell align="left">
-              {treatment.data.cost}
-            </StyledTableCell>
-            <StyledTableCell align="left">
-              {treatment.data.note}
-            </StyledTableCell>
-            <StyledTableCell align="left">{`${treatment.data.doctor.firstName} ${treatment.data.doctor.lastName}`}</StyledTableCell>
+            <StyledTableCell align="left">{treatment.date}</StyledTableCell>
+            <StyledTableCell align="left">{treatment.name}</StyledTableCell>
+            <StyledTableCell align="left">{treatment.cost}</StyledTableCell>
+            <StyledTableCell align="left">{treatment.note}</StyledTableCell>
+            <StyledTableCell align="left">{`${treatment.doctor.firstName} ${treatment.doctor.lastName}`}</StyledTableCell>
             <StyledTableCell align="right"></StyledTableCell>
           </StyledTableRow>
         ))}
         {isAddNewTreatment && (
-          <AddRow removeNewRow={removeNewRow} setTreatments={setTreatments} />
+          <AddRow
+            removeNewRow={removeNewRow}
+            setTreatments={setTreatments}
+            setNeedUpdateTreatments={setNeedUpdateTreatments}
+          />
         )}
       </TableBody>
     </Table>
@@ -282,27 +281,37 @@ export const RecordTreatmentsTable = ({
 const AddRow = ({
   removeNewRow,
   setTreatments,
+  setNeedUpdateTreatments,
 }: {
   removeNewRow: any;
   setTreatments: Function;
+  setNeedUpdateTreatments: Function;
 }) => {
-  const [visitDate, setVisitDate] = React.useState();
-  const [treatmentType, setTreatmentType] = React.useState("");
+  const [date, setVisitDate] = React.useState();
+  const [name, setName] = React.useState("");
   const [cost, setCost] = React.useState("");
   const [note, setNote] = React.useState("");
   const [doctor, setDoctor] = React.useState();
 
   const onClickAddNewTreatment = () => {
+    setNeedUpdateTreatments((prev: any) => [
+      ...prev,
+      {
+        date,
+        name,
+        cost,
+        note,
+        doctor,
+      },
+    ]);
     setTreatments((prev: any) => [
       ...prev,
       {
-        data: {
-          visitDate,
-          treatmentType,
-          cost,
-          note,
-          doctor,
-        },
+        date,
+        name,
+        cost,
+        note,
+        doctor,
       },
     ]);
     removeNewRow();
@@ -312,12 +321,12 @@ const AddRow = ({
     <StyledTableRow>
       {" "}
       <StyledTableCell align="left">
-        <VisitDate visitDate={visitDate} setVisitDate={setVisitDate} />
+        <VisitDate visitDate={date} setVisitDate={setVisitDate} />
       </StyledTableCell>
       <StyledTableCell align="left">
         <TextBox
-          text={treatmentType}
-          setText={setTreatmentType}
+          text={name}
+          setText={setName}
           placeholder="Nhập thông tin điều trị"
         />
       </StyledTableCell>
