@@ -42,12 +42,9 @@ export const createUpdateTreatments = async (
 ) => {
   const requests: any[] = [];
   treatments.forEach((treatment) => {
-    console.log("Treatment: ", treatment);
     if (treatment.id !== undefined) {
-      console.log("update");
       requests.push(updateTreatment(patientId, recordId, treatment));
     } else {
-      console.log("create");
       requests.push(createTreatment(patientId, recordId, treatment));
     }
   });
