@@ -21,7 +21,10 @@ export const Header = () => {
               ? routeList.map((routeItem, idx) => {
                   if (idx < routeList.length - 1) {
                     return (
-                      <div className="header-route-text-non-current-route-container">
+                      <div
+                        key={routeItem.routeName}
+                        className="header-route-text-non-current-route-container"
+                      >
                         <div
                           className="header-route-text-non-current-route"
                           onClick={() => navigate(routeItem.route)}
@@ -33,7 +36,10 @@ export const Header = () => {
                     );
                   }
                   return (
-                    <div className="header-route-text-current-route">
+                    <div
+                      key={routeItem.routeName}
+                      className="header-route-text-current-route"
+                    >
                       {routeItem.routeName}
                     </div>
                   );
