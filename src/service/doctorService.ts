@@ -16,7 +16,7 @@ export const createDoctor = async (doctor: Doctor) => {
   return data;
 };
 
-export const updateDoctor = async (updatedDoctor: Doctor) => {
+export const updateDoctorService = async (updatedDoctor: Doctor) => {
   const url = `${getHostName()}/user/${getUserId()}/doctors/${
     updatedDoctor.id
   }/`;
@@ -24,7 +24,7 @@ export const updateDoctor = async (updatedDoctor: Doctor) => {
   return data;
 };
 
-export const deleteDoctor = async (doctorId: string) => {
+export const deleteDoctorService = async (doctorId: string) => {
   const url = `${getHostName()}/user/${getUserId()}/doctors/${doctorId}/`;
   const { data } = await axios.delete(url, getAuthObject());
   return data;

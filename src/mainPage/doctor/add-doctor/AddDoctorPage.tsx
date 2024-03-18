@@ -12,8 +12,6 @@ export const AddDoctorPage = () => {
     navigate(RouteEnum.DOCTOR_PAGE);
   };
 
-  console.log("Render add doctor page");
-
   return (
     <div className="page-content-container">
       <div className="content-header">

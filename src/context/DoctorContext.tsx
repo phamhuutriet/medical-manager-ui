@@ -11,10 +11,10 @@ export interface Doctor {
 
 interface DoctorContextType {
   doctors: Doctor[];
-  setDoctors: Function;
+  // setDoctors: Function;
 }
 
 export const DoctorContext = createContext<DoctorContextType>({
   doctors: [],
-  setDoctors: () => {},
+  // setDoctors: () => {},
 });

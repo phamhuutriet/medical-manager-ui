@@ -5,11 +5,12 @@ import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { Doctor, DoctorContext } from "../../context/DoctorContext";
+import { Doctor } from "../../context/DoctorContext";
 import { DoctorMoreInfoMenu } from "./DoctorMoreInfoMenu";
 import { DeleteConfimModal } from "../../components/DeleteConfirmModal";
-import { deleteDoctor } from "../../service/doctorService";
+import { deleteDoctorService } from "../../service/doctorService";
 import { useThrowAsyncError } from "../../hooks/useThrowAsyncError";
+import { useDoctorAPI } from "../../context/DoctorDataProvider";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -41,7 +42,7 @@ export const DoctorContentTable = ({ doctors }: { doctors: Doctor[] }) => {
   const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
     React.useState(false);
   const [toDeleteDoctorId, setToDeleteDoctorId] = React.useState("");
-  const { setDoctors } = React.useContext(DoctorContext);
+  const { deleteDoctor } = useDoctorAPI();
   const throwAsyncError = useThrowAsyncError();
 
   const onClickOpenDeleteConfirmModal = (doctorId: string) => () => {
@@ -51,10 +52,8 @@ export const DoctorContentTable = ({ doctors }: { doctors: Doctor[] }) => {
 
   const onClickConfirmDelete = async () => {
     try {
-      await deleteDoctor(toDeleteDoctorId);
-      setDoctors((prev: Doctor[]) =>
-        prev.filter((doctor) => doctor.id !== toDeleteDoctorId)
-      );
+      await deleteDoctorService(toDeleteDoctorId);
+      deleteDoctor({ id: toDeleteDoctorId });
       setIsConfirmDeleteModalOpen(false);
     } catch {
       throwAsyncError(new Error("Lỗi xoá bác sĩ, vui lòng thử lại"));

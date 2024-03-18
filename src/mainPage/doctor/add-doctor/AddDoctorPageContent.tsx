@@ -1,16 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { BirthBox, NameBox, PhoneNumberBox } from "../doctor-detail/NameBox";
 import { Button } from "../../../components/Button";
 import { SexDropDown } from "../doctor-detail/SexDropDown";
-import { DoctorContext } from "../../../context/DoctorContext";
 import { useNavigate } from "react-router";
 import { RouteEnum } from "../../../data/routeEnum";
-import "./index.css";
 import { AddDoctorAvatarBox } from "./AddDoctorAvatarBox";
 import { AddSuccessfulModal } from "../../../components/AddSuccessfulModal";
 import { useThrowAsyncError } from "../../../hooks/useThrowAsyncError";
 import { createDoctor } from "../../../service/doctorService";
 import { WholeComponentLoadingWrapper } from "../../../components/LoadingWrapper";
+import { useDoctorAPI } from "../../../context/DoctorDataProvider";
+import "./index.css";
 
 const VALID_KEYS = [
   "firstName",
@@ -21,7 +21,7 @@ const VALID_KEYS = [
 ];
 
 export const AddDoctorPageContent = () => {
-  const { doctors, setDoctors } = useContext(DoctorContext);
+  const { addDoctor } = useDoctorAPI();
   const [doctor, setDoctor] = useState<any>({
     firstName: "",
     lastName: "",
@@ -49,7 +49,7 @@ export const AddDoctorPageContent = () => {
     try {
       setIsLoading(true);
       const newDoctor = await createDoctor(doctor);
-      setDoctors([...doctors, newDoctor]);
+      addDoctor(newDoctor);
       setIsAddSuccessfulModalOpen(true);
       setIsLoading(false);
     } catch {

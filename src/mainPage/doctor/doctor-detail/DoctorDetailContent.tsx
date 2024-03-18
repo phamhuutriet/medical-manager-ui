@@ -7,13 +7,15 @@ import { useNavigate, useParams } from "react-router";
 import { RouteEnum } from "../../../data/routeEnum";
 import { AvatarBox } from "./AvatarBox";
 import { useThrowAsyncError } from "../../../hooks/useThrowAsyncError";
-import { updateDoctor } from "../../../service/doctorService";
+import { updateDoctorService } from "../../../service/doctorService";
 import { AddSuccessfulModal } from "../../../components/AddSuccessfulModal";
+import { useDoctorAPI } from "../../../context/DoctorDataProvider";
 import "./index.css";
 
 export const DoctorDetailContent = () => {
   const { doctorId } = useParams();
-  const { doctors, setDoctors } = useContext(DoctorContext);
+  const { doctors } = useContext(DoctorContext);
+  const { updateDoctor } = useDoctorAPI();
   const [doctor, setDoctor] = useState<Doctor | undefined>();
   const [isUpdateSuccessfulModalOpen, setIsUpdateSuccessfulModalOpen] =
     useState(false);
@@ -35,15 +37,8 @@ export const DoctorDetailContent = () => {
 
   const saveDoctor = async () => {
     try {
-      const updatedDoctor = await updateDoctor(doctor as Doctor);
-      setDoctors(
-        doctors.map((doctorItem) => {
-          if (doctor && doctorItem.id === updatedDoctor.id) {
-            return updatedDoctor;
-          }
-          return doctorItem;
-        })
-      );
+      const updatedDoctor = await updateDoctorService(doctor as Doctor);
+      updateDoctor(updatedDoctor);
       setIsUpdateSuccessfulModalOpen(true);
     } catch {
       throwAsyncError(new Error("Cập nhật bác sĩ thất bại, vui lòng thử lại"));
