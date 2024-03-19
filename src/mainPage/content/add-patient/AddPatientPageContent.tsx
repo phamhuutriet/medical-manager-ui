@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { RouteEnum } from "../../../data/routeEnum";
 import { AvatarBox } from "../../doctor/doctor-detail/AvatarBox";
@@ -10,13 +10,13 @@ import {
   PhoneNumberBox,
   TextInputBox,
 } from "../../doctor/doctor-detail/NameBox";
-import { Patient, PatientContext } from "../../../context/PatientContext";
 import { SexDropDown } from "../../doctor/doctor-detail/SexDropDown";
 import { DoctorDropDown } from "../../doctor/doctor-detail/DoctorDropDown";
 import { AddSuccessfulModal } from "../../../components/AddSuccessfulModal";
 import { createPatient } from "../../../service/patientService";
 import { WholeComponentLoadingWrapper } from "../../../components/LoadingWrapper";
 import { useThrowAsyncError } from "../../../hooks/useThrowAsyncError";
+import { usePatientAPI } from "../../../context/PatientDataProvider";
 
 const VALID_KEYS = [
   "firstName",
@@ -29,7 +29,7 @@ const VALID_KEYS = [
 ];
 
 export const AddPatientPageContent = () => {
-  const { patients, setPatients } = useContext(PatientContext);
+  const { addPatient } = usePatientAPI();
   const [patient, setPatient] = useState<any>();
   const patientKeys = Object.keys(patient ? patient : {});
   const isValidPatient = VALID_KEYS.every((key) => patientKeys.includes(key));
@@ -50,7 +50,7 @@ export const AddPatientPageContent = () => {
       setIsLoading(true);
       const newPatient = await createPatient(patient);
       setIsLoading(false);
-      setPatients([...patients, newPatient]);
+      addPatient(newPatient);
       setPatient(newPatient);
       setIsAddSuccessfulModalOpen(true);
     } catch (error) {

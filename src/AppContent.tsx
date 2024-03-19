@@ -8,6 +8,7 @@ import "./app.css";
 import { PatientContent } from "./mainPage/content/PatientContent";
 import { RecordContent } from "./mainPage/record/RecordContent";
 import { DoctorDataProvider } from "./context/DoctorDataProvider";
+import { PatientDataProvider } from "./context/PatientDataProvider";
 
 export const AppContent = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
   return (
@@ -19,9 +20,11 @@ export const AppContent = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
             <Header />
             <div className="page-content">
               <DoctorDataProvider>
-                <PatientContent />
-                <DoctorContent />
-                <RecordContent />
+                <PatientDataProvider>
+                  <PatientContent />
+                  <DoctorContent />
+                  <RecordContent />
+                </PatientDataProvider>
               </DoctorDataProvider>
             </div>
           </div>

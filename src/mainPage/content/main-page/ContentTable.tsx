@@ -5,12 +5,13 @@ import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { Patient, PatientContext } from "../../../context/PatientContext";
+import { Patient } from "../../../context/PatientContext";
 import { PatientMoreInfoMenu } from "./PatientMoreInfoMenu";
-import "../index.css";
 import { DeleteConfimModal } from "../../../components/DeleteConfirmModal";
-import { deletePatient } from "../../../service/patientService";
+import { deletePatientService } from "../../../service/patientService";
 import { useThrowAsyncError } from "../../../hooks/useThrowAsyncError";
+import { usePatientAPI } from "../../../context/PatientDataProvider";
+import "../index.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -29,7 +30,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
-  "&:first-child td, &:first-child th": {
+  "&:first-of-type td, &:first-of-type th": {
     paddingTop: "24px",
   },
 }));
@@ -37,19 +38,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export const ContentTable = ({ patients }: { patients: Patient[] }) => {
   const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
     React.useState(false);
-  const [toDeletePatient, setToDeletePatient] = React.useState("");
-  const { setPatients } = React.useContext(PatientContext);
+  const [toDeletePatient, setToDeletePatient] = React.useState<Patient>();
+  const { deletePatient } = usePatientAPI();
   const throwAsyncError = useThrowAsyncError();
 
-  const onClickOpenDeleteConfirmModal = (patientId: string) => {
+  const onClickOpenDeleteConfirmModal = (patient: Patient) => {
     setIsConfirmDeleteModalOpen(true);
-    setToDeletePatient(patientId);
+    setToDeletePatient(patient);
   };
 
   const onClickConfirmDelete = async () => {
     try {
-      await deletePatient(toDeletePatient);
-      setPatients(patients.filter((patient) => patient.id !== toDeletePatient));
+      await deletePatientService(toDeletePatient as Patient);
+      deletePatient(toDeletePatient);
       setIsConfirmDeleteModalOpen(false);
     } catch (error) {
       throwAsyncError(new Error("Lỗi xoá bệnh nhân, vui lòng thử lại"));
@@ -70,7 +71,7 @@ export const ContentTable = ({ patients }: { patients: Patient[] }) => {
       />
       <TableHead
         sx={{
-          "& th:first-child": {
+          "& th:first-of-type": {
             borderTopLeftRadius: "12px",
             borderBottomLeftRadius: "12px",
           },
@@ -109,7 +110,7 @@ export const ContentTable = ({ patients }: { patients: Patient[] }) => {
               <PatientMoreInfoMenu
                 patientId={row.id}
                 openDeleteConfirmModal={() =>
-                  onClickOpenDeleteConfirmModal(row.id)
+                  onClickOpenDeleteConfirmModal(row)
                 }
               />
             </StyledTableCell>

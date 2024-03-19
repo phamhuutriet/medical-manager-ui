@@ -10,17 +10,22 @@ import {
   PhoneNumberBox,
   TextInputBox,
 } from "../../doctor/doctor-detail/NameBox";
-import { Patient, PatientContext } from "../../../context/PatientContext";
+import { Patient } from "../../../context/PatientContext";
 import { SexDropDown } from "../../doctor/doctor-detail/SexDropDown";
 import { DoctorDropDown } from "../../doctor/doctor-detail/DoctorDropDown";
-import { updatePatient } from "../../../service/patientService";
+import { updatePatientService } from "../../../service/patientService";
 import { useThrowAsyncError } from "../../../hooks/useThrowAsyncError";
 import { WholeComponentLoadingWrapper } from "../../../components/LoadingWrapper";
 import { AddSuccessfulModal } from "../../../components/AddSuccessfulModal";
+import {
+  usePatientAPI,
+  usePatientData,
+} from "../../../context/PatientDataProvider";
 
 export const EditPatientContent = () => {
   const { patientId } = useParams();
-  const { patients, setPatients } = useContext(PatientContext);
+  const { patients } = usePatientData();
+  const { updatePatient } = usePatientAPI();
   const currentPatient = patients.find((patient) => patient.id === patientId);
   const [patient, setPatient] = useState<Patient | undefined>(currentPatient);
   const [isUpdateSuccessfulModalOpen, setIsUpdateSuccessfulModalOpen] =
@@ -40,15 +45,8 @@ export const EditPatientContent = () => {
   const savePatient = async () => {
     try {
       setIsLoading(true);
-      const updatedPatient = await updatePatient(patient as Patient);
-      setPatients(
-        patients.map((patientItem) => {
-          if (patientItem.id === updatedPatient.id) {
-            return updatedPatient;
-          }
-          return patientItem;
-        })
-      );
+      const updatedPatient = await updatePatientService(patient as Patient);
+      updatePatient(updatedPatient);
       setIsLoading(false);
       setIsUpdateSuccessfulModalOpen(true);
     } catch {

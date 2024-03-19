@@ -1,16 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { ContentTable } from "./ContentTable";
 import { Button } from "../../../components/Button";
 import { SearchIcon } from "../../../img/svg/SearchIcon";
 import { PaginationBar } from "./PaginationBar";
 import { FilterButtonMenu } from "./FilterButton";
-import { PatientContext } from "../../../context/PatientContext";
 import "../index.css";
+import { usePatientData } from "../../../context/PatientDataProvider";
 
 export const ContentItemList = () => {
   const maxRowPerPage = 7;
   const [curPage, setCurPage] = useState(0);
-  const { patients } = useContext(PatientContext);
+  const { patients } = usePatientData();
   const numOfPages = Math.ceil(patients.length / maxRowPerPage);
 
   const onClickPage = (pageIdx: number) => {

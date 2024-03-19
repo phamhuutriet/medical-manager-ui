@@ -259,6 +259,7 @@ export const MultiOptionBox = ({
                 className={`multi-option-box-item ${
                   !option.isSelected && "multi-option-box-item-unchecked"
                 }`}
+                key={`${option}-${index}`}
               >
                 <FormControlLabel
                   control={

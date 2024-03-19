@@ -9,14 +9,14 @@ export const getAllPatients = async () => {
   return data;
 };
 
-export const updatePatient = async (patient: Patient) => {
+export const updatePatientService = async (patient: Patient) => {
   const url = `${getHostName()}/user/${getUserId()}/patients/${patient.id}/`;
   const { data } = await axios.patch(url, patient, getAuthObject());
   return data;
 };
 
-export const deletePatient = async (patientId: string) => {
-  const url = `${getHostName()}/user/${getUserId()}/patients/${patientId}/`;
+export const deletePatientService = async (patient: Patient) => {
+  const url = `${getHostName()}/user/${getUserId()}/patients/${patient.id}/`;
   await axios.delete(url, getAuthObject());
 };
 

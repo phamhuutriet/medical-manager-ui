@@ -86,6 +86,7 @@ export const DoctorDropDown = ({
           <div className="dropdown-menu-list">
             {currentDoctors.map((doctor) => (
               <DropDownItem
+                key={doctor.id}
                 label={`${doctor.firstName} ${doctor.lastName}`}
                 onClick={() => handleClickOption(doctor)}
               />
