@@ -5,10 +5,8 @@ import React, {
   useEffect,
   useMemo,
   useReducer,
-  useState,
 } from "react";
 import { Patient } from "./PatientContext";
-import { getAllPatients } from "../service/patientService";
 import { useThrowAsyncError } from "../hooks/useThrowAsyncError";
 import { useQuery } from "../hooks/api/useQuery";
 import { getUserId } from "../utils/auth";

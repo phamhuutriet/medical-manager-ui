@@ -8,7 +8,6 @@ import React, {
 } from "react";
 import { Doctor, DoctorContext } from "./DoctorContext";
 import { useThrowAsyncError } from "../hooks/useThrowAsyncError";
-import { getAllDoctors } from "../service/doctorService";
 import { useQuery } from "../hooks/api/useQuery";
 import { getUserId } from "../utils/auth";
 

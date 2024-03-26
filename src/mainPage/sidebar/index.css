@@ -19,6 +19,11 @@
   border-radius: 8px;
   cursor: pointer;
   transition: height 0.3s, width 0.3s;
+  text-decoration: none;
+  &.active {
+    color: #586ee0;
+    background: #e5e9fa;
+  }
 }
 
 .tab-item-selected {
