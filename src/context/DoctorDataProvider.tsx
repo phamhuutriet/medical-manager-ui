@@ -9,6 +9,8 @@ import React, {
 import { Doctor, DoctorContext } from "./DoctorContext";
 import { useThrowAsyncError } from "../hooks/useThrowAsyncError";
 import { getAllDoctors } from "../service/doctorService";
+import { useQuery } from "../hooks/api/useQuery";
+import { getUserId } from "../utils/auth";
 
 interface DoctorApiContextType {
   addDoctor: Function;
@@ -43,24 +45,24 @@ const reducer = (state: Doctor[], action: any) => {
 };
 
 export const DoctorDataProvider = ({ children }: PropsWithChildren) => {
+  const [{ data, isLoading, error }] = useQuery(
+    `/user/${getUserId()}/doctors/`,
+    {},
+    {}
+  );
+
   const [doctors, dispatch] = useReducer(reducer, []);
   const throwAsyncError = useThrowAsyncError();
 
   useEffect(() => {
-    const fetchDoctors = async () => {
-      try {
-        const fetchedDoctors = await getAllDoctors();
-        dispatch({ type: "INIT", payload: fetchedDoctors });
-      } catch (e) {
-        throwAsyncError(
-          new Error(
-            "Không thể lấy được danh sách bác sĩ, vui lòng tải lại trang"
-          )
-        );
-      }
-    };
-    fetchDoctors();
-  }, []);
+    if (error) {
+      throwAsyncError(error);
+    }
+    if (data) {
+      dispatch({ type: "INIT", payload: data });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   const api = useMemo(() => {
     return {
@@ -73,7 +75,7 @@ export const DoctorDataProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   return (
-    <DoctorContext.Provider value={{ doctors }}>
+    <DoctorContext.Provider value={{ doctors, isLoading }}>
       <DoctorApiContext.Provider value={api}>
         {children}
       </DoctorApiContext.Provider>
@@ -82,3 +84,4 @@ export const DoctorDataProvider = ({ children }: PropsWithChildren) => {
 };
 
 export const useDoctorAPI = () => useContext(DoctorApiContext);
+export const useDoctorData = () => useContext(DoctorContext);

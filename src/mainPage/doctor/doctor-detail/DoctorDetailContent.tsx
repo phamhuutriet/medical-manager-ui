@@ -1,20 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BirthBox, NameBox, PhoneNumberBox } from "./NameBox";
 import { Button } from "../../../components/Button";
 import { SexDropDown } from "./SexDropDown";
-import { Doctor, DoctorContext } from "../../../context/DoctorContext";
+import { Doctor } from "../../../context/DoctorContext";
 import { useNavigate, useParams } from "react-router";
 import { RouteEnum } from "../../../data/routeEnum";
 import { AvatarBox } from "./AvatarBox";
 import { useThrowAsyncError } from "../../../hooks/useThrowAsyncError";
 import { updateDoctorService } from "../../../service/doctorService";
 import { AddSuccessfulModal } from "../../../components/AddSuccessfulModal";
-import { useDoctorAPI } from "../../../context/DoctorDataProvider";
+import {
+  useDoctorAPI,
+  useDoctorData,
+} from "../../../context/DoctorDataProvider";
 import "./index.css";
 
 export const DoctorDetailContent = () => {
   const { doctorId } = useParams();
-  const { doctors } = useContext(DoctorContext);
+  const { doctors } = useDoctorData();
   const { updateDoctor } = useDoctorAPI();
   const [doctor, setDoctor] = useState<Doctor | undefined>();
   const [isUpdateSuccessfulModalOpen, setIsUpdateSuccessfulModalOpen] =

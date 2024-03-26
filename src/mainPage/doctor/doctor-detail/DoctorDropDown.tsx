@@ -1,7 +1,8 @@
 import * as React from "react";
 import { ArrowDownIcon } from "../../../img/svg/ArrowDownIcon";
-import { Doctor, DoctorContext } from "../../../context/DoctorContext";
+import { Doctor } from "../../../context/DoctorContext";
 import { SearchIcon } from "../../../img/svg/SearchIcon";
+import { useDoctorData } from "../../../context/DoctorDataProvider";
 
 export const DoctorDropDown = ({
   doctor,
@@ -12,7 +13,7 @@ export const DoctorDropDown = ({
   setDoctor: Function;
   noTitle?: boolean;
 }) => {
-  const { doctors } = React.useContext(DoctorContext);
+  const { doctors } = useDoctorData();
   const [currentDoctors, setCurrentDoctors] = React.useState<Doctor[]>(doctors);
   const [open, setOpen] = React.useState(false);
   const [filterDoctorName, setFilterDoctorName] = React.useState("");

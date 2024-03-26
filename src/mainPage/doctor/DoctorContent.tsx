@@ -7,6 +7,8 @@ import mockDoctors from "../../mock-data/mock_doctor.json";
 import { RouteEnum } from "../../data/routeEnum";
 import dayjs from "dayjs";
 import { AddDoctorPage } from "./add-doctor/AddDoctorPage";
+import { useDoctorData } from "../../context/DoctorDataProvider";
+import { WholeComponentLoadingWrapper } from "../../components/LoadingWrapper";
 
 function createRowData(
   id: string,
@@ -38,11 +40,21 @@ export const MOCK_DOCTORS = mockDoctors.map((mockDoctor) =>
 );
 
 export const DoctorContent = () => {
+  const { isLoading } = useDoctorData();
+
   return (
-    <Routes>
-      <Route path={RouteEnum.DOCTOR_PAGE} element={<DoctorListPage />} />
-      <Route path={RouteEnum.EDIT_DOCTOR_PAGE} element={<DoctorDetailPage />} />
-      <Route path={RouteEnum.ADD_DOCTOR_PAGE} element={<AddDoctorPage />} />
-    </Routes>
+    <WholeComponentLoadingWrapper
+      isLoading={isLoading}
+      loadingText="Đang tải thông tin bác sĩ, vui lòng chờ"
+    >
+      <Routes>
+        <Route path={RouteEnum.DOCTOR_PAGE} element={<DoctorListPage />} />
+        <Route
+          path={RouteEnum.EDIT_DOCTOR_PAGE}
+          element={<DoctorDetailPage />}
+        />
+        <Route path={RouteEnum.ADD_DOCTOR_PAGE} element={<AddDoctorPage />} />
+      </Routes>
+    </WholeComponentLoadingWrapper>
   );
 };

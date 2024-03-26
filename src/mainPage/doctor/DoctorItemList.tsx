@@ -1,13 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { SearchIcon } from "../../img/svg/SearchIcon";
 import { PaginationBar } from "../content/main-page/PaginationBar";
 import { FilterDoctorButtonMenu } from "./FilterDoctorButton";
 import { DoctorContentTable } from "./DoctorContentTable";
-import { Doctor, DoctorContext } from "../../context/DoctorContext";
+import { Doctor } from "../../context/DoctorContext";
+import { useDoctorData } from "../../context/DoctorDataProvider";
 
 export const DoctorItemList = () => {
-  const { doctors } = useContext(DoctorContext);
+  const { doctors } = useDoctorData();
   const [currentDoctors, setCurrentDoctors] = useState<Doctor[]>(doctors);
   const maxRowPerPage = 7;
   const [curPage, setCurPage] = useState(0);
