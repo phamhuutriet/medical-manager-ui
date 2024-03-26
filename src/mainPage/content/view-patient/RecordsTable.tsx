@@ -5,8 +5,8 @@ import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import "../index.css";
 import { useNavigate, useParams } from "react-router-dom";
+import "../index.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -25,7 +25,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
-  "&:first-child td, &:first-child th": {
+  "&:first-of-type td, &:first-of-type th": {
     paddingTop: "24px",
   },
   "& td, & th": {
@@ -53,7 +53,7 @@ export const RecordsTable = ({ records }: { records: any[] }) => {
     >
       <TableHead
         sx={{
-          "& th:first-child": {
+          "& th:first-of-type": {
             borderTopLeftRadius: "12px",
             borderBottomLeftRadius: "12px",
           },

@@ -23,6 +23,5 @@ export const getRoutesList = (route: string): RouteListItem[] => {
 };
 
 export const getAge = (date: Dayjs) => {
-  console.log("DATE: ", date);
   return dayjs().diff(date, "year");
 };

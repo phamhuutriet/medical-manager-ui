@@ -7,18 +7,18 @@ import { SearchBar } from "../../../components/SearchBar";
 import { RecordsFilterButtonMenu } from "./RecordsFilterButton";
 import { RecordsTable } from "./RecordsTable";
 import { useNavigate, useParams } from "react-router-dom";
-import { PatientContext } from "../../../context/PatientContext";
 import dayjs from "dayjs";
 import { getAge } from "../../../utils/utils";
 import { Record } from "../../../data/dataTypes";
 import { getAllRecords } from "../../../service/recordService";
 import { useThrowAsyncError } from "../../../hooks/useThrowAsyncError";
 import { WholeComponentLoadingWrapper } from "../../../components/LoadingWrapper";
+import { usePatientData } from "../../../context/PatientDataProvider";
 
 export const ViewPatientContent = () => {
   const navigate = useNavigate();
   const { patientId } = useParams();
-  const { patients } = useContext(PatientContext);
+  const { patients } = usePatientData();
   const currentPatient = patients.find((patient) => patient.id === patientId);
   const [records, setRecords] = useState<Record[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -137,7 +137,7 @@ const ListItem = ({ list }: { list: string[] }) => {
   return (
     <>
       {list.map((item) => (
-        <li>{item}</li>
+        <li key={item}>{item}</li>
       ))}
     </>
   );
