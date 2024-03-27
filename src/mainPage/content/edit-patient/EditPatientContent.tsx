@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { RouteEnum } from "../../../data/routeEnum";
 import { AvatarBox } from "../../doctor/doctor-detail/AvatarBox";
@@ -30,12 +30,16 @@ export const EditPatientContent = () => {
   const { patients } = usePatientData();
   const { updatePatient } = usePatientAPI();
   const currentPatient = patients.find((patient) => patient.id === patientId);
-  const [patient, setPatient] = useState<Patient | undefined>(currentPatient);
+  const [patient, setPatient] = useState<Patient | undefined>();
   const [isUpdateSuccessfulModalOpen, setIsUpdateSuccessfulModalOpen] =
     useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const throwAsyncError = useThrowAsyncError();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setPatient(currentPatient);
+  }, [currentPatient]);
 
   const setAttribute = (attribute: string) => {
     return (value: any) => {
