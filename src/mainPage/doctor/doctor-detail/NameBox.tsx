@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
+import dayjs, { Dayjs } from "dayjs";
+import CheckBox from "@mui/material/Checkbox";
 import { FormControlLabel, FormGroup, IconButton } from "@mui/material";
 import { EditPatientIcon } from "../../../img/svg/EditPatientIcon";
 import { CalendarIcon } from "../../../img/svg/CalendarIcon";
 import { BirthCalendar } from "./BirthCalendar";
-import dayjs, { Dayjs } from "dayjs";
-import CheckBox from "@mui/material/Checkbox";
 import { CheckedBox } from "../../../img/svg/CheckedBox";
 import { UncheckBox } from "../../../img/svg/UncheckBox";
 import { CloseIcon } from "../../../img/svg/Close";
 import { Button } from "../../../components/Button";
 import { AddIcon } from "../../../img/svg/AddIcon";
+import { BoxItem } from "./Styles";
 
 export const TextInputBox = ({
   text,
@@ -38,7 +39,7 @@ export const TextInputBox = ({
   const isActive = isFocus;
 
   return (
-    <div className={`box-item ${className}`}>
+    <BoxItem className={`box-item ${className}`}>
       <div className="title">{boxTitle}</div>
       <div
         className={`content ${isActive && "box-item-focus"} ${
@@ -67,7 +68,7 @@ export const TextInputBox = ({
         </IconButton>
       </div>
       {isError && <div className="error-message">{errorMessage}</div>}
-    </div>
+    </BoxItem>
   );
 };
 
@@ -82,34 +83,18 @@ export const NameBox = ({
 }) => {
   return (
     <div className="box">
-      <div className="box-item">
-        <div className="title">Tên</div>
-        <div className="content">
-          <input
-            value={entity ? entity.firstName : ""}
-            className="content-input"
-            placeholder="Tên"
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          <IconButton>
-            <EditPatientIcon defaultColor="#0D0C0C" selectedColor="#586EE0" />
-          </IconButton>
-        </div>
-      </div>
-      <div className="box-item">
-        <div className="title">Họ</div>
-        <div className="content">
-          <input
-            value={entity ? entity.lastName : ""}
-            className="content-input"
-            placeholder="Họ"
-            onChange={(e) => setLastName(e.target.value)}
-          />
-          <IconButton>
-            <EditPatientIcon defaultColor="#0D0C0C" selectedColor="#586EE0" />
-          </IconButton>
-        </div>
-      </div>
+      <TextInputBox
+        text={entity.firstName}
+        setText={setFirstName}
+        boxTitle="Tên"
+        placeholder="Tên"
+      />
+      <TextInputBox
+        text={entity.lastName}
+        setText={setLastName}
+        boxTitle="Họ"
+        placeholder="Họ"
+      />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BirthBox, NameBox, PhoneNumberBox } from "../doctor-detail/NameBox";
+import { BirthBox, NameBox, TextInputBox } from "../doctor-detail/NameBox";
 import { Button } from "../../../components/Button";
 import { SexDropDown } from "../doctor-detail/SexDropDown";
 import { useNavigate } from "react-router";
@@ -92,9 +92,11 @@ export const AddDoctorPageContent = () => {
             dateOfBirth={doctor ? doctor.dateOfBirth : ""}
             setDateOfBirth={setAttribute("dateOfBirth")}
           />
-          <PhoneNumberBox
-            setPhoneNumber={setAttribute("phoneNumber")}
-            phoneNumber={doctor ? doctor.phoneNumber : ""}
+          <TextInputBox
+            text={doctor.phoneNumber}
+            setText={setAttribute("phoneNumber")}
+            boxTitle="Số điện thoại"
+            placeholder="+84 999 999 999"
           />
         </div>
         <ButtonsBox
