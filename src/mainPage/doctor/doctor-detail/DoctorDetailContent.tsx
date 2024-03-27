@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BirthBox, NameBox, PhoneNumberBox } from "./NameBox";
+import { BirthBox, NameBox, TextInputBox } from "./NameBox";
 import { Button } from "../../../components/Button";
 import { SexDropDown } from "./SexDropDown";
 import { Doctor } from "../../../context/DoctorContext";
@@ -14,6 +14,7 @@ import {
   useDoctorData,
 } from "../../../context/DoctorDataProvider";
 import "./index.css";
+import { DoctorDetailContentContainer } from "./Styles";
 
 export const DoctorDetailContent = () => {
   const { doctorId } = useParams();
@@ -58,7 +59,7 @@ export const DoctorDetailContent = () => {
 
   return (
     <div>
-      <div className="doctor-detail-content">
+      <DoctorDetailContentContainer>
         <AddSuccessfulModal
           open={isUpdateSuccessfulModalOpen}
           handleClose={() => setIsUpdateSuccessfulModalOpen(false)}
@@ -80,11 +81,13 @@ export const DoctorDetailContent = () => {
           dateOfBirth={doctor.dateOfBirth}
           setDateOfBirth={setAttribute("dateOfBirth")}
         />
-        <PhoneNumberBox
-          setPhoneNumber={setAttribute("phoneNumber")}
-          phoneNumber={doctor.phoneNumber}
+        <TextInputBox
+          text={doctor.phoneNumber}
+          setText={setAttribute("phoneNumber")}
+          boxTitle="Số điện thoại"
+          placeholder="+84 999 999 999"
         />
-      </div>
+      </DoctorDetailContentContainer>
       <ButtonsBox saveDoctor={saveDoctor} cancelEditDoctor={cancelEditDoctor} />
     </div>
   );

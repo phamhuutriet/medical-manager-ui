@@ -11,6 +11,7 @@ import { createDoctor } from "../../../service/doctorService";
 import { WholeComponentLoadingWrapper } from "../../../components/LoadingWrapper";
 import { useDoctorAPI } from "../../../context/DoctorDataProvider";
 import "./index.css";
+import { DoctorDetailContentContainer } from "../doctor-detail/Styles";
 
 const VALID_KEYS = [
   "firstName",
@@ -77,7 +78,7 @@ export const AddDoctorPageContent = () => {
           leftButtonText="Về danh sách bác sĩ"
           rightButtonText="Xem chi tiết"
         />
-        <div className="doctor-detail-content">
+        <DoctorDetailContentContainer>
           <AddDoctorAvatarBox />
           <NameBox
             entity={doctor}
@@ -98,7 +99,7 @@ export const AddDoctorPageContent = () => {
             boxTitle="Số điện thoại"
             placeholder="+84 999 999 999"
           />
-        </div>
+        </DoctorDetailContentContainer>
         <ButtonsBox
           isValidDoctor={isValidDoctor}
           saveDoctor={saveDoctor}

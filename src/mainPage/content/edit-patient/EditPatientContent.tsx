@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { RouteEnum } from "../../../data/routeEnum";
 import { AvatarBox } from "../../doctor/doctor-detail/AvatarBox";
@@ -7,7 +7,6 @@ import {
   BirthBox,
   MultiOptionBox,
   NameBox,
-  PhoneNumberBox,
   TextInputBox,
 } from "../../doctor/doctor-detail/NameBox";
 import { Patient } from "../../../context/PatientContext";
@@ -21,6 +20,10 @@ import {
   usePatientAPI,
   usePatientData,
 } from "../../../context/PatientDataProvider";
+import {
+  Box,
+  DoctorDetailContentContainer,
+} from "../../doctor/doctor-detail/Styles";
 
 export const EditPatientContent = () => {
   const { patientId } = useParams();
@@ -78,60 +81,57 @@ export const EditPatientContent = () => {
           leftButtonText="Về danh sách bệnh nhân"
           rightButtonText="Xem chi tiết"
         />
-        <div className="doctor-detail-content">
+        <DoctorDetailContentContainer>
           <AvatarBox />
           <NameBox
             entity={patient}
             setFirstName={setAttribute("firstName")}
             setLastName={setAttribute("lastName")}
           />
-          <div className="box">
+          <Box>
             <div style={{ width: "100%" }}>
               <SexDropDown
                 sex={patient ? patient.gender : ""}
                 setSex={setAttribute("gender")}
               />
             </div>
-            <div style={{ width: "100%" }}>
-              <TextInputBox
-                text={patient?.address}
-                setText={setAttribute("address")}
-                boxTitle="Địa chỉ"
-                placeholder="Địa chỉ bệnh nhân"
-              />
-            </div>
-          </div>
-          <div className="box">
+            <TextInputBox
+              text={patient?.address}
+              setText={setAttribute("address")}
+              boxTitle="Địa chỉ"
+              placeholder="Địa chỉ bệnh nhân"
+            />
+          </Box>
+          <Box>
             <div style={{ width: "100%" }}>
               <BirthBox
                 dateOfBirth={patient ? patient.dateOfBirth : ""}
                 setDateOfBirth={setAttribute("dateOfBirth")}
               />
             </div>
-            <div style={{ width: "100%" }}>
-              <PhoneNumberBox
-                phoneNumber={patient ? patient.phoneNumber : ""}
-                setPhoneNumber={setAttribute("phoneNumber")}
-              />
-            </div>
-          </div>
+            <TextInputBox
+              text={patient ? patient.phoneNumber : ""}
+              setText={setAttribute("phoneNumber")}
+              boxTitle="Số điện thoại"
+              placeholder="+84 999 999 999"
+            />
+          </Box>
           <MultiOptionBox
             options={patient.allergies}
             setOptions={setAttribute("allergies")}
           />
-          <div className="note-box">
-            <TextInputBox
-              text={patient ? patient.note : ""}
-              placeholder="Điền ghi chú"
-              boxTitle="Ghi chú"
-              setText={setAttribute("note")}
-            />
-          </div>
+          <TextInputBox
+            text={patient ? patient.note : ""}
+            placeholder="Điền ghi chú"
+            boxTitle="Ghi chú"
+            setText={setAttribute("note")}
+            className="note-box"
+          />
           <DoctorDropDown
             doctor={patient.doctor}
             setDoctor={setAttribute("doctor")}
           />
-        </div>
+        </DoctorDetailContentContainer>
         <ButtonsBox
           savePatient={savePatient}
           cancelEditDoctor={cancelEditDoctor}

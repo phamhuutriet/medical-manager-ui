@@ -84,13 +84,13 @@ export const NameBox = ({
   return (
     <div className="box">
       <TextInputBox
-        text={entity.firstName}
+        text={entity ? entity.firstName : ""}
         setText={setFirstName}
         boxTitle="Tên"
         placeholder="Tên"
       />
       <TextInputBox
-        text={entity.lastName}
+        text={entity ? entity.lastName : ""}
         setText={setLastName}
         boxTitle="Họ"
         placeholder="Họ"
