@@ -14,6 +14,19 @@ import { WholeComponentLoadingWrapper } from "../components/LoadingWrapper";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { usePassword } from "../hooks/usePassword";
 import "./index.css";
+import {
+  ButtonRows,
+  Container,
+  Description,
+  ForgotPasswordText,
+  Inner,
+  InputContainer,
+  InputSection,
+  LightText,
+  SubInputSection,
+  Title,
+  TitleContainer,
+} from "./Styles";
 
 export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
   const [email, setEmail] = useLocalStorage("email", "");
@@ -50,28 +63,27 @@ export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
   };
 
   return (
-    <div className="signup-page">
+    <Container>
       <WholeComponentLoadingWrapper
         isLoading={isSigningIn}
         loadingText="Đang đăng nhập, vui lòng đợi trong giây lát"
       >
-        <div className="singup-page-inner">
-          <div className="signup-page-title-container">
-            <div className="signup-page-titlte">
-              Bắt đầu làm việc với Dentistry
-            </div>
-            <div className="signup-page-description">
-              <div className="light-text">
+        <Inner>
+          <TitleContainer>
+            <Title>Bắt đầu làm việc với Dentistry</Title>
+            <Description>
+              <LightText>
                 Hãy đăng nhập vào tài khoản Nha khoa của bạn để tiến hành sử
                 dụng Dentistry nhé.
-              </div>
-              <div>
+              </LightText>
+              <span>
                 hoặc <a href="signup">đăng ký</a> vào tài khoản của bạn
-              </div>
-            </div>
-          </div>
-          <div className="signup-page-input-container">
-            <div className="signup-page-input-section">
+              </span>
+            </Description>
+          </TitleContainer>
+
+          <InputContainer>
+            <InputSection>
               <TextInputBox
                 text={email}
                 setText={onChangeEmail}
@@ -96,8 +108,9 @@ export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
                 errorMessage={<div>Mật khẩu không được để trống</div>}
                 onClickIcon={() => setIsPasswordReveal((prev) => !prev)}
               />
-            </div>
-            <div className="agree-policy-box">
+            </InputSection>
+
+            <SubInputSection>
               <FormControlLabel
                 control={
                   <CheckBox
@@ -109,13 +122,14 @@ export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
                 checked={isRememberPassword}
                 onClick={() => setIsRememberPassword((prev: any) => !prev)}
               />
-              <div className="forgot-password-text">
+              <ForgotPasswordText>
                 <div>Nhớ mật khẩu</div>
                 <a href="/">Quên mật khẩu?</a>
-              </div>
-            </div>
-          </div>
-          <div className="buttons-rows">
+              </ForgotPasswordText>
+            </SubInputSection>
+          </InputContainer>
+
+          <ButtonRows>
             <Button
               className={`signup-button ${
                 isSignInButtonEnabled && "is-enabled-button"
@@ -124,9 +138,9 @@ export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
               onClick={onClickSignIn}
               disable={!isSignInButtonEnabled}
             />
-          </div>
-        </div>
+          </ButtonRows>
+        </Inner>
       </WholeComponentLoadingWrapper>
-    </div>
+    </Container>
   );
 };

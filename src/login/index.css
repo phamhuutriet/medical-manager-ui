@@ -122,15 +122,6 @@ body {
   width: 100%;
 }
 
-.agree-policy-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 16px;
-  width: 80%;
-}
-
 .input-box-container {
   display: flex;
   flex-direction: column;
