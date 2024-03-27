@@ -91,12 +91,10 @@ export const AddPatientPageContent = () => {
             setLastName={setAttribute("lastName")}
           />
           <Box>
-            <div style={{ width: "100%" }}>
-              <SexDropDown
-                sex={patient ? patient.gender : ""}
-                setSex={setAttribute("gender")}
-              />
-            </div>
+            <SexDropDown
+              sex={patient ? patient.gender : ""}
+              setSex={setAttribute("gender")}
+            />
             <TextInputBox
               text={patient?.address}
               setText={setAttribute("address")}
@@ -105,12 +103,10 @@ export const AddPatientPageContent = () => {
             />
           </Box>
           <Box>
-            <div style={{ width: "100%" }}>
-              <BirthBox
-                dateOfBirth={patient ? patient.dateOfBirth : ""}
-                setDateOfBirth={setAttribute("dateOfBirth")}
-              />
-            </div>
+            <BirthBox
+              dateOfBirth={patient ? patient.dateOfBirth : ""}
+              setDateOfBirth={setAttribute("dateOfBirth")}
+            />
             <TextInputBox
               text={patient ? patient.phoneNumber : ""}
               setText={setAttribute("phoneNumber")}

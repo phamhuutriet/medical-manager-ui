@@ -10,7 +10,7 @@ import { UncheckBox } from "../../../img/svg/UncheckBox";
 import { CloseIcon } from "../../../img/svg/Close";
 import { Button } from "../../../components/Button";
 import { AddIcon } from "../../../img/svg/AddIcon";
-import { BoxItem } from "./Styles";
+import { Box, BoxItem } from "./Styles";
 
 export const TextInputBox = ({
   text,
@@ -82,7 +82,7 @@ export const NameBox = ({
   setLastName: Function;
 }) => {
   return (
-    <div className="box">
+    <Box>
       <TextInputBox
         text={entity ? entity.firstName : ""}
         setText={setFirstName}
@@ -95,7 +95,7 @@ export const NameBox = ({
         boxTitle="Họ"
         placeholder="Họ"
       />
-    </div>
+    </Box>
   );
 };
 
@@ -117,31 +117,26 @@ export const BirthBox = ({
   };
 
   return (
-    <div className="box">
-      <div className="box-item" style={{ position: "relative" }}>
-        <div className="title">{title ? title : "Ngày sinh"}</div>
-        <div className="content">
-          <div style={{ width: "100%" }}>
-            {dateOfBirth ? (
-              selectedDate.format("DD / MM / YYYY")
-            ) : (
-              <div style={{ color: "#8c949d" }}>DD / MM / YYYY</div>
-            )}
-          </div>
-          <IconButton
-            sx={{ height: "100%" }}
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <CalendarIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />
-          </IconButton>
+    <div className="box-item" style={{ position: "relative" }}>
+      <div className="title">{title ? title : "Ngày sinh"}</div>
+      <div className="content">
+        <div style={{ width: "100%" }}>
+          {dateOfBirth ? (
+            selectedDate.format("DD / MM / YYYY")
+          ) : (
+            <div style={{ color: "#8c949d" }}>DD / MM / YYYY</div>
+          )}
         </div>
-        <BirthCalendar
-          selectedDate={dateOfBirth ? selectedDate : defaultDate}
-          setSelectedDate={setSelectedDate}
-          isCalendarOpen={isOpen}
-          customStyle={{ zIndex: "3" }}
-        />
+        <IconButton sx={{ height: "100%" }} onClick={() => setIsOpen(!isOpen)}>
+          <CalendarIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />
+        </IconButton>
       </div>
+      <BirthCalendar
+        selectedDate={dateOfBirth ? selectedDate : defaultDate}
+        setSelectedDate={setSelectedDate}
+        isCalendarOpen={isOpen}
+        customStyle={{ zIndex: "3" }}
+      />
     </div>
   );
 };

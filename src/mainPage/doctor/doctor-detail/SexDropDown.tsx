@@ -44,46 +44,44 @@ export const SexDropDown = ({
   };
 
   return (
-    <div className="box">
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "8px",
-          width: "100%",
-          cursor: "pointer",
-        }}
-      >
-        <div className="box-item" onClick={handleClick}>
-          <div className="title">Giới tính</div>
-          <div className="content">
-            {sex ? (
-              <div style={{ width: "100%" }}>{selectedOption}</div>
-            ) : (
-              <div style={{ width: "100%", color: "#8C949D" }}>
-                Chọn giới tính
-              </div>
-            )}
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "8px",
+        width: "100%",
+        cursor: "pointer",
+      }}
+    >
+      <div className="box-item" onClick={handleClick}>
+        <div className="title">Giới tính</div>
+        <div className="content">
+          {sex ? (
+            <div style={{ width: "100%" }}>{selectedOption}</div>
+          ) : (
+            <div style={{ width: "100%", color: "#8C949D" }}>
+              Chọn giới tính
+            </div>
+          )}
 
-            <ArrowDownIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />
-          </div>
+          <ArrowDownIcon defaultColor="#0D0C0C" selectedColor="#0D0C0C" />
         </div>
-
-        <DropDown open={open}>
-          <div className="dropdown-menu-list">
-            <DropDownItem
-              key={SexText.MALE}
-              label={SexText.MALE}
-              onClick={() => handleClickOption(SexOption.MALE)}
-            />
-            <DropDownItem
-              key={SexText.FEMALE}
-              label={SexText.FEMALE}
-              onClick={() => handleClickOption(SexOption.FEMALE)}
-            />
-          </div>
-        </DropDown>
       </div>
+
+      <DropDown open={open}>
+        <div className="dropdown-menu-list">
+          <DropDownItem
+            key={SexText.MALE}
+            label={SexText.MALE}
+            onClick={() => handleClickOption(SexOption.MALE)}
+          />
+          <DropDownItem
+            key={SexText.FEMALE}
+            label={SexText.FEMALE}
+            onClick={() => handleClickOption(SexOption.FEMALE)}
+          />
+        </div>
+      </DropDown>
     </div>
   );
 };
