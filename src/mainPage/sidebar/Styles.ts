@@ -65,6 +65,7 @@ export const SideBarContainer = styled.div`
 `;
 
 export const CollapsedButton = styled.div`
+  cursor: pointer;
   position: absolute;
   top: 50vh;
   right: -12px;
