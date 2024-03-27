@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UploadImage } from "../../../img/svg/UploadImage";
 import { IconButton } from "@mui/material";
 import { Button } from "../../../components/Button";
@@ -7,21 +7,23 @@ import { SearchBar } from "../../../components/SearchBar";
 import { RecordsFilterButtonMenu } from "./RecordsFilterButton";
 import { RecordsTable } from "./RecordsTable";
 import { useNavigate, useParams } from "react-router-dom";
-import dayjs from "dayjs";
 import { getAge } from "../../../utils/utils";
 import { Record } from "../../../data/dataTypes";
 import { getAllRecords } from "../../../service/recordService";
 import { useThrowAsyncError } from "../../../hooks/useThrowAsyncError";
 import { WholeComponentLoadingWrapper } from "../../../components/LoadingWrapper";
 import { usePatientData } from "../../../context/PatientDataProvider";
+import dayjs from "dayjs";
 
 export const ViewPatientContent = () => {
-  const navigate = useNavigate();
   const { patientId } = useParams();
   const { patients } = usePatientData();
   const currentPatient = patients.find((patient) => patient.id === patientId);
+
   const [records, setRecords] = useState<Record[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
   const throwAsyncError = useThrowAsyncError();
 
   useEffect(() => {
@@ -38,6 +40,7 @@ export const ViewPatientContent = () => {
       }
     };
     fetchRecords();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [patientId]);
 
   if (!currentPatient) {

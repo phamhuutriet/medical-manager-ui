@@ -6,7 +6,7 @@ import { IconButton } from "@mui/material";
 import { MorePatientInfoIcon } from "../../../img/svg/MorePatientInfoIcon";
 import { EditPatientIcon } from "../../../img/svg/EditPatientIcon";
 import { RemovePatientIcon } from "../../../img/svg/RemovePatientIcon";
-import { useNavigate } from "react-router";
+import { NavLink } from "react-router-dom";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -75,10 +75,10 @@ export const PatientMoreInfoMenu = ({
   patientId: string;
   openDeleteConfirmModal: any;
 }) => {
-  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [selectedOption, setSelectedOption] = React.useState("");
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -90,12 +90,6 @@ export const PatientMoreInfoMenu = ({
   };
   const handleMouseLeave = () => {
     setSelectedOption("");
-  };
-  const onClickViewOption = () => {
-    navigate(`/patients/details/${patientId}`);
-  };
-  const onClickEditOption = () => {
-    navigate(`/patients/edit-patient/${patientId}`);
   };
   const onClickDeleteDoctor = () => {
     openDeleteConfirmModal();
@@ -113,38 +107,42 @@ export const PatientMoreInfoMenu = ({
         open={open}
         onClose={handleClose}
       >
-        <MenuItem
-          onClick={() => {
-            handleClose();
-            onClickViewOption();
-          }}
-          disableRipple
-          onMouseEnter={() => handleMouseEnter(PatientMoreInfoEnum.VIEW)}
-          onMouseLeave={handleMouseLeave}
+        <NavLink
+          to={`/patients/details/${patientId}`}
+          style={{ textDecoration: "none" }}
         >
-          <EditPatientIcon
-            defaultColor="#8C949D"
-            selectedColor="#0D0C0C"
-            isSelected={PatientMoreInfoEnum.VIEW === selectedOption}
-          />
-          {PatientMoreInfoEnum.VIEW}
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            handleClose();
-            onClickEditOption();
-          }}
-          disableRipple
-          onMouseEnter={() => handleMouseEnter(PatientMoreInfoEnum.EDIT)}
-          onMouseLeave={handleMouseLeave}
+          <MenuItem
+            disableRipple
+            onMouseEnter={() => handleMouseEnter(PatientMoreInfoEnum.VIEW)}
+            onMouseLeave={handleMouseLeave}
+          >
+            <EditPatientIcon
+              defaultColor="#8C949D"
+              selectedColor="#0D0C0C"
+              isSelected={PatientMoreInfoEnum.VIEW === selectedOption}
+            />
+            {PatientMoreInfoEnum.VIEW}
+          </MenuItem>
+        </NavLink>
+
+        <NavLink
+          to={`/patients/edit-patient/${patientId}`}
+          style={{ textDecoration: "none" }}
         >
-          <EditPatientIcon
-            defaultColor="#8C949D"
-            selectedColor="#0D0C0C"
-            isSelected={PatientMoreInfoEnum.EDIT === selectedOption}
-          />
-          {PatientMoreInfoEnum.EDIT}
-        </MenuItem>
+          <MenuItem
+            disableRipple
+            onMouseEnter={() => handleMouseEnter(PatientMoreInfoEnum.EDIT)}
+            onMouseLeave={handleMouseLeave}
+          >
+            <EditPatientIcon
+              defaultColor="#8C949D"
+              selectedColor="#0D0C0C"
+              isSelected={PatientMoreInfoEnum.EDIT === selectedOption}
+            />
+            {PatientMoreInfoEnum.EDIT}
+          </MenuItem>
+        </NavLink>
+
         <MenuItem
           onClick={() => {
             handleClose();

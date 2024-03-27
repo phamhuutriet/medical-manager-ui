@@ -2,11 +2,11 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Menu, { MenuProps } from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useNavigate } from "react-router";
 import { RouteEnum } from "../../data/routeEnum";
 import { Button } from "../../components/Button";
 import { ArrowDownIcon } from "../../img/svg/ArrowDownIcon";
 import { AddDoctorIcon } from "../../img/svg/AddDoctorIcon";
+import { NavLink } from "react-router-dom";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -83,10 +83,10 @@ enum AddDoctorButtonOptions {
 }
 
 export const AddDoctorButton = () => {
-  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [selectedOption, setSelectedOption] = React.useState("");
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -98,10 +98,6 @@ export const AddDoctorButton = () => {
   };
   const handleMouseLeave = () => {
     setSelectedOption("");
-  };
-  const onClickAddDoctorOption = () => {
-    handleClose();
-    navigate(RouteEnum.ADD_DOCTOR_PAGE);
   };
 
   return (
@@ -116,19 +112,23 @@ export const AddDoctorButton = () => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem
-          onClick={onClickAddDoctorOption}
-          disableRipple
-          onMouseEnter={() => handleMouseEnter(AddDoctorButtonOptions.ADD)}
-          onMouseLeave={handleMouseLeave}
+        <NavLink
+          to={RouteEnum.ADD_DOCTOR_PAGE}
+          style={{ textDecoration: "none" }}
         >
-          <AddDoctorIcon
-            defaultColor="#8C949D"
-            selectedColor="#0D0C0C"
-            isSelected={selectedOption === AddDoctorButtonOptions.ADD}
-          />
-          {AddDoctorButtonOptions.ADD}
-        </MenuItem>
+          <MenuItem
+            disableRipple
+            onMouseEnter={() => handleMouseEnter(AddDoctorButtonOptions.ADD)}
+            onMouseLeave={handleMouseLeave}
+          >
+            <AddDoctorIcon
+              defaultColor="#8C949D"
+              selectedColor="#0D0C0C"
+              isSelected={selectedOption === AddDoctorButtonOptions.ADD}
+            />
+            {AddDoctorButtonOptions.ADD}
+          </MenuItem>
+        </NavLink>
       </StyledMenu>
     </div>
   );

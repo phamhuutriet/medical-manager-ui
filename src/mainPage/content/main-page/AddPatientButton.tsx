@@ -2,12 +2,12 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Menu, { MenuProps } from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useNavigate } from "react-router";
 import { RouteEnum } from "../../../data/routeEnum";
 import { Button } from "../../../components/Button";
 import { ArrowDownIcon } from "../../../img/svg/ArrowDownIcon";
 import { AddDoctorIcon } from "../../../img/svg/AddDoctorIcon";
 import { AddPatientIcon } from "../../../img/svg/AddPatientIcon";
+import { NavLink } from "react-router-dom";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -84,10 +84,10 @@ enum AddButtonOptions {
 }
 
 export const AddPatientButton = () => {
-  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [selectedOption, setSelectedOption] = React.useState("");
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -99,14 +99,6 @@ export const AddPatientButton = () => {
   };
   const handleMouseLeave = () => {
     setSelectedOption("");
-  };
-  const onClickAddDoctorOption = () => {
-    handleClose();
-    navigate(RouteEnum.ADD_DOCTOR_PAGE);
-  };
-  const onClickAddPatientOption = () => {
-    handleClose();
-    navigate(RouteEnum.ADD_PATIENT_PAGE);
   };
 
   return (
@@ -121,32 +113,41 @@ export const AddPatientButton = () => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem
-          onClick={onClickAddPatientOption}
-          disableRipple
-          onMouseEnter={() => handleMouseEnter(AddButtonOptions.ADD_PATIENT)}
-          onMouseLeave={handleMouseLeave}
+        <NavLink
+          to={RouteEnum.ADD_PATIENT_PAGE}
+          style={{ textDecoration: "none" }}
         >
-          <AddPatientIcon
-            defaultColor="#8C949D"
-            selectedColor="#0D0C0C"
-            isSelected={selectedOption === AddButtonOptions.ADD_PATIENT}
-          />
-          {AddButtonOptions.ADD_PATIENT}
-        </MenuItem>
-        <MenuItem
-          onClick={onClickAddDoctorOption}
-          disableRipple
-          onMouseEnter={() => handleMouseEnter(AddButtonOptions.ADD_DOCTOR)}
-          onMouseLeave={handleMouseLeave}
+          <MenuItem
+            disableRipple
+            onMouseEnter={() => handleMouseEnter(AddButtonOptions.ADD_PATIENT)}
+            onMouseLeave={handleMouseLeave}
+          >
+            <AddPatientIcon
+              defaultColor="#8C949D"
+              selectedColor="#0D0C0C"
+              isSelected={selectedOption === AddButtonOptions.ADD_PATIENT}
+            />
+            {AddButtonOptions.ADD_PATIENT}
+          </MenuItem>
+        </NavLink>
+
+        <NavLink
+          to={RouteEnum.ADD_DOCTOR_PAGE}
+          style={{ textDecoration: "none" }}
         >
-          <AddDoctorIcon
-            defaultColor="#8C949D"
-            selectedColor="#0D0C0C"
-            isSelected={selectedOption === AddButtonOptions.ADD_DOCTOR}
-          />
-          {AddButtonOptions.ADD_DOCTOR}
-        </MenuItem>
+          <MenuItem
+            disableRipple
+            onMouseEnter={() => handleMouseEnter(AddButtonOptions.ADD_DOCTOR)}
+            onMouseLeave={handleMouseLeave}
+          >
+            <AddDoctorIcon
+              defaultColor="#8C949D"
+              selectedColor="#0D0C0C"
+              isSelected={selectedOption === AddButtonOptions.ADD_DOCTOR}
+            />
+            {AddButtonOptions.ADD_DOCTOR}
+          </MenuItem>
+        </NavLink>
       </StyledMenu>
     </div>
   );

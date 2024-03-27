@@ -6,7 +6,7 @@ import { IconButton } from "@mui/material";
 import { MorePatientInfoIcon } from "../../img/svg/MorePatientInfoIcon";
 import { EditPatientIcon } from "../../img/svg/EditPatientIcon";
 import { RemovePatientIcon } from "../../img/svg/RemovePatientIcon";
-import { useNavigate } from "react-router";
+import { NavLink } from "react-router-dom";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -74,10 +74,10 @@ export const DoctorMoreInfoMenu = ({
   doctorId: string;
   openDeleteConfirmModal: any;
 }) => {
-  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [selectedOption, setSelectedOption] = React.useState("");
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -89,9 +89,6 @@ export const DoctorMoreInfoMenu = ({
   };
   const handleMouseLeave = () => {
     setSelectedOption("");
-  };
-  const onClickEditOption = () => {
-    navigate(`/doctors/edit-doctor/${doctorId}`);
   };
   const onClickDeleteDoctor = () => {
     openDeleteConfirmModal();
@@ -109,22 +106,23 @@ export const DoctorMoreInfoMenu = ({
         open={open}
         onClose={handleClose}
       >
-        <MenuItem
-          onClick={() => {
-            handleClose();
-            onClickEditOption();
-          }}
-          disableRipple
-          onMouseEnter={() => handleMouseEnter(DoctorMoreInfoEnum.EDIT)}
-          onMouseLeave={handleMouseLeave}
+        <NavLink
+          to={`/doctors/edit-doctor/${doctorId}`}
+          style={{ textDecoration: "none" }}
         >
-          <EditPatientIcon
-            defaultColor="#8C949D"
-            selectedColor="#0D0C0C"
-            isSelected={DoctorMoreInfoEnum.EDIT === selectedOption}
-          />
-          {DoctorMoreInfoEnum.EDIT}
-        </MenuItem>
+          <MenuItem
+            disableRipple
+            onMouseEnter={() => handleMouseEnter(DoctorMoreInfoEnum.EDIT)}
+            onMouseLeave={handleMouseLeave}
+          >
+            <EditPatientIcon
+              defaultColor="#8C949D"
+              selectedColor="#0D0C0C"
+              isSelected={DoctorMoreInfoEnum.EDIT === selectedOption}
+            />
+            {DoctorMoreInfoEnum.EDIT}
+          </MenuItem>
+        </NavLink>
         <MenuItem
           onClick={() => {
             handleClose();

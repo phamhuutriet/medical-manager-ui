@@ -1,8 +1,5 @@
 import * as React from "react";
 import { ArrowDownIcon } from "../../../img/svg/ArrowDownIcon";
-import { Doctor } from "../../../context/DoctorContext";
-import { SearchIcon } from "../../../img/svg/SearchIcon";
-import { useDoctorData } from "../../../context/DoctorDataProvider";
 import "./index.css";
 
 export type MenuListType = {
