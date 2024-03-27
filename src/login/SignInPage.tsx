@@ -10,22 +10,21 @@ import { UncheckBox } from "../img/svg/UncheckBox";
 import { signIn } from "../service/accessService";
 import { useThrowAsyncError } from "../hooks/useThrowAsyncError";
 import { setAccessToken, setUserId } from "../utils/auth";
-import "./index.css";
 import { WholeComponentLoadingWrapper } from "../components/LoadingWrapper";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { usePassword } from "../hooks/usePassword";
+import "./index.css";
 
 export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useLocalStorage("email", "");
+  const [password, setPassword, isRememberPassword, setIsRememberPassword] =
+    usePassword();
   const [isPasswordReveal, setIsPasswordReveal] = useState(false);
   const [hasEmailChanged, setHasEmailChanged] = useState(false);
   const [hasPasswordChanged, setHasPasswordChanged] = useState(false);
   const [isSigningIn, setIsSigningIn] = useState(false);
   const throwAsyncError = useThrowAsyncError();
-  const isSignInButtonEnabled =
-    hasEmailChanged &&
-    isValidEmail(email) &&
-    hasPasswordChanged &&
-    password.length > 0;
+  const isSignInButtonEnabled = isValidEmail(email) && password.length > 0;
 
   const onChangeEmail = (value: string) => {
     setHasEmailChanged(true);
@@ -48,8 +47,6 @@ export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
     } catch (e) {
       throwAsyncError(new Error("Thông tin đăng nhập không hợp lệ"));
     }
-    // Only navigate if path is defined
-    // navigate(RouteEnum.MAIN_PAGE);
   };
 
   return (
@@ -109,7 +106,8 @@ export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
                   />
                 }
                 label=""
-                onClick={() => {}}
+                checked={isRememberPassword}
+                onClick={() => setIsRememberPassword((prev: any) => !prev)}
               />
               <div className="forgot-password-text">
                 <div>Nhớ mật khẩu</div>
