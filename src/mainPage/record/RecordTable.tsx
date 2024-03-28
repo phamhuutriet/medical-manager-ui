@@ -15,6 +15,7 @@ import { CalendarIcon } from "../../img/svg/CalendarIcon";
 import { DoctorDropDown } from "../doctor/doctor-detail/DoctorDropDown";
 import { EditPatientIcon } from "../../img/svg/EditPatientIcon";
 import { ViewRecordTestModal } from "./AddRecordTestModal";
+import { useSubscribeEnter } from "../../hooks/useEnter";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -118,11 +119,14 @@ const AddNewTreatmentPlanRow = ({
   setTreatmentPlans: Function;
 }) => {
   const [name, setName] = React.useState("");
+  const id = "add-treatment-plan";
 
   const onClickAddNewTreatmentPlan = () => {
     setTreatmentPlans((prev: any) => [...prev, name]);
     removeNewRow();
   };
+
+  useSubscribeEnter(id, onClickAddNewTreatmentPlan);
 
   return (
     <StyledTableRow>
@@ -131,6 +135,7 @@ const AddNewTreatmentPlanRow = ({
           placeholder="Thêm điều trị mới"
           text={name}
           setText={setName}
+          id={id}
         />
       </StyledTableCell>
       <StyledTableCell className="add-treatment-buttons" align="right">
@@ -417,10 +422,12 @@ const TextBox = ({
   placeholder,
   text,
   setText,
+  id,
 }: {
   placeholder: string;
   text: string;
   setText: Function;
+  id?: string;
 }) => {
   return (
     <input
@@ -428,6 +435,7 @@ const TextBox = ({
       placeholder={placeholder}
       value={text}
       onChange={(e) => setText(e.target.value)}
+      id={id}
     />
   );
 };

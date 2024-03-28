@@ -66,6 +66,14 @@ export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
     }
   };
 
+  const onEnterPassword = async () => {
+    setHasPasswordChanged(true);
+
+    if (password.length !== 0) {
+      await onClickSignIn();
+    }
+  };
+
   return (
     <Container>
       <WholeComponentLoadingWrapper
@@ -111,6 +119,8 @@ export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
                 isError={hasPasswordChanged && password.length === 0}
                 errorMessage={<div>Mật khẩu không được để trống</div>}
                 onClickIcon={() => setIsPasswordReveal((prev) => !prev)}
+                onEnter={onEnterPassword}
+                id="password"
               />
             </InputSection>
 

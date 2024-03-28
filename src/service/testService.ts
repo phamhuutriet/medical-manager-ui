@@ -33,12 +33,17 @@ export const updateTest = async (
   const url = `${getHostName()}/user/${getUserId()}/patients/${patientId}/records/${recordId}/tests/${
     test.id
   }/`;
+  const isImageFile = test.image instanceof File;
 
   const formData = new FormData();
-  formData.append("image", test.image);
+
+  if (isImageFile) formData.append("image", test.image);
+
   formData.append("name", test.name);
   formData.append("created_at", test.createdAt);
   formData.append("record_id", recordId);
+
+  console.log("FORM DATA IMAGE: ", formData.get("image"));
 
   const response = await axios.patch(url, formData, {
     headers: {
@@ -66,7 +71,6 @@ export const createUpdateTests = async (
   recordId: string,
   tests: any[]
 ) => {
-  console.log("CREATE UPDATE TESTS: ", tests);
   const requests: any[] = [];
   tests.forEach((test) => {
     if (test.id !== undefined && !test.isDelete) {

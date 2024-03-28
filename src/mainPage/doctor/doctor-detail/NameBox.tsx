@@ -23,6 +23,8 @@ export const TextInputBox = ({
   isError,
   errorMessage,
   onClickIcon,
+  onEnter,
+  id,
 }: {
   text: any;
   setText: Function;
@@ -34,12 +36,38 @@ export const TextInputBox = ({
   isError?: boolean;
   errorMessage?: any;
   onClickIcon?: any;
+  onEnter?: any;
+  id?: string;
 }) => {
   const [isFocus, setIsFocus] = useState(false);
   const isActive = isFocus;
 
+  useEffect(() => {
+    const handleKeyPress = (event: any) => {
+      if (event.key === "Enter") {
+        onEnter();
+      }
+    };
+
+    if (id && document.getElementById(id)) {
+      (document.getElementById(id) as any).addEventListener(
+        "keydown",
+        handleKeyPress
+      );
+    }
+
+    return () => {
+      if (id && document.getElementById(id)) {
+        (document.getElementById(id) as any).removeEventListener(
+          "keydown",
+          handleKeyPress
+        );
+      }
+    };
+  }, [id, onEnter]);
+
   return (
-    <BoxItem className={`box-item ${className}`}>
+    <BoxItem id={id} className={`box-item ${className}`}>
       <div className="title">{boxTitle}</div>
       <div
         className={`content ${isActive && "box-item-focus"} ${
