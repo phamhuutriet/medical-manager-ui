@@ -27,6 +27,8 @@ import {
   Title,
   TitleContainer,
 } from "./Styles";
+import { useNavigate } from "react-router-dom";
+import { RouteEnum } from "../data/routeEnum";
 
 export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
   const [email, setEmail] = useLocalStorage("email", "");
@@ -38,6 +40,7 @@ export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
   const [isSigningIn, setIsSigningIn] = useState(false);
   const throwAsyncError = useThrowAsyncError();
   const isSignInButtonEnabled = isValidEmail(email) && password.length > 0;
+  const navigate = useNavigate();
 
   const onChangeEmail = (value: string) => {
     setHasEmailChanged(true);
@@ -57,6 +60,7 @@ export const SignInPage = ({ setIsSignedIn }: { setIsSignedIn: Function }) => {
       setUserId(data.userId);
       setIsSignedIn(true);
       setIsSigningIn(false);
+      navigate(RouteEnum.MAIN_PAGE);
     } catch (e) {
       throwAsyncError(new Error("Thông tin đăng nhập không hợp lệ"));
     }

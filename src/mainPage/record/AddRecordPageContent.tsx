@@ -16,6 +16,7 @@ import { useThrowAsyncError } from "../../hooks/useThrowAsyncError";
 import { WholeComponentLoadingWrapper } from "../../components/LoadingWrapper";
 import "./index.css";
 import { createUpdateTreatments } from "../../service/treatmentService";
+import { createTest, createUpdateTests } from "../../service/testService";
 
 export const AddRecordPageContent = () => {
   const [record, setRecord] = useState<any>({
@@ -74,14 +75,13 @@ export const AddRecordPageContent = () => {
         newRecord.id,
         needUpdateTreatments
       );
+      await createUpdateTests(patientId as string, newRecord.id, tests);
       setIsLoading(false);
       setIsAddedRecord(true);
     } catch (error) {
       throwAsyncError(new Error("Lỗi thêm bệnh án, vui lòng thử lại"));
     }
   };
-
-  console.log("NEED: ", needUpdateTreatments);
 
   return (
     <WholeComponentLoadingWrapper

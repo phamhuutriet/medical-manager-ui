@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Patient, PatientContext } from "../../context/PatientContext";
+import React from "react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { RouteEnum } from "../../data/routeEnum";

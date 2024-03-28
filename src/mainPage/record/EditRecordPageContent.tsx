@@ -15,6 +15,7 @@ import { useThrowAsyncError } from "../../hooks/useThrowAsyncError";
 import { WholeComponentLoadingWrapper } from "../../components/LoadingWrapper";
 import "./index.css";
 import { createUpdateTreatments } from "../../service/treatmentService";
+import { createUpdateTests } from "../../service/testService";
 
 export const EditRecordPageContent = () => {
   const { recordId, patientId } = useParams();
@@ -38,11 +39,13 @@ export const EditRecordPageContent = () => {
         setRecord(fetchedRecord);
         setTreatmentPlans(fetchedRecord.treatmentPlan);
         setTreatments(fetchedRecord.treatments);
+        setTests(fetchedRecord.tests);
       } catch (error) {
         throwAsyncError(new Error("Lỗi tải bệnh án, vui lòng thử lại"));
       }
     };
     fetchRecord();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recordId, patientId]);
 
   const setAttribute = (attribute: string) => {
@@ -73,6 +76,7 @@ export const EditRecordPageContent = () => {
         recordId as string,
         needUpdateTreatments
       );
+      await createUpdateTests(patientId as string, recordId as string, tests);
       setIsLoading(false);
     } catch (error) {
       throwAsyncError(new Error("Lỗi cập nhật bệnh án"));

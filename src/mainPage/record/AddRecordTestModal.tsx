@@ -6,6 +6,7 @@ import { Button } from "../../components/Button";
 import "./index.css";
 import { UploadIcon } from "../../img/svg/UploadIcon";
 import styled from "@emotion/styled";
+import { getHostName } from "../../data/routeEnum";
 
 const style = {
   position: "absolute" as "absolute",
@@ -52,7 +53,8 @@ export const AddRecordTestModal = ({
 }: AddRecordTestModalProps) => {
   const [testName, setTestName] = useState("");
   const [createdAt, setCreatedAt] = useState("");
-  const [testImages, setTestImages] = useState<any[]>([]);
+  const [testImage, setTestImage] = useState(null);
+  const [testImageContent, setTestImageContent] = useState(null);
   const fileInputRef = useRef<any>();
 
   const handleButtonClick = () => {
@@ -62,14 +64,14 @@ export const AddRecordTestModal = ({
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    console.log("Files: ", files);
+    const files = event.target.files as any;
+    setTestImage(files[0]);
+
     if (files && files.length > 0) {
       const reader = new FileReader();
 
       reader.onload = (event: any) => {
-        console.log(event.target.result);
-        setTestImages([...testImages, event.target.result]);
+        setTestImageContent(event.target.result);
       };
 
       reader.readAsDataURL(files[0]);
@@ -77,7 +79,7 @@ export const AddRecordTestModal = ({
   };
 
   const isDisableSaveButton =
-    testName === "" || createdAt === "" || testImages.length === 0;
+    testName === "" || createdAt === "" || testImage === null;
 
   const onClose = () => {
     resetState();
@@ -87,21 +89,30 @@ export const AddRecordTestModal = ({
   const resetState = () => {
     setTestName("");
     setCreatedAt("");
-    setTestImages([]);
+    setTestImage(null);
   };
 
-  const onClickSave = () => {
-    setTests((prev: any) => [
-      ...prev,
-      { id: "1", name: testName, createdAt: createdAt, images: testImages },
-    ]);
-    resetState();
-    handleClose();
+  const onClickSave = async () => {
+    try {
+      const newTest = {
+        name: testName,
+        createdAt: createdAt,
+        image: testImage,
+        imageContent: testImageContent,
+      };
+      setTests((prev: any) => [...prev, newTest]);
+      resetState();
+      handleClose();
+    } catch (error) {
+      console.log("ERROR: ", error);
+    }
   };
 
-  const onClickRemoveImage = (toRemoveImage: any) => {
-    setTestImages(testImages.filter((image) => image !== toRemoveImage));
+  const onClickRemoveImage = () => {
+    setTestImage(null);
   };
+
+  console.log("TEST IAMGE: ", testImage);
 
   return (
     <Modal open={open} onClose={onClose}>
@@ -143,43 +154,40 @@ export const AddRecordTestModal = ({
             onChange={handleFileChange}
           />
         </div>
-        {testImages.length > 0 && (
+
+        {testImage && (
           <div className="uploaded-images">
-            {testImages.map((image) => {
-              return (
-                <div style={{ position: "relative", display: "inline-block" }}>
-                  <img
-                    alt=""
-                    src={image}
-                    width="112px"
-                    height="112px"
-                    style={{ borderRadius: "8px" }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      right: 0,
-                      cursor: "pointer",
-                      borderRadius: "50%",
-                    }}
-                  >
-                    <div
-                      style={{
-                        backgroundColor: "rgba(0, 0, 0, 0.4)",
-                        borderRadius: "50%",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                      onClick={() => onClickRemoveImage(image)}
-                    >
-                      <CloseIcon width="24px" height="24px" color="white" />
-                    </div>
-                  </div>
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <img
+                alt=""
+                src={testImageContent as any}
+                width="112px"
+                height="112px"
+                style={{ borderRadius: "8px" }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  cursor: "pointer",
+                  borderRadius: "50%",
+                }}
+              >
+                <div
+                  style={{
+                    backgroundColor: "rgba(0, 0, 0, 0.4)",
+                    borderRadius: "50%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  onClick={() => onClickRemoveImage()}
+                >
+                  <CloseIcon width="24px" height="24px" color="white" />
                 </div>
-              );
-            })}
+              </div>
+            </div>
           </div>
         )}
 
@@ -211,6 +219,9 @@ export const ViewRecordTestModal = ({
   recordTest: any;
 }) => {
   const [selectedImage, setSelectedImage] = useState();
+  const imageContent = recordTest.imageContent
+    ? recordTest.imageContent
+    : `${getHostName()}${recordTest.image}`;
 
   const onClose = () => {
     setSelectedImage(undefined);
@@ -233,14 +244,12 @@ export const ViewRecordTestModal = ({
               <CloseIcon />
             </IconButton>
           </div>
-          {recordTest.images.map((image: any) => (
-            <img
-              alt="record-test-img"
-              src={image}
-              width="100%"
-              onClick={() => onClickSelectImage(image)}
-            />
-          ))}
+          <img
+            alt="record-test-img"
+            src={imageContent}
+            width="100%"
+            onClick={() => onClickSelectImage(imageContent)}
+          />
         </Box>
       )}
     </Modal>
