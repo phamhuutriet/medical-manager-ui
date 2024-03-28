@@ -15,7 +15,6 @@ import { useThrowAsyncError } from "../../hooks/useThrowAsyncError";
 import { WholeComponentLoadingWrapper } from "../../components/LoadingWrapper";
 import "./index.css";
 import { createUpdateTreatments } from "../../service/treatmentService";
-import { createUpdateTests } from "../../service/testService";
 
 export const EditRecordPageContent = () => {
   const { recordId, patientId } = useParams();
@@ -76,15 +75,14 @@ export const EditRecordPageContent = () => {
         recordId as string,
         needUpdateTreatments
       );
-      await createUpdateTests(patientId as string, recordId as string, tests);
+      // TODO: fix this later
+      // await createUpdateTests(patientId as string, recordId as string, tests);
       setIsLoading(false);
     } catch (error) {
       throwAsyncError(new Error("Lỗi cập nhật bệnh án"));
     }
     setIsAddedRecord(true);
   };
-
-  console.log("Need update treatments: ", needUpdateTreatments);
 
   if (!record) return <>Bệnh án không tồn tại</>;
 

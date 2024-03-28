@@ -112,8 +112,6 @@ export const AddRecordTestModal = ({
     setTestImage(null);
   };
 
-  console.log("TEST IAMGE: ", testImage);
-
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={style}>

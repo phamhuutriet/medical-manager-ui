@@ -8,7 +8,6 @@ export const createTest = async (
   test: any
 ) => {
   const url = `${getHostName()}/user/${getUserId()}/patients/${patientId}/records/${recordId}/tests/`;
-
   const formData = new FormData();
   formData.append("image", test.image);
   formData.append("name", test.name);
@@ -43,8 +42,6 @@ export const updateTest = async (
   formData.append("created_at", test.createdAt);
   formData.append("record_id", recordId);
 
-  console.log("FORM DATA IMAGE: ", formData.get("image"));
-
   const response = await axios.patch(url, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -78,7 +75,6 @@ export const createUpdateTests = async (
     } else if (test.id !== undefined) {
       requests.push(deleteTest(patientId, recordId, test));
     } else if (!test.isDelete) {
-      console.log("Create test");
       requests.push(createTest(patientId, recordId, test));
     }
   });

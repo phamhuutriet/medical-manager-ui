@@ -54,10 +54,13 @@ export const createUpdateTreatments = async (
   const requests: any[] = [];
   treatments.forEach((treatment) => {
     if (treatment.id !== undefined && !treatment.isDelete) {
+      console.log("update treatment");
       requests.push(updateTreatment(patientId, recordId, treatment));
     } else if (treatment.id !== undefined) {
+      console.log("delete treatment");
       requests.push(deleteTreatment(patientId, recordId, treatment));
     } else if (!treatment.isDelete) {
+      console.log("create treatment");
       requests.push(createTreatment(patientId, recordId, treatment));
     }
   });

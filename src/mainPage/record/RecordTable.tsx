@@ -239,14 +239,12 @@ export const RecordTreatmentsTable = ({
         (item: any) => JSON.stringify(item) === JSON.stringify(treatment)
       );
       if (index !== -1) {
-        console.log("Found");
         return [
           ...prev.slice(0, index),
           { ...prev[index], isDelete: true },
           ...prev.slice(index + 1),
         ];
       } else {
-        console.log("Not found");
         return [...prev, { ...treatment, isDelete: true }];
       }
     });
